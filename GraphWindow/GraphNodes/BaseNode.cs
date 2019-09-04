@@ -18,6 +18,26 @@ public class BaseNode : Node,IBTGraphNode
     }
 
     virtual public void Test(List<Node> nodes){
-        Debug.LogError("This is BaseNode. This node shouldn't exist.");
+        if(string.IsNullOrEmpty(nodeName)){
+            Debug.LogError(this.GetType().Name+":This node doesn't have any name. All node should have an unique name.");
+        }else if(!IsNameUnique(nodes, nodeName, this)){
+            Debug.LogError(nodeName+":This nodename is not unique.");
+        }
+
+        if(this.GetInputPort("input").node == null){
+            Debug.LogError(nodeName+":This node doesn't have any parents.");
+        }
+    }
+
+    public bool IsNameUnique(List<Node> nodes, string name, Node target){
+        foreach(Node node in nodes){
+            if(node is IBTGraphNode bt){
+                if(name == bt.GetNodeName() && target != node){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

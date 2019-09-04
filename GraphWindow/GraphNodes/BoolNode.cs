@@ -1,7 +1,9 @@
 ﻿using XNode;
+using System.Collections.Generic;
+using UnityEngine;
 [CreateNodeMenu("Parameter/BoolNode")]
-public class BoolNode : Node
+public class BoolNode : SubNode
 {
-    public string nodeName;
     public bool defaultValue;
+
 }

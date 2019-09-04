@@ -20,4 +20,16 @@ public class BaseMultiOutputNode : Node, IBTGraphNode
     virtual public void Test(List<Node> nodes){
         Debug.LogError("This is BaseMultiOutputNode. This node shouldn't exist.");
     }
+
+    public bool IsNameUnique(List<Node> nodes, string name, Node target){
+        foreach(Node node in nodes){
+            if(node is IBTGraphNode bt){
+                if(name == bt.GetNodeName() && target != node){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

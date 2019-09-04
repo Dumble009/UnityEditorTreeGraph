@@ -6,6 +6,8 @@ public class ExecuteNode : BaseNode
     public string eventName;
 
     override public void Test(List<Node> nodes){
+        base.Test(nodes);
+        
         bool isEventExist = false;
         foreach(Node node in nodes){
             if(node is EventNode e){
@@ -16,7 +18,9 @@ public class ExecuteNode : BaseNode
             }
         }
         if(!isEventExist){
-            Debug.LogError("Event named \""+eventName+"\" doesn't exist.");
+            Debug.LogError(nodeName+":"+"Event named \""+eventName+"\" doesn't exist.");
         }
     }
+
+
 }
