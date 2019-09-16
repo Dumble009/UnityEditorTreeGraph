@@ -18,7 +18,15 @@ public class BaseMultiOutputNode : Node, IBTGraphNode
     }
 
     virtual public void Test(List<Node> nodes){
-        Debug.LogError("This is BaseMultiOutputNode. This node shouldn't exist.");
+        if(string.IsNullOrEmpty(nodeName)){
+            Debug.LogError(this.GetType().Name+":This node doesn't have a name. All node should have an unique name.");
+        }else if(!IsNameUnique(nodes, nodeName, this)){
+            Debug.LogError(nodeName+":This nodename is not unique.");
+        }
+
+        if(!this.GetInputPort("input").IsConnected){
+            Debug.LogError(nodeName+":This node doesn't have any parents.");
+        }
     }
 
     public bool IsNameUnique(List<Node> nodes, string name, Node target){
