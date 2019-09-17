@@ -1,6 +1,10 @@
 ﻿using XNode;
 [CreateNodeMenu("Event/Condition")]
-public class ConditionNode : Node
+public class ConditionNode : SubNode
 {
-    public string nodeName;
+    override public string GetCode(string parentName){
+        string code = "[SerializeField]\n";
+        code += "UnityEngine.UnityEvents.UnityEvent "+nodeName+";";
+        return code;
+    }
 }

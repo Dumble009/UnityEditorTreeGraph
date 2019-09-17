@@ -8,7 +8,7 @@ public class ExecuteNode : BaseNode
     override public void Test(List<Node> nodes){
         base.Test(nodes);
         
-        if(string.IsNullOrEmpty(nodeName)){
+        if(!string.IsNullOrEmpty(nodeName)){
             if(string.IsNullOrEmpty(eventName)){
                 Debug.LogError(nodeName + ": Event name is empty");
             }else{
@@ -22,11 +22,15 @@ public class ExecuteNode : BaseNode
                     }
                 }
                 if(!isEventExist){
-                    Debug.LogError(nodeName+": Event named \""+eventName+"\" doesn't exist.");
+                    Debug.LogError(nodeName+": Event name \""+eventName+"\" doesn't exist.");
                 }
             }
         }
     }
 
-
+    override public string GetCode(string parent){
+        string code = "";
+        
+        return code;
+    }
 }

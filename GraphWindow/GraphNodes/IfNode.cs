@@ -10,7 +10,7 @@ public class IfNode : BaseNode
    override public void Test(List<Node> nodes){
       base.Test(nodes);
 
-      if(string.IsNullOrEmpty(nodeName)){
+      if(!string.IsNullOrEmpty(nodeName)){
          if(string.IsNullOrEmpty(conditionName)){
             Debug.LogError(nodeName + ": Condition name is empty.");
          }else{

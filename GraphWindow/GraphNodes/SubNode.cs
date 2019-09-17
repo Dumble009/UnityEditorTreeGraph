@@ -23,4 +23,8 @@ public class SubNode : Node, IBTGraphNode
             }
         }
     }
+
+    virtual public string GetCode(string parentName){
+        return "";
+    }
 }

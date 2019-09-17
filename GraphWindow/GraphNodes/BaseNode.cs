@@ -40,4 +40,8 @@ public class BaseNode : Node,IBTGraphNode
 
         return true;
     }
+
+    virtual public string GetCode(string parentName){
+        return "";
+    }
 }

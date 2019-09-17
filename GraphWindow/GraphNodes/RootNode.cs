@@ -24,4 +24,8 @@ public class RootNode : Node, IBTGraphNode
             }
         }
     }
+
+    public string GetCode(string parentName){
+        return "";
+    }
 }
