@@ -1,7 +1,12 @@
 ﻿using XNode;
 [CreateNodeMenu("Parameter/FloatNode")]
-public class FloatNode : Node
+public class FloatNode : SubNode
 {
-    public string nodeName;
     public float defaultValue;
+
+    override public string GetCode(string parent){
+        string code = "[UnityEngine.SerializeField]\n";
+        code += "float "+nodeName+"="+defaultValue.ToString()+"f;\n";
+        return code;
+    }
 }

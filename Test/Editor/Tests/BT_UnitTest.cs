@@ -19,8 +19,8 @@ public class BT_UnitTest {
 
 	[Test]
 	public void ExecuteNodeTest(){
-		BT_ExecuteNode ex = new BT_ExecuteNode();
-		BT_ExecuteNode child = new BT_ExecuteNode();
+		BT_Execute ex = new BT_Execute();
+		BT_Execute child = new BT_Execute();
 		ex.AddChild(child);
 		int x = 0;
 		ex.AddEvent(()=>{x++;});
@@ -37,7 +37,7 @@ public class BT_UnitTest {
 			return false;
 		});
 
-		BT_ExecuteNode n = new BT_ExecuteNode();
+		BT_Execute n = new BT_Execute();
 		n.AddEvent(()=>{x++;});
 		ifNode.AddChild(n);
 		Assert.AreEqual(ifNode.Next().Result, NodeResult.FAILURE);
@@ -85,7 +85,7 @@ public class BT_UnitTest {
 			return i <= 10;
 		});
 		int x = 0;
-		BT_ExecuteNode n = new BT_ExecuteNode();
+		BT_Execute n = new BT_Execute();
 		n.AddEvent(()=>{
 			x++;
 		});

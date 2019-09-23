@@ -3,8 +3,8 @@
 public class ConditionNode : SubNode
 {
     override public string GetCode(string parentName){
-        string code = "[SerializeField]\n";
-        code += "UnityEngine.UnityEvents.UnityEvent "+nodeName+";";
+        string code = "[UnityEngine.SerializeField]\n";
+        code += "UnityEngine.Events.UnityEvent "+nodeName+";\n";
         return code;
     }
 }

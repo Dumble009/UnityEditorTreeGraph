@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class BehaviourTreeBase : MonoBehaviour
 {
-    BehaviourTree behaviourTree;
+    public BehaviourTree behaviourTree;
     void Start()
     {
         MakeTree();
@@ -17,6 +16,18 @@ public class BehaviourTreeBase : MonoBehaviour
     }
 
     virtual public void MakeTree(){
+        
+    }
 
+    protected IfEvent UnityEvent2IfEvent(UnityEngine.Events.UnityEvent e){
+        object target = e.GetPersistentTarget(0);
+        Type t = target.GetType();
+        System.Reflection.MethodInfo mi = t.GetMethod(e.GetPersistentMethodName(0));
+        IfEvent ie = ()=>{
+            object o = mi.Invoke(target, new object[]{});
+            return (bool)o;
+        };
+
+        return ie;
     }
 }

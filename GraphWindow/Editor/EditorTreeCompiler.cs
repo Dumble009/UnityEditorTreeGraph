@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using XNode;
+using UnityEngine;
+using System.IO;
 public class EditorTreeCompiler
 {
     static public void Compile(string fileName, List<Node> nodes){
@@ -13,21 +15,31 @@ public class EditorTreeCompiler
             }
         }
         
-        string code = "public class "+fileName+":BehaviourTreeBase{\n";
+        string code = "public class "+fileName.Replace(" ", "_")+":BehaviourTreeBase{\n";
 
         foreach(SubNode node in subNodes){
             code += node.GetCode("");
         }
 
-        code += "override public void MakeTree{\n";
-
+        code += "override public void MakeTree(){\n";
+        code += "base.MakeTree();\n";
         code += root.GetCode("");
         Node firstChild = root.GetOutputPort("output").GetConnections()[0].node;
         BuildTree(ref code, firstChild, root);
 
-        code += "}"; // maketree close
+        code += "}\n"; // maketree close
 
         code += "}"; // class close
+
+        string path = Application.dataPath + "/"+ fileName.Replace(" ", "_");
+        string extension = Path.GetExtension(path);
+        if(string.IsNullOrEmpty(extension)){
+            path += ".cs";
+        }
+
+        StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.ASCII);
+        sw.Write(code);
+        sw.Close();
     }
 
     static public void BuildTree(ref string code, Node target, Node parent){

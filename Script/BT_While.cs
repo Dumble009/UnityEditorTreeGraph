@@ -21,7 +21,7 @@ public class BT_While : BT_Node {
 				}
 				return result;
 			}else{
-				return new ResultContainer(NodeResult.FAILURE);
+				return new ResultContainer(NodeResult.SUCCESS);
 			}
 		}
 		return new ResultContainer(NodeResult.SUCCESS);

@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using XNode;
 
-public class If : BaseNode
+public class If_BooleanNode : BaseNode
 {
    public string boolName;
 

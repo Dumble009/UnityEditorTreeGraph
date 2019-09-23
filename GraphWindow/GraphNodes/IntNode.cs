@@ -1,7 +1,12 @@
 ﻿using XNode;
 [CreateNodeMenu("Parameter/IntNode")]
-public class IntNode : Node
+public class IntNode : SubNode
 {
-   public string nodeName;
    public int defaultValue;
+
+   override public string GetCode(string parent){
+        string code = "[UnityEngine.SerializeField]\n";
+        code += "int "+nodeName+"="+defaultValue.ToString()+";\n";
+        return code;
+    }
 }

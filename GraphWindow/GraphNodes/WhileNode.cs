@@ -4,18 +4,18 @@ using UnityEngine;
 using XNode;
 public class WhileNode : BaseNode
 {
-    public string conditionName;
+    public string booleanName;
 
     override public void Test(List<Node> nodes){
         base.Test(nodes);
         if(!string.IsNullOrEmpty(nodeName)){
-            if(string.IsNullOrEmpty(conditionName)){
-                Debug.LogError(nodeName+": Condition name is empty.");
+            if(string.IsNullOrEmpty(booleanName)){
+                Debug.LogError(nodeName+": Bool name is empty.");
             }else{
                 bool isConditionExist = false;
                 foreach(Node node in nodes){
-                    if(node is ConditionNode c){
-                        if(c.nodeName == conditionName){
+                    if(node is BoolNode c){
+                        if(c.nodeName == booleanName){
                             isConditionExist = true;
                             break;
                         }
@@ -23,12 +23,19 @@ public class WhileNode : BaseNode
                 }
 
                 if(!isConditionExist){
-                    Debug.LogError(nodeName+": Condition name \""+conditionName+"\" doesn't exist.");
+                    Debug.LogError(nodeName+": Bool name \""+booleanName+"\" doesn't exist.");
                 }
             }
         }
         if(!this.GetOutputPort("output").IsConnected){
             Debug.LogAssertion(nodeName+": This node doesn't have any children.");
         }
+    }
+
+    override public string GetCode(string parentName){
+        string code = "BT_While "+nodeName+" = new BT_While();\n";
+        code += parentName+".AddChild("+nodeName+");\n";
+        code += nodeName+".SetCondition(()=>{return "+booleanName+";});\n";
+        return code;
     }
 }

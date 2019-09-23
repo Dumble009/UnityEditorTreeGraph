@@ -16,9 +16,11 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 
         GUI.Box(new Rect(0, NodeEditorWindow.current.topPadding, 120, Screen.height), "");
         GUILayout.BeginArea(new Rect(0, 30, 120, Screen.height - 10));
-        GUILayout.Button("Compile");
         if(GUILayout.Button("Test")){
             EditorTreeTester.RunTest(target.nodes);
+        }
+        if(GUILayout.Button("Compile")){
+            EditorTreeCompiler.Compile(target.name, target.nodes);
         }
 
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);

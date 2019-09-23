@@ -11,4 +11,10 @@ public class SequenceNode : BaseMultiOutputNode
             Debug.LogError(nodeName+": This node doesn't have any children.");
         }
     }
+
+    override public string GetCode(string parentName){
+        string code = "BT_Sequence "+nodeName+"= new BT_Sequence();\n";
+        code += parentName+".AddChild("+nodeName+");\n";
+        return code;
+    }
 }

@@ -7,8 +7,8 @@ public class BoolNode : SubNode
     public bool defaultValue;
 
     override public string GetCode(string parentName){
-        string code = "[SerializeField]\n";
-        code += "public bool "+nodeName+"="+defaultValue.ToString().ToLower()+";";
+        string code = "[UnityEngine.SerializeField]\n";
+        code += "public bool "+nodeName+"="+defaultValue.ToString().ToLower()+";\n";
         return code;
     }
 }

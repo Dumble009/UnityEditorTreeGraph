@@ -16,6 +16,8 @@ public class BehaviourTree{
         if(result.Result == NodeResult.CONTINUE){
             isContinued = true;
             continueNode = result.NextStartNode;
+        }else{
+            isContinued = false;
         }
     }
 }

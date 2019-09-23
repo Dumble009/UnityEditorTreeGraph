@@ -26,6 +26,8 @@ public class RootNode : Node, IBTGraphNode
     }
 
     public string GetCode(string parentName){
-        return "";
+        string code = "BT_Root "+nodeName+" = new BT_Root();\n";
+        code += "behaviourTree = new BehaviourTree("+nodeName+");\n";
+        return code;
     }
 }

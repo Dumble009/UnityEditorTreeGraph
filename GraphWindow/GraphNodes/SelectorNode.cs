@@ -11,4 +11,10 @@ public class SelectorNode : BaseMultiOutputNode
             Debug.LogError(nodeName+": This node doesn't have any children.");
         }
     }
+
+    override public string GetCode(string parentName){
+        string code = "BT_Selector "+nodeName+" = new BT_Selector();\n";
+        code += parentName + ".AddChild("+nodeName+");\n";
+        return code;
+    }
 }
