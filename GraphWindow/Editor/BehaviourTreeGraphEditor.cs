@@ -67,17 +67,6 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
             EditorGUI.indentLevel--;
         }
 
-        pConditionFoldout = EditorGUILayout.Foldout(pConditionFoldout, "Condition");
-        if(pConditionFoldout){
-            EditorGUI.indentLevel++;
-            foreach(Node node in target.nodes){
-                if(node is ConditionNode c){
-                    EditorGUILayout.LabelField(c.nodeName);
-                }
-            }
-            EditorGUI.indentLevel--;
-        }
-
         GUILayout.EndScrollView();
         GUILayout.EndArea();
         

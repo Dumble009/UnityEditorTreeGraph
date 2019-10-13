@@ -2,6 +2,7 @@
 using XNode;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 public class EditorTreeCompiler
 {
     static public void Compile(string fileName, List<Node> nodes){
@@ -47,8 +48,10 @@ public class EditorTreeCompiler
                      ibt_parent = parent as IBTGraphNode;
 
         code += ibt_target.GetCode(ibt_parent.GetNodeName());
-
-        foreach(NodePort port in target.GetOutputPort("output").GetConnections()){
+		var children = target.GetOutputPort("output").GetConnections()
+			.OrderBy(x => x.node.position.y)
+			.ToArray();
+		foreach (NodePort port in children){
             BuildTree(ref code, port.node, target);
         }
     }
