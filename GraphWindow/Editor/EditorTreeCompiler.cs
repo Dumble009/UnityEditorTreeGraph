@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 public class EditorTreeCompiler
 {
-    static public void Compile(string fileName, List<Node> nodes){
+    static public void Compile(string fileName, List<Node> nodes, string savePath, string inheritTarget = "BehaviourTreeBase"){
         List<SubNode> subNodes = new List<SubNode>();
         RootNode root = new RootNode();
         foreach(Node node in nodes){
@@ -16,7 +16,7 @@ public class EditorTreeCompiler
             }
         }
         
-        string code = "public class "+fileName.Replace(" ", "_")+":BehaviourTreeBase{\n";
+        string code = "public class "+FileNameToClassName(fileName)+":"+FileNameToClassName(inheritTarget)+"{\n";
 
         foreach(SubNode node in subNodes){
             code += node.GetCode("");
@@ -31,8 +31,15 @@ public class EditorTreeCompiler
         code += "}\n"; // maketree close
 
         code += "}"; // class close
-
-        string path = Application.dataPath + "/"+ fileName.Replace(" ", "_");
+		if (savePath.ToCharArray()[0] == '/')
+		{
+			savePath = savePath.TrimStart('/');
+		}
+		if (savePath.ToCharArray()[savePath.Length - 1] == '/')
+		{
+			savePath = savePath.TrimEnd('/');
+		}
+        string path = Application.dataPath + "/"+ savePath + "/"+FileNameToClassName(fileName);
         string extension = Path.GetExtension(path);
         if(string.IsNullOrEmpty(extension)){
             path += ".cs";
@@ -55,4 +62,9 @@ public class EditorTreeCompiler
             BuildTree(ref code, port.node, target);
         }
     }
+
+	static string FileNameToClassName(string fileName)
+	{
+		return fileName.Replace(" ", "_");
+	}
 }

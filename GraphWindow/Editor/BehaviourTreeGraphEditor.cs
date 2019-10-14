@@ -11,6 +11,10 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
     bool pEventFoldout = false;
     bool pConditionFoldout = false;
     Vector2 scrollPosition = new Vector2(0, 0);
+	string inherited_prefix = "Inherited_";
+	BehaviourTreeGraph inheritGraph;
+	string savePath = string.Empty;
+	
     override public void OnGUI(){
         GUI.EndGroup();
 
@@ -20,16 +24,85 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
             EditorTreeTester.RunTest(target.nodes);
         }
         if(GUILayout.Button("Compile")){
-            EditorTreeCompiler.Compile(target.name, target.nodes);
+			if (inheritGraph == null)
+			{
+				EditorTreeCompiler.Compile(target.name, target.nodes, savePath);
+			}
+			else
+			{
+				EditorTreeCompiler.Compile(target.name, target.nodes, savePath, inheritGraph.name);
+			}
         }
-
-        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+		if (GUILayout.Button("Inherit") && inheritGraph != null)
+		{
+			foreach (Node _node in inheritGraph.nodes)
+			{
+				if (_node == null)
+				{
+					continue;
+				}
+				if (_node is SubNode sub)
+				{
+					SubNode node = target.AddNode(_node.GetType()) as SubNode;
+					node.OnCreated();
+					node.name = inherited_prefix + _node.name;
+					node.nodeName = sub.nodeName;
+					node.isInherited = true;
+					AssetDatabase.AddObjectToAsset(node, target);
+					if (NodeEditorPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+					NodeEditorWindow.RepaintAll();
+				}
+			}
+		}
+		inheritGraph = EditorGUILayout.ObjectField(inheritGraph, typeof(BehaviourTreeGraph)) as BehaviourTreeGraph;
+		if (GUILayout.Button("disable inherit"))
+		{
+			foreach (Node node in target.nodes)
+			{
+				if (node == null)
+				{
+					continue; 
+				}
+				if (node is SubNode sub)
+				{
+					if (sub.isInherited)
+					{
+						sub.isInherited = false;
+						sub.name = sub.name.Replace(inherited_prefix, string.Empty);
+					}
+				}
+			}
+		}
+		/*
+		if (GUI.GetNameOfFocusedControl() != "savepath")
+		{
+			GUI.FocusControl("savepath");
+		}
+		GUI.SetNextControlName("savepath");
+		savePath = GUILayout.TextField(savePath);
+		*/
+		scrollPosition = GUILayout.BeginScrollView(scrollPosition);
         pFloatFoldout = EditorGUILayout.Foldout(pFloatFoldout, "Float");
+
+		GUIStyleState original = new GUIStyleState();
+		GUIStyleState inherited = new GUIStyleState();
+		original.textColor = Color.black;
+		inherited.textColor = Color.blue;
+
         if(pFloatFoldout){
             EditorGUI.indentLevel++;
             foreach(Node node in target.nodes){
                 if(node is FloatNode f){
-                    EditorGUILayout.LabelField(f.nodeName+":"+f.defaultValue.ToString());
+					GUIStyle style = new GUIStyle();
+					if (f.isInherited)
+					{
+						style.normal = inherited;
+					}
+					else
+					{
+						style.normal = original;
+					}
+                    EditorGUILayout.LabelField(f.nodeName+":"+f.defaultValue.ToString(), style);
                 }
             }
             EditorGUI.indentLevel--;
@@ -39,7 +112,16 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
             EditorGUI.indentLevel++;
             foreach(Node node in target.nodes){
                 if(node is IntNode i){
-                    EditorGUILayout.LabelField(i.nodeName + ":" + i.defaultValue.ToString());
+					GUIStyle style = new GUIStyle();
+					if (i.isInherited)
+					{
+						style.normal = inherited;
+					}
+					else
+					{
+						style.normal = original;
+					}
+					EditorGUILayout.LabelField(i.nodeName + ":" + i.defaultValue.ToString(), style);
                 }
             }
             EditorGUI.indentLevel--;
@@ -50,7 +132,16 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
             EditorGUI.indentLevel++;
             foreach(Node node in target.nodes){
                 if(node is BoolNode b){
-                    EditorGUILayout.LabelField(b.nodeName + ":" + b.defaultValue.ToString());
+					GUIStyle style = new GUIStyle();
+					if (b.isInherited)
+					{
+						style.normal = inherited;
+					}
+					else
+					{
+						style.normal = original;
+					}
+					EditorGUILayout.LabelField(b.nodeName + ":" + b.defaultValue.ToString(), style);
                 }
             }
             EditorGUI.indentLevel--;
@@ -61,7 +152,16 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
             EditorGUI.indentLevel++;
             foreach(Node node in target.nodes){
                 if(node is EventNode e){
-                    EditorGUILayout.LabelField(e.nodeName);
+					GUIStyle style = new GUIStyle();
+					if (e.isInherited)
+					{
+						style.normal = inherited;
+					}
+					else
+					{
+						style.normal = original;
+					}
+					EditorGUILayout.LabelField(e.nodeName, style);
                 }
             }
             EditorGUI.indentLevel--;
@@ -73,4 +173,19 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 
         GUI.BeginGroup(new Rect(0, NodeEditorWindow.current.topPadding - NodeEditorWindow.current.topPadding * NodeEditorWindow.current.zoom, Screen.width, Screen.height));
     }
+
+	public override void RemoveNode(Node node)
+	{
+		if (node is SubNode sub)
+		{
+			if (!sub.isInherited)
+			{
+				base.RemoveNode(node);
+			}
+		}
+		else
+		{
+			base.RemoveNode(node);
+		}
+	}
 }

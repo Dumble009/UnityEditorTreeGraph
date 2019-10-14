@@ -9,6 +9,8 @@ public class SubNode : Node, IBTGraphNode
     public string GetNodeName(){
         return nodeName;
     }
+	[HideInInspector]
+	public bool isInherited = false;
 
     public void Test(List<Node> nodes){
         if(string.IsNullOrEmpty(nodeName)){
