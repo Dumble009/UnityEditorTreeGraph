@@ -13,7 +13,6 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
     Vector2 scrollPosition = new Vector2(0, 0);
 	string inherited_prefix = "Inherited_";
 	BehaviourTreeGraph inheritGraph;
-	string savePath = string.Empty;
 	
     override public void OnGUI(){
         GUI.EndGroup();
@@ -24,15 +23,21 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
             EditorTreeTester.RunTest(target.nodes);
         }
         if(GUILayout.Button("Compile")){
+			string code = "";
 			if (inheritGraph == null)
 			{
-				EditorTreeCompiler.Compile(target.name, target.nodes, savePath);
+				code = EditorTreeCompiler.Compile(target.name, target.nodes);
 			}
 			else
 			{
-				EditorTreeCompiler.Compile(target.name, target.nodes, savePath, inheritGraph.name);
+				code = EditorTreeCompiler.Compile(target.name, target.nodes, inheritGraph.name);
 			}
-        }
+			string path = EditorUtility.SaveFilePanelInProject("", EditorTreeCompiler.FileNameToClassName(target.name), "cs", "");
+			System.IO.StreamWriter sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.ASCII);
+			sw.Write(code);
+			sw.Close();
+			AssetDatabase.Refresh();
+		}
 		if (GUILayout.Button("Inherit") && inheritGraph != null)
 		{
 			foreach (Node _node in inheritGraph.nodes)
@@ -73,14 +78,7 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 				}
 			}
 		}
-		/*
-		if (GUI.GetNameOfFocusedControl() != "savepath")
-		{
-			GUI.FocusControl("savepath");
-		}
-		GUI.SetNextControlName("savepath");
-		savePath = GUILayout.TextField(savePath);
-		*/
+		
 		scrollPosition = GUILayout.BeginScrollView(scrollPosition);
         pFloatFoldout = EditorGUILayout.Foldout(pFloatFoldout, "Float");
 

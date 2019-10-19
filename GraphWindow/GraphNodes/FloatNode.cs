@@ -4,7 +4,7 @@ public class FloatNode : SubNode
 {
     public float defaultValue;
 
-    override public string GetCode(string parent){
+    override public string GetCode(){
 		string code = "";
 		if (!isInherited)
 		{

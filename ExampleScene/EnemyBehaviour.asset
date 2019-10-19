@@ -28,7 +28,7 @@ MonoBehaviour:
         node: {fileID: 7188184024539050003}
         reroutePoints: []
       _direction: 0
-      _connectionType: 1
+      _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: output
@@ -98,8 +98,11 @@ MonoBehaviour:
       - fieldName: output
         node: {fileID: -4733126768688537027}
         reroutePoints: []
+      - fieldName: output
+        node: {fileID: 8639775720468534868}
+        reroutePoints: []
       _direction: 0
-      _connectionType: 1
+      _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: output
@@ -253,7 +256,7 @@ MonoBehaviour:
         node: {fileID: 5016042879785905643}
         reroutePoints: []
       _direction: 0
-      _connectionType: 1
+      _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: output
@@ -302,14 +305,17 @@ MonoBehaviour:
         node: {fileID: 7188184024539050003}
         reroutePoints: []
       _direction: 0
-      _connectionType: 1
+      _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: output
       _node: {fileID: 8639775720468534868}
       _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: input
+        node: {fileID: 1109584535537828814}
+        reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0

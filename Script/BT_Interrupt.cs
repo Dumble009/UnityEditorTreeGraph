@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BT_Interrupt : BT_Node
+{
+	public BT_Interrupt() : base() { }
+
+	public override ResultContainer Next()
+	{
+		if (children != null && children.Count > 0)
+		{
+			if (children[0] != null)
+			{
+				return children[0].Next();
+			}
+		}
+		return new ResultContainer(NodeResult.FAILURE);
+	}
+
+	public bool IsInterrupt()
+	{
+		return condition.Invoke();
+	}
+}

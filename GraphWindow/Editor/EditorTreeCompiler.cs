@@ -5,8 +5,10 @@ using System.IO;
 using System.Linq;
 public class EditorTreeCompiler
 {
-    static public void Compile(string fileName, List<Node> nodes, string savePath, string inheritTarget = "BehaviourTreeBase"){
+	static List<string> createdNodes;
+    static public string Compile(string fileName, List<Node> nodes, string inheritTarget = "BehaviourTreeBase"){
         List<SubNode> subNodes = new List<SubNode>();
+		createdNodes = new List<string>();
         RootNode root = new RootNode();
         foreach(Node node in nodes){
             if(node is SubNode s){
@@ -19,51 +21,56 @@ public class EditorTreeCompiler
         string code = "public class "+FileNameToClassName(fileName)+":"+FileNameToClassName(inheritTarget)+"{\n";
 
         foreach(SubNode node in subNodes){
-            code += node.GetCode("");
+            code += node.GetCode();
         }
 
         code += "override public void MakeTree(){\n";
         code += "base.MakeTree();\n";
-        code += root.GetCode("");
+        code += root.GetCode();
         Node firstChild = root.GetOutputPort("output").GetConnections()[0].node;
         BuildTree(ref code, firstChild, root);
 
         code += "}\n"; // maketree close
 
         code += "}"; // class close
-		if (savePath.ToCharArray()[0] == '/')
-		{
-			savePath = savePath.TrimStart('/');
-		}
-		if (savePath.ToCharArray()[savePath.Length - 1] == '/')
-		{
-			savePath = savePath.TrimEnd('/');
-		}
-        string path = Application.dataPath + "/"+ savePath + "/"+FileNameToClassName(fileName);
-        string extension = Path.GetExtension(path);
-        if(string.IsNullOrEmpty(extension)){
-            path += ".cs";
-        }
+					 /*
+						 string path = Application.dataPath + "/"+FileNameToClassName(fileName);
+						 string extension = Path.GetExtension(path);
+						 if(string.IsNullOrEmpty(extension)){
+							 path += ".cs";
+						 }
 
-        StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.ASCII);
-        sw.Write(code);
-        sw.Close();
+						 StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.ASCII);
+						 sw.Write(code);
+						 sw.Close();
+						 */
+		return code;
     }
 
     static public void BuildTree(ref string code, Node target, Node parent){
         IBTGraphNode ibt_target = target as IBTGraphNode,
                      ibt_parent = parent as IBTGraphNode;
+		bool isTargetCreated = createdNodes.Contains(ibt_target.GetNodeName());
+		if (!isTargetCreated)
+		{
+			code += ibt_target.GetCode();
+			createdNodes.Add(ibt_target.GetNodeName());
+		}
+		code += ibt_parent.GetNodeName() + ".AddChild(" + ibt_target.GetNodeName() + ");\n";
 
-        code += ibt_target.GetCode(ibt_parent.GetNodeName());
 		var children = target.GetOutputPort("output").GetConnections()
 			.OrderBy(x => x.node.position.y)
 			.ToArray();
-		foreach (NodePort port in children){
-            BuildTree(ref code, port.node, target);
-        }
+		if (!isTargetCreated)
+		{
+			foreach (NodePort port in children)
+			{
+				BuildTree(ref code, port.node, target);
+			}
+		}
     }
 
-	static string FileNameToClassName(string fileName)
+	static public string FileNameToClassName(string fileName)
 	{
 		return fileName.Replace(" ", "_");
 	}

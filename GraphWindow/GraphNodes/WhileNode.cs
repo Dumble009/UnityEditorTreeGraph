@@ -32,9 +32,8 @@ public class WhileNode : BaseNode
         }
     }
 
-    override public string GetCode(string parentName){
+    override public string GetCode(){
         string code = "BT_While "+nodeName+" = new BT_While();\n";
-        code += parentName+".AddChild("+nodeName+");\n";
         code += nodeName+".SetCondition(()=>{return "+booleanName+";});\n";
         return code;
     }

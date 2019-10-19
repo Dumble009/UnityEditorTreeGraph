@@ -12,9 +12,8 @@ public class SequenceNode : BaseMultiOutputNode
         }
     }
 
-    override public string GetCode(string parentName){
+    override public string GetCode(){
         string code = "BT_Sequence "+nodeName+"= new BT_Sequence();\n";
-        code += parentName+".AddChild("+nodeName+");\n";
         return code;
     }
 }

@@ -36,9 +36,8 @@ public class If : BaseNode
       }
    }
 
-   override public string GetCode(string parentName){
+   override public string GetCode(){
       string code = "BT_If " + nodeName + " = new BT_If();\n";
-      code += parentName + ".AddChild("+nodeName+");\n";
       code += nodeName + ".SetCondition(()=>{return "+boolName+";});\n";
       return code;
    }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class BaseNode : Node,IBTGraphNode
 {
     public string nodeName;
-    [Input(ShowBackingValue.Unconnected, ConnectionType.Override, TypeConstraint.None, false)] public string input;
+    [Input(ShowBackingValue.Unconnected, ConnectionType.Multiple, TypeConstraint.None, false)] public string input;
     [Output(ShowBackingValue.Unconnected, ConnectionType.Override, false)] public string output;
 
     override public object GetValue(NodePort port){
@@ -41,7 +41,7 @@ public class BaseNode : Node,IBTGraphNode
         return true;
     }
 
-    virtual public string GetCode(string parentName){
+    virtual public string GetCode(){
         return "";
     }
 }

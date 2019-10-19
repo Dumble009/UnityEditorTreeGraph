@@ -6,7 +6,7 @@ public class BoolNode : SubNode
 {
     public bool defaultValue;
 
-    override public string GetCode(string parentName){
+    override public string GetCode(){
 		string code = "";
 		if (!isInherited)
 		{

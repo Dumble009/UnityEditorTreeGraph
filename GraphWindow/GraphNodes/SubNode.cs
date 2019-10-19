@@ -26,7 +26,7 @@ public class SubNode : Node, IBTGraphNode
         }
     }
 
-    virtual public string GetCode(string parentName){
+    virtual public string GetCode(){
         return "";
     }
 }

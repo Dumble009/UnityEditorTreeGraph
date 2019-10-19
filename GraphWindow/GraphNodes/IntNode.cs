@@ -4,7 +4,7 @@ public class IntNode : SubNode
 {
    public int defaultValue;
 
-   override public string GetCode(string parent){
+   override public string GetCode(){
 		string code = "";
 		if (!isInherited)
 		{

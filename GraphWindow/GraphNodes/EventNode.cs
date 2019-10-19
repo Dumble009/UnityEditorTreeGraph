@@ -1,7 +1,7 @@
 ﻿[CreateNodeMenu("Event/Execute")]
 public class EventNode : SubNode
 {
-    override public string GetCode(string parentName){
+    override public string GetCode(){
 		string code = "";
 		if (!isInherited)
 		{
