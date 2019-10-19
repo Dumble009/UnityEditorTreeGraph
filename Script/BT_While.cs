@@ -12,18 +12,18 @@ public class BT_While : BT_Node {
 	override public ResultContainer Next(){
 		if(condition != null){
 			if(condition.Invoke()){
-				ResultContainer result = new ResultContainer(this, NodeResult.CONTINUE);;
+				ResultContainer result = new ResultContainer(this, BT_Result.CONTINUE);
 				if(children != null && children.Count > 0){
 					ResultContainer childResult = children[0].Next();
-					if(childResult.Result == NodeResult.CONTINUE && childResult.NextStartNode != null){
+					if(childResult.Result == BT_Result.CONTINUE && childResult.NextStartNode != null){
 						result = childResult;
 					}
 				}
 				return result;
 			}else{
-				return new ResultContainer(NodeResult.SUCCESS);
+				return new ResultContainer(BT_Result.FAILURE);
 			}
 		}
-		return new ResultContainer(NodeResult.SUCCESS);
+		return new ResultContainer(BT_Result.SUCCESS);
 	}
 }

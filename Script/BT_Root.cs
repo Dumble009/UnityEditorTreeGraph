@@ -6,6 +6,6 @@
 				return children[0].Next();
 			}
 		}
-		return new ResultContainer(NodeResult.FAILURE);
+		return new ResultContainer(BT_Result.FAILURE);
 	}
 }

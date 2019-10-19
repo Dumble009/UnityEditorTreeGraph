@@ -12,12 +12,12 @@ public class BT_Selector : BT_Node {
 		if(children != null && children.Count > 0){
 			for(int i = 0; i < children.Count; i++){
 				ResultContainer result = children[i].Next();
-				if(result.Result == NodeResult.SUCCESS || result.Result == NodeResult.CONTINUE){
+				if(result.Result == BT_Result.SUCCESS || result.Result == BT_Result.CONTINUE){
 					return result;
 				}
 			}
-			return new ResultContainer(NodeResult.FAILURE);
+			return new ResultContainer(BT_Result.FAILURE);
 		}
-		return new ResultContainer(NodeResult.FAILURE);
+		return new ResultContainer(BT_Result.FAILURE);
 	}
 }

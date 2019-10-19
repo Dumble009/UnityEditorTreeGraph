@@ -17,9 +17,9 @@ public class BT_If : BT_Node {
 			if(condition.Invoke()){
 				return children[0].Next();
 			}else{
-				return new ResultContainer(NodeResult.FAILURE);
+				return new ResultContainer(BT_Result.FAILURE);
 			}
 		}
-		return new ResultContainer(NodeResult.FAILURE);
+		return new ResultContainer(BT_Result.FAILURE);
 	}
 }

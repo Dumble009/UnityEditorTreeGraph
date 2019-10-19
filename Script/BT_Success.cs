@@ -12,6 +12,6 @@
 		{
 			children[0].Next();
 		}
-		return new ResultContainer(NodeResult.SUCCESS);
+		return new ResultContainer(BT_Result.SUCCESS);
 	}
 }

@@ -16,6 +16,6 @@ public class BT_Execute : BT_Node {
 		if(children != null && children.Count > 0 && children[0] != null){
 			return children[0].Next();
 		}
-		return new ResultContainer(NodeResult.SUCCESS);
+		return new ResultContainer(BT_Result.SUCCESS);
 	}
 }

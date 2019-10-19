@@ -11,17 +11,17 @@ public class BT_Sequence : BT_Node {
 	override public ResultContainer Next(){
 		if(children != null && children.Count > 0){
 			ResultContainer result = children[currentIndex].Next();
-			if(result.Result == NodeResult.SUCCESS || result.Result == NodeResult.CONTINUE){
+			if(result.Result == BT_Result.SUCCESS || result.Result == BT_Result.CONTINUE){
 				currentIndex++;
 				if(currentIndex >= children.Count){
 					currentIndex = 0;
 				}
-			}else if(result.Result == NodeResult.FAILURE){
+			}else if(result.Result == BT_Result.FAILURE){
 				currentIndex = 0;
 			}
 
 			return result;
 		}
-		return new ResultContainer(NodeResult.SUCCESS);
+		return new ResultContainer(BT_Result.SUCCESS);
 	}
 }

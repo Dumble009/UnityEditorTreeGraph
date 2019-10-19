@@ -17,7 +17,7 @@ public class BehaviourTree{
 			if (interrupt.IsInterrupt())
 			{
 				ResultContainer _result = interrupt.Next();
-				if (_result.Result == NodeResult.CONTINUE)
+				if (_result.Result == BT_Result.CONTINUE)
 				{
 					isContinued = true;
 					continueNode = _result.NextStartNode;
@@ -32,7 +32,7 @@ public class BehaviourTree{
 		}
         BT_Node nextNode = (isContinued && continueNode != null) ? continueNode : root;
         ResultContainer result = nextNode.Next();
-        if(result.Result == NodeResult.CONTINUE){
+        if(result.Result == BT_Result.CONTINUE){
             isContinued = true;
             continueNode = result.NextStartNode;
         }else{

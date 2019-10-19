@@ -15,7 +15,7 @@ public class BT_Interrupt : BT_Node
 				return children[0].Next();
 			}
 		}
-		return new ResultContainer(NodeResult.FAILURE);
+		return new ResultContainer(BT_Result.FAILURE);
 	}
 
 	public bool IsInterrupt()
