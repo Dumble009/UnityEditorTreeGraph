@@ -29,7 +29,14 @@ public class EditorTreeCompiler
         code += root.GetCode();
         Node firstChild = root.GetOutputPort("output").GetConnections()[0].node;
         BuildTree(ref code, firstChild, root);
-
+		foreach (Node node in nodes)
+		{
+			if (node is InterruptNode interrupt)
+			{
+				code += interrupt.GetCode();
+				BuildTree(ref code, interrupt.GetOutputPort("output").GetConnections()[0].node, interrupt);
+			}
+		}
         code += "}\n"; // maketree close
 
         code += "}"; // class close

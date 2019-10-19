@@ -1,4 +1,4 @@
-﻿[CreateNodeMenu("Event/Execute")]
+﻿[CreateNodeMenu("Parameter/Event")]
 public class EventNode : SubNode
 {
     override public string GetCode(){
