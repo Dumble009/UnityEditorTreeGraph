@@ -13,7 +13,8 @@ public class SequenceNode : BaseMultiOutputNode
     }
 
     override public string GetCode(){
-        string code = "BT_Sequence "+nodeName+"= new BT_Sequence();\n";
+		//string code = "BT_Sequence "+nodeName+"= new BT_Sequence();\n";
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Sequence.txt"), nodeName);
         return code;
     }
 }

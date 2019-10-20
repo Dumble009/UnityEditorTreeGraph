@@ -5,8 +5,9 @@ public class EventNode : SubNode
 		string code = "";
 		if (!isInherited)
 		{
-			code = "[UnityEngine.SerializeField]\n";
-			code += "UnityEngine.Events.UnityEvent " + nodeName + ";\n";
+			/*code = "[UnityEngine.SerializeField]\n";
+			code += "UnityEngine.Events.UnityEvent " + nodeName + ";\n";*/
+			code = string.Format(CodeTemplateReader.Instance.GetTemplate("Event.txt"), nodeName);
 		}
         return code;
     }

@@ -49,10 +49,20 @@ public class AGreaterThanBNode : BaseNode
    }
 
    override public string GetCode(){
-	string code = "BT_If " + nodeName + " = new BT_If();\n";
-	string ope = EqualAsTrue ? ">=" : ">";
-	code += nodeName + ".SetCondition(()=>{return "+A+ope+B+";});\n";
-		
-      return code;
+		/*string code = "BT_If " + nodeName + " = new BT_If();\n";
+		string ope = EqualAsTrue ? ">=" : ">";
+		code += nodeName + ".SetCondition(()=>{return "+A+ope+B+";});\n";*/
+		string code = "";
+		if (EqualAsTrue)
+		{
+			code = CodeTemplateReader.Instance.GetTemplate("AGreaterThanBOrEqual.txt");
+		}
+		else
+		{
+			code = CodeTemplateReader.Instance.GetTemplate("AGreaterThanB.txt");
+		}
+
+		code = string.Format(code, nodeName, A, B);
+		return code;
    }
 }

@@ -37,8 +37,9 @@ public class If : BaseNode
    }
 
    override public string GetCode(){
-      string code = "BT_If " + nodeName + " = new BT_If();\n";
-      code += nodeName + ".SetCondition(()=>{return "+boolName+";});\n";
+		/*string code = "BT_If " + nodeName + " = new BT_If();\n";
+		code += nodeName + ".SetCondition(()=>{return "+boolName+";});\n";*/
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("If.txt"), nodeName, boolName);
       return code;
    }
 }

@@ -13,7 +13,8 @@ public class SelectorNode : BaseMultiOutputNode
     }
 
     override public string GetCode(){
-        string code = "BT_Selector "+nodeName+" = new BT_Selector();\n";
+		//string code = "BT_Selector "+nodeName+" = new BT_Selector();\n";
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Selector.txt"), nodeName);
         return code;
     }
 }

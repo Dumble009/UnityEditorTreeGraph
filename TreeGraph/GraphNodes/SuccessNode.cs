@@ -6,7 +6,8 @@ public class SuccessNode : BaseNode
 {
 	public override string GetCode()
 	{
-		string code = "BT_Success "+nodeName+"= new BT_Success();\n";
+		//string code = "BT_Success "+nodeName+"= new BT_Success();\n";
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Success.txt"), nodeName);
 		return code;
 	}
 }

@@ -49,9 +49,10 @@ public class InterruptNode : Node, IBTGraphNode
 
 	public string GetCode()
 	{
-		string code = "BT_Interrupt " + nodeName + " = new BT_Interrupt();\n";
+		/*string code = "BT_Interrupt " + nodeName + " = new BT_Interrupt();\n";
 		code += nodeName + ".SetCondition(()=>{ return "+boolName+";});\n";
-		code += "behaviourTree.AddInterrupt("+nodeName+");\n";
+		code += "behaviourTree.AddInterrupt("+nodeName+");\n";*/
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Interrupt.txt"), nodeName, boolName, "behaviourTree");
 		return code;
 	}
 }

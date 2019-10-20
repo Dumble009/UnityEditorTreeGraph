@@ -8,8 +8,9 @@ public class IntNode : SubNode
 		string code = "";
 		if (!isInherited)
 		{
-			code = "[UnityEngine.SerializeField]\n";
-			code += "int " + nodeName + "=" + defaultValue.ToString() + ";\n";
+			/*code = "[UnityEngine.SerializeField]\n";
+			code += "int " + nodeName + "=" + defaultValue.ToString() + ";\n";*/
+			code = string.Format(CodeTemplateReader.Instance.GetTemplate("Int.txt"), nodeName, defaultValue.ToString());
 		}
         return code;
     }

@@ -1,0 +1,2 @@
+BT_Root {0} = new BT_Root();
+{1} = new BehaviourTree({0});

@@ -1,0 +1,2 @@
+[UnityEngine.SerializeField]
+public bool {0} = {1};

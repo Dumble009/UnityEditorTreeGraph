@@ -33,8 +33,9 @@ public class WhileNode : BaseNode
     }
 
     override public string GetCode(){
-        string code = "BT_While "+nodeName+" = new BT_While();\n";
-        code += nodeName+".SetCondition(()=>{return "+booleanName+";});\n";
+		//string code = "BT_While "+nodeName+" = new BT_While();\n";
+		//code += nodeName+".SetCondition(()=>{return "+booleanName+";});\n";
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("While.txt"), nodeName, booleanName);
         return code;
     }
 }

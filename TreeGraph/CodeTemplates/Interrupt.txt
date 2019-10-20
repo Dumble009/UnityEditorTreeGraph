@@ -1,0 +1,5 @@
+BT_Interrupt {0} = new BT_Interrupt();
+{0}.SetCondition(()=>{{
+	return {1};
+}});
+{2}.AddInterrupt({0});

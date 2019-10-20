@@ -1,0 +1,2 @@
+[UnityEngine.SerializeField]
+int {0} = {1};

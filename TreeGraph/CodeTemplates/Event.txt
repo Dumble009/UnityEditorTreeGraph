@@ -1,0 +1,2 @@
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent {0};

@@ -29,8 +29,9 @@ public class ExecuteNode : BaseNode
     }
 
     override public string GetCode(){
-        string code = "BT_Execute "+nodeName+"= new BT_Execute();\n";
-        code += nodeName + ".AddEvent(()=>{"+eventName+".Invoke();});\n";
+		/*string code = "BT_Execute "+nodeName+"= new BT_Execute();\n";
+        code += nodeName + ".AddEvent(()=>{"+eventName+".Invoke();});\n";*/
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Execute.txt"), nodeName, eventName);
         return code;
     }
 }
