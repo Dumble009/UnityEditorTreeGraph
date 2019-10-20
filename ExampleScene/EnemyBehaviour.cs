@@ -1,4 +1,4 @@
-public class EnemyBehaviour:BehaviourTreeBase{
+public class EnemyBehaviour:BehaviourTreeComponent{
 [UnityEngine.SerializeField]
 int attack_distance=0;
 [UnityEngine.SerializeField]

@@ -49,9 +49,10 @@ public class AGreaterThanBNode : BaseNode
    }
 
    override public string GetCode(){
-      string code = "BT_If " + nodeName + " = new BT_If();\n";
-      string ope = EqualAsTrue ? ">=" : ">";
-      code += nodeName + ".SetCondition(()=>{return "+A+ope+B+";});\n";
+	string code = "BT_If " + nodeName + " = new BT_If();\n";
+	string ope = EqualAsTrue ? ">=" : ">";
+	code += nodeName + ".SetCondition(()=>{return "+A+ope+B+";});\n";
+		
       return code;
    }
 }

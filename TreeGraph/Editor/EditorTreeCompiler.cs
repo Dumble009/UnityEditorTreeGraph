@@ -6,7 +6,7 @@ using System.Linq;
 public class EditorTreeCompiler
 {
 	static List<string> createdNodes;
-    static public string Compile(string fileName, List<Node> nodes, string inheritTarget = "BehaviourTreeBase"){
+    static public string Compile(string fileName, List<Node> nodes, string inheritTarget = "BehaviourTreeComponent"){
         List<SubNode> subNodes = new List<SubNode>();
 		createdNodes = new List<string>();
         RootNode root = new RootNode();

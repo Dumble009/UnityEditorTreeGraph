@@ -33,10 +33,13 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 				code = EditorTreeCompiler.Compile(target.name, target.nodes, inheritGraph.name);
 			}
 			string path = EditorUtility.SaveFilePanelInProject("", EditorTreeCompiler.FileNameToClassName(target.name), "cs", "");
-			System.IO.StreamWriter sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.ASCII);
-			sw.Write(code);
-			sw.Close();
-			AssetDatabase.Refresh();
+			if (!string.IsNullOrEmpty(path))
+			{
+				System.IO.StreamWriter sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.ASCII);
+				sw.Write(code);
+				sw.Close();
+				AssetDatabase.Refresh();
+			}
 		}
 		if (GUILayout.Button("Inherit") && inheritGraph != null)
 		{

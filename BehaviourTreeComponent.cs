@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public class BehaviourTreeBase : MonoBehaviour
+public class BehaviourTreeComponent : MonoBehaviour
 {
     public BehaviourTree behaviourTree;
     void Start()
