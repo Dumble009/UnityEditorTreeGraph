@@ -34,4 +34,13 @@ public class ExecuteNode : BaseNode
 		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Execute.txt"), nodeName, eventName);
         return code;
     }
+
+	public override void InheritFrom(Node original)
+	{
+		base.InheritFrom(original);
+		if (original is ExecuteNode ex_original)
+		{
+			this.eventName = ex_original.eventName;
+		}
+	}
 }

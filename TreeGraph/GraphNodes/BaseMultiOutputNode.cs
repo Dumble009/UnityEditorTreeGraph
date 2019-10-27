@@ -17,6 +17,11 @@ public class BaseMultiOutputNode : Node, IBTGraphNode
         return nodeName;
     }
 
+	public void SetNodeName(string name)
+	{
+		nodeName = name;
+	}
+
     virtual public void Test(List<Node> nodes){
         if(string.IsNullOrEmpty(nodeName)){
             Debug.LogError(this.GetType().Name+":This node doesn't have a name. All node should have an unique name.");
@@ -44,4 +49,9 @@ public class BaseMultiOutputNode : Node, IBTGraphNode
     virtual public string GetCode(){
         return "";
     }
+
+	virtual public void InheritFrom(Node original)
+	{
+
+	}
 }

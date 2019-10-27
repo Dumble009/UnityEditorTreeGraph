@@ -11,6 +11,11 @@ public class RootNode : Node, IBTGraphNode
         return nodeName;
     }
 
+	public void SetNodeName(string name)
+	{
+		nodeName = name;
+	}
+
     public void Test(List<Node> nodes){
         if(string.IsNullOrEmpty(nodeName)){
             Debug.LogError("This node doesn't have a name. All node should have an unique name.");
@@ -31,4 +36,9 @@ public class RootNode : Node, IBTGraphNode
 		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Root.txt"), nodeName, "behaviourTree");
         return code;
     }
+
+	public void InheritFrom(Node original)
+	{
+
+	}
 }

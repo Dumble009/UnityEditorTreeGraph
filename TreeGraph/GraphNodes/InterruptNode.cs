@@ -7,11 +7,16 @@ public class InterruptNode : Node, IBTGraphNode
 {
 	public string nodeName;
 	[Output(ShowBackingValue.Unconnected, ConnectionType.Override, false)] public string output;
-	public string boolName;
+	public string condition;
 
 	public string GetNodeName()
 	{
 		return nodeName;
+	}
+
+	public void SetNodeName(string name)
+	{
+		nodeName = name;
 	}
 
 	public void Test(List<Node> nodes)
@@ -20,8 +25,7 @@ public class InterruptNode : Node, IBTGraphNode
 		{
 			Debug.LogError("This node doesn't have a name. All node should have an unique name.");
 		}
-
-		bool isConditionFound = false;
+		
 		foreach (Node node in nodes)
 		{
 			if (node is IBTGraphNode i)
@@ -31,19 +35,6 @@ public class InterruptNode : Node, IBTGraphNode
 					Debug.LogError(nodeName + ":This nodename is not unique.");
 				}
 			}
-
-			if (node is BoolNode b)
-			{
-				if (this.boolName == b.GetNodeName())
-				{
-					isConditionFound = true;
-				}
-			}
-		}
-
-		if (!isConditionFound)
-		{
-			Debug.LogError(nodeName + ":Bool name \""+ boolName + "\"doesn't exist.");
 		}
 	}
 
@@ -52,7 +43,15 @@ public class InterruptNode : Node, IBTGraphNode
 		/*string code = "BT_Interrupt " + nodeName + " = new BT_Interrupt();\n";
 		code += nodeName + ".SetCondition(()=>{ return "+boolName+";});\n";
 		code += "behaviourTree.AddInterrupt("+nodeName+");\n";*/
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Interrupt.txt"), nodeName, boolName, "behaviourTree");
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Interrupt.txt"), nodeName, condition, "behaviourTree");
 		return code;
+	}
+
+	public void InheritFrom(Node original)
+	{
+		if (original is InterruptNode interrupt_original)
+		{
+			this.condition = interrupt_original.condition;
+		}
 	}
 }

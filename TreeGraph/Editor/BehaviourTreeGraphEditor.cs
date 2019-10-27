@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEditor;
 using XNode;
 using XNodeEditor;
@@ -43,6 +44,8 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 		}
 		if (GUILayout.Button("Inherit") && inheritGraph != null)
 		{
+			List<Node> createdNonSubNodes = new List<Node>();
+			Dictionary<string, List<string>> outputPorts = new Dictionary<string, List<string>>();
 			foreach (Node _node in inheritGraph.nodes)
 			{
 				if (_node == null)
@@ -56,11 +59,76 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 					node.name = inherited_prefix + _node.name;
 					node.nodeName = sub.nodeName;
 					node.isInherited = true;
+					node.InheritFrom(_node);
+					node.position = _node.position;
 					AssetDatabase.AddObjectToAsset(node, target);
-					if (NodeEditorPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
-					NodeEditorWindow.RepaintAll();
+					
+				}
+				else if (_node is IBTGraphNode i)
+				{
+					Node newNode = target.AddNode(_node.GetType());
+					newNode.OnCreated();
+
+					if (newNode is IBTGraphNode new_i)
+					{
+						new_i.SetNodeName(i.GetNodeName());
+						new_i.InheritFrom(_node);
+					}
+					
+					newNode.name = _node.name;
+					newNode.position = _node.position;
+					AssetDatabase.AddObjectToAsset(newNode, target);
+
+					string nodeName = i.GetNodeName();
+					if (!createdNonSubNodes.Contains(newNode))
+					{
+						createdNonSubNodes.Add(newNode);
+						if (!outputPorts.ContainsKey(nodeName))
+						{
+							outputPorts[nodeName] = new List<string>();
+							var outputs = _node.GetOutputPort("output").GetConnections();
+							foreach (var output in outputs)
+							{
+								if (output.node is IBTGraphNode ibt_output)
+								{
+									if (!outputPorts[nodeName].Contains(ibt_output.GetNodeName()))
+									{
+										outputPorts[nodeName].Add(ibt_output.GetNodeName());
+									}
+								}
+							}
+						}
+					}
 				}
 			}
+
+			foreach (Node parent in createdNonSubNodes)
+			{
+				IBTGraphNode ibt_parent = parent as IBTGraphNode;
+				if (outputPorts.ContainsKey(ibt_parent.GetNodeName())){
+					foreach (string outputTarget in outputPorts[ibt_parent.GetNodeName()])
+					{
+						Node child = null;
+						foreach (Node _child in createdNonSubNodes)
+						{
+							IBTGraphNode ibt_target = _child as IBTGraphNode;
+							if (ibt_target.GetNodeName() == outputTarget)
+							{
+								child = _child;
+								break;
+							}
+						}
+
+						if (child != null)
+						{
+							parent.GetOutputPort("output").Connect(child.GetInputPort("input"));
+						}
+					}
+				}
+			}
+
+			if (NodeEditorPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+			NodeEditorWindow.RepaintAll();
 		}
 		inheritGraph = EditorGUILayout.ObjectField(inheritGraph, typeof(BehaviourTreeGraph)) as BehaviourTreeGraph;
 		if (GUILayout.Button("disable inherit"))

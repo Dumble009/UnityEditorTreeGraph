@@ -20,7 +20,10 @@ public class EditorTreeCompiler
         
         string code = "public class "+FileNameToClassName(fileName)+":"+FileNameToClassName(inheritTarget)+"{\n";
 
-        foreach(SubNode node in subNodes){
+		var sortedSubNodes = subNodes
+											.OrderBy(x => x.GetType().ToString())
+											.ToArray();
+        foreach(SubNode node in sortedSubNodes){
             code += node.GetCode();
         }
 

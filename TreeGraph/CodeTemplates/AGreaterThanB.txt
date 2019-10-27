@@ -1,4 +1,0 @@
-BT_If {0} = new BT_If();
-{0}.SetCondition(()=>{{
-	return {1} > {2};
-}});

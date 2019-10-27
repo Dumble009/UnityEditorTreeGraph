@@ -3,31 +3,18 @@ using UnityEngine;
 using System.Collections.Generic;
 using XNode;
 
-public class If : BaseNode
+public class IfNode : BaseNode
 {
-   public string boolName;
+	//public string boolName;
+	[TextArea]
+	public string condition;
 
    override public void Test(List<Node> nodes){
       base.Test(nodes);
 
       if(!string.IsNullOrEmpty(nodeName)){
-         if(string.IsNullOrEmpty(boolName)){
-            Debug.LogError(nodeName + ": Bool name is empty.");
-         }else{
-            bool isConditionExist = false;
-
-            foreach(Node node in nodes){
-               if(node is BoolNode c){
-                  if(c.nodeName == boolName){
-                     isConditionExist = true;
-                     break;
-                  }
-               }
-            }
-
-            if(!isConditionExist){
-               Debug.LogError(nodeName + ": Bool name \""+boolName+"\" doesn't exist.");
-            }
+         if(string.IsNullOrEmpty(condition)){
+            Debug.LogError(nodeName + ": condition is empty.");
          }
 
          if(!this.GetOutputPort("output").IsConnected){
@@ -39,7 +26,16 @@ public class If : BaseNode
    override public string GetCode(){
 		/*string code = "BT_If " + nodeName + " = new BT_If();\n";
 		code += nodeName + ".SetCondition(()=>{return "+boolName+";});\n";*/
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("If.txt"), nodeName, boolName);
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("If.txt"), nodeName, condition);
       return code;
    }
+
+	public override void InheritFrom(Node original)
+	{
+		base.InheritFrom(original);
+		if (original is IfNode originalIf)
+		{
+			this.condition = originalIf.condition;
+		}
+	}
 }

@@ -6,9 +6,7 @@ using XNode;
 public class SubNode : Node, IBTGraphNode
 {
     public string nodeName;
-    public string GetNodeName(){
-        return nodeName;
-    }
+    
 	[HideInInspector]
 	public bool isInherited = false;
 
@@ -26,7 +24,21 @@ public class SubNode : Node, IBTGraphNode
         }
     }
 
-    virtual public string GetCode(){
+	public string GetNodeName()
+	{
+		return nodeName;
+	}
+	public void SetNodeName(string name)
+	{
+		nodeName = name;
+	}
+
+	virtual public string GetCode(){
         return "";
     }
+
+	virtual public void InheritFrom(Node original)
+	{
+
+	}
 }
