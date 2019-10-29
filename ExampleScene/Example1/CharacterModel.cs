@@ -7,9 +7,17 @@ public class CharacterModel : MonoBehaviour
 	private void Awake()
 	{
 		ai = GetComponent<EnemyBehaviour>();
+		senser = GetComponentInChildren<Senser>();
+		if (senser != null)
+		{
+			senser.DetectCallback+=() => {
+				ai.IsFound = true;
+			};
+		}
 	}
 
 	EnemyBehaviour ai;
+	Senser senser;
 
 	[SerializeField]
 	Transform player;
@@ -34,6 +42,7 @@ public class CharacterModel : MonoBehaviour
 		{
 			bulletSpitter.Spit(origin : transform.position, 
 										direction : (player.position - transform.position).normalized);
+			lastAttackedTime = Time.time;
 		}
 	}
 

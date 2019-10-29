@@ -4,13 +4,14 @@ using System;
 public class BehaviourTreeComponent : MonoBehaviour
 {
     public BehaviourTree behaviourTree;
+	public bool isActive = true;
     void Start()
     {
         MakeTree();
     }
 
     public void Tick(){
-        if(behaviourTree != null){
+        if(behaviourTree != null && isActive){
             behaviourTree.Tick();
         }
     }
