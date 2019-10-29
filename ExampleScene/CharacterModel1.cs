@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CharacterModel : MonoBehaviour
+public class CharacterModel1 : MonoBehaviour
 {
 	private void Awake()
 	{

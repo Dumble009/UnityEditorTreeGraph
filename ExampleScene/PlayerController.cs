@@ -6,9 +6,9 @@ public class PlayerController : MonoBehaviour
 {
 	private void Awake()
 	{
-		model = GetComponent<CharacterModel>();
+		model = GetComponent<CharacterModel1>();
 	}
-	CharacterModel model;
+	CharacterModel1 model;
 	void Update()
     {
 		Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
