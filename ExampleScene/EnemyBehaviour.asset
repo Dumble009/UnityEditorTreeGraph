@@ -19,6 +19,39 @@ MonoBehaviour:
     values: []
   nodeName: patrol_event
   isInherited: 0
+--- !u!114 &-8967391931752289661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabf94a8e9106ab4a9eecf2c8d674fce, type: 3}
+  m_Name: Interrupt
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1080, y: 168}
+  ports:
+    keys:
+    - output
+    values:
+    - _fieldName: output
+      _node: {fileID: -8967391931752289661}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 1531000726174887872}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: DamageInterrupt
+  output: 
+  condition: IsGotDamage
 --- !u!114 &-7251012623451657331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +580,10 @@ MonoBehaviour:
   - {fileID: -7251012623451657331}
   - {fileID: 514715297227441807}
   - {fileID: -310065827544826676}
+  - {fileID: -8967391931752289661}
+  - {fileID: 3977365732759269967}
+  - {fileID: 1531000726174887872}
+  - {fileID: 526714005604858332}
   - {fileID: 0}
 --- !u!114 &54605767449801533
 MonoBehaviour:
@@ -580,7 +617,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -344, y: 152}
+  position: {x: -248, y: 136}
   ports:
     keys: []
     values: []
@@ -630,6 +667,54 @@ MonoBehaviour:
   input: 
   output: 
   eventName: escape_event
+--- !u!114 &526714005604858332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda4c45232ca63c41af7474f1aa0379b, type: 3}
+  m_Name: Set Bool
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -600, y: 136}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: 526714005604858332}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: 1531000726174887872}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: 526714005604858332}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 5503331790985175073}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: ActivateEscape
+  input: 
+  output: 
+  boolName: IsEscape
+  value: 1
 --- !u!114 &761660875788843534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -761,6 +846,54 @@ MonoBehaviour:
   input: 
   output: 
   condition: IsMoveable
+--- !u!114 &1531000726174887872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda4c45232ca63c41af7474f1aa0379b, type: 3}
+  m_Name: Set Bool
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -840, y: 136}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: 1531000726174887872}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: -8967391931752289661}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: 1531000726174887872}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 526714005604858332}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: ResetDamageFlag
+  input: 
+  output: 
+  boolName: IsGotDamage
+  value: 0
 --- !u!114 &2615470567369533969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,6 +1004,26 @@ MonoBehaviour:
     values: []
   nodeName: attack_event
   isInherited: 0
+--- !u!114 &3977365732759269967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794e521d2586b52499e55746d8feed00, type: 3}
+  m_Name: Bool
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1064, y: 328}
+  ports:
+    keys: []
+    values: []
+  nodeName: IsGotDamage
+  isInherited: 0
+  defaultValue: 0
 --- !u!114 &5016042879785905643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,6 +1082,9 @@ MonoBehaviour:
       connections:
       - fieldName: output
         node: {fileID: 5016042879785905643}
+        reroutePoints: []
+      - fieldName: output
+        node: {fileID: 526714005604858332}
         reroutePoints: []
       _direction: 0
       _connectionType: 0

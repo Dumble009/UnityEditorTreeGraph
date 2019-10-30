@@ -7,6 +7,7 @@ public class InterruptNode : Node, IBTGraphNode
 {
 	public string nodeName;
 	[Output(ShowBackingValue.Unconnected, ConnectionType.Override, false)] public string output;
+	[TextArea]
 	public string condition;
 
 	public string GetNodeName()
