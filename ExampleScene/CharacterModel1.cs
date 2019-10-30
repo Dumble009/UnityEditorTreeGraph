@@ -34,13 +34,23 @@ public class CharacterModel1 : MonoBehaviour
 	int patrolIndex = 0;
 	float nextPatrolDistance = 1.0f;
 
+	bool isDamaged = false;
+
 	public void Attack()
 	{
 		if (bulletSpitter)
 		{
-			bulletSpitter.Spit(origin : transform.position, 
-										direction : (player.position - transform.position).normalized);
+			SpitBullet((player.position - transform.position).normalized);
 			lastAttackedTime = Time.time;
+		}
+	}
+
+	public void SpitBullet(Vector3 direction)
+	{
+		if (bulletSpitter)
+		{
+			bulletSpitter.Spit(origin: transform.position,
+										direction: direction);
 		}
 	}
 
@@ -65,11 +75,19 @@ public class CharacterModel1 : MonoBehaviour
 		}
 	}
 
+	public void Escape()
+	{
+		Vector3 direction = player.position - transform.position;
+		Move(goal: transform.position - direction);
+	}
+
 	virtual public void Move(Vector3 goal)
 	{
 		Vector3 direction = (goal - transform.position);
 		direction.Scale(new Vector3(1, 0, 1));
 		transform.position += direction.normalized * speed * Time.deltaTime;
+
+		transform.LookAt(transform.position + direction);
 	}
 
 	public void CheckAttackable()
@@ -94,6 +112,26 @@ public class CharacterModel1 : MonoBehaviour
 		else
 		{
 			ai.IsMoveable = false;
+		}
+	}
+
+	public void CheckEscape()
+	{
+		if (isDamaged)
+		{
+			ai.IsEscape = true;
+		}
+		else
+		{
+			ai.IsEscape = false;
+		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "player_attack")
+		{
+			isDamaged = true;
 		}
 	}
 }

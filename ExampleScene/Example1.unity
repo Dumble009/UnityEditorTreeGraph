@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 141554171}
   - component: {fileID: 141554175}
   - component: {fileID: 141554170}
+  - component: {fileID: 141554176}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -262,6 +263,7 @@ MonoBehaviour:
   IsFound: 0
   IsAttackable: 0
   IsMoveable: 0
+  IsEscape: 0
   attack_event:
     m_PersistentCalls:
       m_Calls:
@@ -331,6 +333,38 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 141554175}
         m_MethodName: CheckMoveable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  escapecheck_event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 141554175}
+        m_MethodName: CheckEscape
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  escape_event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 141554175}
+        m_MethodName: Escape
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -425,6 +459,20 @@ MonoBehaviour:
   - {fileID: 1973564088}
   - {fileID: 154301966}
   - {fileID: 488943649}
+--- !u!136 &141554176
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141554169}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &154301965
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +563,7 @@ GameObject:
   - component: {fileID: 165828201}
   - component: {fileID: 165828200}
   - component: {fileID: 165828199}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Senser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +781,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4.43, y: -0.379, z: -6.65}
   m_LocalScale: {x: 0.40441, y: 0.40441, z: 0.40441}
-  m_Children: []
+  m_Children:
+  - {fileID: 1214053578}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -752,7 +801,7 @@ MonoBehaviour:
   player: {fileID: 0}
   attackableDistance: 5
   attackCoolTime: 0.5
-  bulletSpitter: {fileID: 0}
+  bulletSpitter: {fileID: 1214053579}
   speed: 5
   patrolPoints: []
 --- !u!136 &616044462
@@ -791,7 +840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 898281388}
   - component: {fileID: 898281389}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -976,7 +1025,7 @@ GameObject:
   - component: {fileID: 1106928726}
   - component: {fileID: 1106928725}
   - component: {fileID: 1106928724}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Senser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1039,6 +1088,51 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3.19
   m_Center: {x: 0, y: -1.04, z: 2.69}
+--- !u!1 &1214053577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1214053578}
+  - component: {fileID: 1214053579}
+  m_Layer: 0
+  m_Name: BulletSpitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1214053578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214053577}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 616044460}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1214053579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd489cbfe2987b40bc3b752dfcdfe4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet_prefab: {fileID: 8025032653223363578, guid: 62f73c172a3db954ab199c05c06dbcdd,
+    type: 3}
 --- !u!1 &1216478884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1265,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1321911197
 GameObject:
@@ -1342,6 +1436,7 @@ GameObject:
   - component: {fileID: 2023646348}
   - component: {fileID: 2023646347}
   - component: {fileID: 2023646351}
+  - component: {fileID: 2023646352}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -1365,6 +1460,7 @@ MonoBehaviour:
   IsFound: 0
   IsAttackable: 0
   IsMoveable: 0
+  IsEscape: 0
   attack_event:
     m_PersistentCalls:
       m_Calls:
@@ -1445,6 +1541,38 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  escapecheck_event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2023646351}
+        m_MethodName: CheckEscape
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  escape_event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2023646351}
+        m_MethodName: Escape
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!23 &2023646348
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1505,7 +1633,7 @@ Transform:
   - {fileID: 909494764}
   - {fileID: 165828198}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2023646351
 MonoBehaviour:
@@ -1529,6 +1657,20 @@ MonoBehaviour:
   - {fileID: 1321911198}
   - {fileID: 1973564088}
   - {fileID: 154301966}
+--- !u!136 &2023646352
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023646346}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &2095264387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,7 +1682,7 @@ GameObject:
   - component: {fileID: 2095264388}
   - component: {fileID: 2095264391}
   - component: {fileID: 2095264390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Blade
   m_TagString: Untagged
   m_Icon: {fileID: 0}

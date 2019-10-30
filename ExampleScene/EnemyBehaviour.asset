@@ -19,6 +19,26 @@ MonoBehaviour:
     values: []
   nodeName: patrol_event
   isInherited: 0
+--- !u!114 &-7251012623451657331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794e521d2586b52499e55746d8feed00, type: 3}
+  m_Name: Bool
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1272, y: -440}
+  ports:
+    keys: []
+    values: []
+  nodeName: IsEscape
+  isInherited: 0
+  defaultValue: 0
 --- !u!114 &-7017632673385127032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,7 +52,7 @@ MonoBehaviour:
   m_Name: If
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1256, y: -136}
+  position: {x: 1272, y: -104}
   ports:
     keys:
     - input
@@ -66,6 +86,53 @@ MonoBehaviour:
   input: 
   output: 
   condition: IsAttackable
+--- !u!114 &-6306505523688707815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e13081c63dfb434592792c1eeaa38de, type: 3}
+  m_Name: Execute
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 968, y: -312}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: -6306505523688707815}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: -121999215813381170}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -6306505523688707815}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -3037668793181613101}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: esacpe_check
+  input: 
+  output: 
+  eventName: escapecheck_event
 --- !u!114 &-5731474498521272129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +239,7 @@ MonoBehaviour:
   m_Name: Execute
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 984, y: -152}
+  position: {x: 984, y: -104}
   ports:
     keys:
     - input
@@ -320,6 +387,72 @@ MonoBehaviour:
   nodeName: IsMoveable
   isInherited: 0
   defaultValue: 0
+--- !u!114 &-3037668793181613101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0672ccd6360fbe04cbbbf7182ea7d52a, type: 3}
+  m_Name: If
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1272, y: -328}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: -3037668793181613101}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: -6306505523688707815}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -3037668793181613101}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 514715297227441807}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: If_escape
+  input: 
+  output: 
+  condition: IsEscape && IsMoveable
+--- !u!114 &-310065827544826676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
+  m_Name: Event
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1544, y: -408}
+  ports:
+    keys: []
+    values: []
+  nodeName: escape_event
+  isInherited: 0
 --- !u!114 &-121999215813381170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,6 +498,9 @@ MonoBehaviour:
       - fieldName: input
         node: {fileID: -3804716705238767311}
         reroutePoints: []
+      - fieldName: input
+        node: {fileID: -6306505523688707815}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -405,7 +541,32 @@ MonoBehaviour:
   - {fileID: 1406385027222839614}
   - {fileID: -3542211363347569224}
   - {fileID: -3804716705238767311}
+  - {fileID: -6306505523688707815}
+  - {fileID: 54605767449801533}
+  - {fileID: -3037668793181613101}
+  - {fileID: -7251012623451657331}
+  - {fileID: 514715297227441807}
+  - {fileID: -310065827544826676}
   - {fileID: 0}
+--- !u!114 &54605767449801533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
+  m_Name: Event
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 968, y: -408}
+  ports:
+    keys: []
+    values: []
+  nodeName: escapecheck_event
+  isInherited: 0
 --- !u!114 &61243793012206222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,6 +586,50 @@ MonoBehaviour:
     values: []
   nodeName: moveablecheck_event
   isInherited: 0
+--- !u!114 &514715297227441807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e13081c63dfb434592792c1eeaa38de, type: 3}
+  m_Name: Execute
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 1544, y: -312}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: 514715297227441807}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: -3037668793181613101}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: 514715297227441807}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: escape
+  input: 
+  output: 
+  eventName: escape_event
 --- !u!114 &761660875788843534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +663,7 @@ MonoBehaviour:
   m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1256, y: 40}
+  position: {x: 1272, y: 72}
   ports:
     keys: []
     values: []
@@ -660,7 +865,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1512, y: 24}
+  position: {x: 1512, y: 88}
   ports:
     keys: []
     values: []
@@ -875,7 +1080,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 984, y: -216}
+  position: {x: 1000, y: 24}
   ports:
     keys: []
     values: []
@@ -894,7 +1099,7 @@ MonoBehaviour:
   m_Name: Execute
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1496, y: -120}
+  position: {x: 1528, y: -56}
   ports:
     keys:
     - input

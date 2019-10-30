@@ -36,6 +36,8 @@ public class CharacterModel2 : MonoBehaviour
 	int patrolIndex = 0;
 	float nextPatrolDistance = 1.0f;
 
+	bool isDamaged = false;
+
 	public void Attack()
 	{
 		StopAgent();
@@ -65,6 +67,12 @@ public class CharacterModel2 : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	public void Escape()
+	{
+		Vector3 direction = player.position - transform.position;
+		Move(goal: transform.position - direction);
 	}
 
 	virtual public void Move(Vector3 goal)
@@ -98,6 +106,18 @@ public class CharacterModel2 : MonoBehaviour
 		}
 	}
 
+	public void CheckEscape()
+	{
+		if (isDamaged)
+		{
+			ai.IsEscape = true;
+		}
+		else
+		{
+			ai.IsEscape = false;
+		}
+	}
+
 	private void StopAgent()
 	{
 		agent.speed = 0.0f;
@@ -112,5 +132,13 @@ public class CharacterModel2 : MonoBehaviour
 		agent.angularSpeed = 120.0f;
 		agent.updatePosition = true;
 		agent.updateRotation = true;
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "player_attack")
+		{
+			isDamaged = true;
+		}
 	}
 }
