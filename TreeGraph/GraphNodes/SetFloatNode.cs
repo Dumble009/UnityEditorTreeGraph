@@ -5,7 +5,7 @@ using XNode;
 public class SetFloatNode : BaseNode
 {
 	public string floatName;
-	public float value;
+	public string value;
 	public override void Test(List<Node> nodes)
 	{
 		base.Test(nodes);
@@ -36,7 +36,7 @@ public class SetFloatNode : BaseNode
 
 	public override string GetCode()
 	{
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("SetParameter.txt"), nodeName, floatName, value.ToString());
-		return base.GetCode();
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("SetParameter.txt"), nodeName, floatName, value);
+		return code;
 	}
 }

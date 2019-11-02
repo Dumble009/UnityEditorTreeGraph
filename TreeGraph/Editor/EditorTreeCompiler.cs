@@ -18,7 +18,7 @@ public class EditorTreeCompiler
             }
         }
         
-        string code = "public class "+FileNameToClassName(fileName)+":"+FileNameToClassName(inheritTarget)+"{\n";
+        string code = "using BT;\npublic class "+FileNameToClassName(fileName)+":"+FileNameToClassName(inheritTarget)+"{\n";
 
 		var sortedSubNodes = subNodes
 											.OrderBy(x => x.GetType().ToString())

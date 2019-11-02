@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.TestTools;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using BT;
 
 public class UnitTest
 {
@@ -415,6 +413,105 @@ public class UnitTest
 		tree.Tick();
 		Assert.AreEqual(true, isOK1);
 		Assert.AreEqual(true, isOK2);
+
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(true, isOK2);
+	}
+
+	[Test]
+	public void TimingTest()
+	{
+		//Timing Test
+		//
+		// root - timing - ex1 - ex_target
+		//
+		// ex1 : should be called once at first tick.
+		// failure1 : should be called once at first tick.
+		// ex_target : should be called twice. Second tick should start from this node.
+		// success 1 : should be called twice.
+
+		BT_Root root = new BT_Root();
+		BehaviourTree tree = new BehaviourTree(root);
+		BT_Timing timing = new BT_Timing(tree, false, false);
+		BT_Execute ex1 = new BT_Execute();
+		BT_Execute ex_target = new BT_Execute();
+
+		root.AddChild(timing);
+		timing.AddChild(ex1);
+		ex1.AddChild(ex_target);
+
+		timing.SetTimingCreator(() => {
+			return new Timing(ex_target);
+		});
+
+		bool isOK1 = false, isOK2 = false;
+
+		ex1.AddEvent(() => {
+			isOK1 = !isOK1;
+		});
+
+		ex_target.AddEvent(() => {
+			isOK2 = !isOK2;
+		});
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(false, isOK2);
+	}
+
+	[Test]
+	public void TimerTest()
+	{
+		//Timer Test
+		//
+		// root - timing - ex1 - ex_target
+		//
+		// ex1 : should be called once at first tick.
+		// failure1 : should be called once at first tick.
+		// ex_target : should be called twice. Second tick should start from this node.
+		// success 1 : should be called twice.
+
+		BT_Root root = new BT_Root();
+		BehaviourTree tree = new BehaviourTree(root);
+		BT_Timing timing = new BT_Timing(tree, false, false);
+		BT_Execute ex1 = new BT_Execute();
+		BT_Execute ex_target = new BT_Execute();
+
+		root.AddChild(timing);
+		timing.AddChild(ex1);
+		ex1.AddChild(ex_target);
+
+		float waitTime = 0.1f;
+		timing.SetTimingCreator(() => {
+			return new Timer(ex_target, waitTime);
+		});
+
+		bool isOK1 = false, isOK2 = false;
+
+		ex1.AddEvent(() => {
+			isOK1 = !isOK1;
+		});
+
+		ex_target.AddEvent(() => {
+			isOK2 = !isOK2;
+		});
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		System.Threading.Thread.Sleep(50);
+
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK2);
+
+		System.Threading.Thread.Sleep(100);
 
 		tree.Tick();
 		Assert.AreEqual(false, isOK1);

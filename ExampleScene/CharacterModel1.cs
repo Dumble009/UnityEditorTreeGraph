@@ -115,23 +115,11 @@ public class CharacterModel1 : MonoBehaviour
 		}
 	}
 
-	public void CheckEscape()
-	{
-		if (isDamaged)
-		{
-			ai.IsEscape = true;
-		}
-		else
-		{
-			ai.IsEscape = false;
-		}
-	}
-
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "player_attack")
 		{
-			isDamaged = true;
+			ai.IsGotDamage = true;
 		}
 	}
 }

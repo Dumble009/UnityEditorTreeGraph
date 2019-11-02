@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using BT;
 
 public class BehaviourTreeComponent : MonoBehaviour
 {

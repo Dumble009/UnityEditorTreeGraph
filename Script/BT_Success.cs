@@ -1,17 +1,16 @@
-﻿public class BT_Success : BT_Node
+﻿namespace BT
 {
-	public BT_Success():base(){}
-	public override void Do()
+	public class BT_Success : BT_Node
 	{
-		
-	}
+		public BT_Success() : base() { }
 
-	public override ResultContainer Next()
-	{
-		if (children != null && children.Count > 0)
+		public override ResultContainer Next()
 		{
-			children[0].Next();
+			if (children != null && children.Count > 0)
+			{
+				children[0].Next();
+			}
+			return new ResultContainer(BT_Result.SUCCESS);
 		}
-		return new ResultContainer(BT_Result.SUCCESS);
 	}
 }

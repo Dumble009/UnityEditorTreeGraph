@@ -5,7 +5,7 @@ using XNode;
 public class SetBoolNode : BaseNode
 {
 	public string boolName;
-	public bool value;
+	public string value;
 	public override void Test(List<Node> nodes)
 	{
 		base.Test(nodes);
@@ -36,7 +36,7 @@ public class SetBoolNode : BaseNode
 
 	public override string GetCode()
 	{
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("SetParameter.txt"), nodeName, boolName, value.ToString().ToLower());
-		return base.GetCode();
+		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("SetParameter.txt"), nodeName, boolName, value);
+		return code;
 	}
 }

@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1272, y: -440}
+  position: {x: 920, y: -424}
   ports:
     keys: []
     values: []
@@ -119,53 +119,6 @@ MonoBehaviour:
   input: 
   output: 
   condition: IsAttackable
---- !u!114 &-6306505523688707815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e13081c63dfb434592792c1eeaa38de, type: 3}
-  m_Name: Execute
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 968, y: -312}
-  ports:
-    keys:
-    - input
-    - output
-    values:
-    - _fieldName: input
-      _node: {fileID: -6306505523688707815}
-      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: output
-        node: {fileID: -121999215813381170}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: output
-      _node: {fileID: -6306505523688707815}
-      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -3037668793181613101}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  nodeName: esacpe_check
-  input: 
-  output: 
-  eventName: escapecheck_event
 --- !u!114 &-5731474498521272129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,7 +366,7 @@ MonoBehaviour:
   m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 120, y: 280}
+  position: {x: 200, y: 280}
   ports:
     keys: []
     values: []
@@ -433,7 +386,7 @@ MonoBehaviour:
   m_Name: If
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1272, y: -328}
+  position: {x: 920, y: -312}
   ports:
     keys:
     - input
@@ -445,7 +398,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: output
-        node: {fileID: -6306505523688707815}
+        node: {fileID: -121999215813381170}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -480,7 +433,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1544, y: -408}
+  position: {x: 1192, y: -392}
   ports:
     keys: []
     values: []
@@ -532,7 +485,7 @@ MonoBehaviour:
         node: {fileID: -3804716705238767311}
         reroutePoints: []
       - fieldName: input
-        node: {fileID: -6306505523688707815}
+        node: {fileID: -3037668793181613101}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -574,8 +527,6 @@ MonoBehaviour:
   - {fileID: 1406385027222839614}
   - {fileID: -3542211363347569224}
   - {fileID: -3804716705238767311}
-  - {fileID: -6306505523688707815}
-  - {fileID: 54605767449801533}
   - {fileID: -3037668793181613101}
   - {fileID: -7251012623451657331}
   - {fileID: 514715297227441807}
@@ -585,25 +536,6 @@ MonoBehaviour:
   - {fileID: 1531000726174887872}
   - {fileID: 526714005604858332}
   - {fileID: 0}
---- !u!114 &54605767449801533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
-  m_Name: Event
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 968, y: -408}
-  ports:
-    keys: []
-    values: []
-  nodeName: escapecheck_event
-  isInherited: 0
 --- !u!114 &61243793012206222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +568,7 @@ MonoBehaviour:
   m_Name: Execute
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1544, y: -312}
+  position: {x: 1192, y: -296}
   ports:
     keys:
     - input
@@ -714,7 +646,7 @@ MonoBehaviour:
   input: 
   output: 
   boolName: IsEscape
-  value: 1
+  value: true
 --- !u!114 &761660875788843534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -893,7 +825,7 @@ MonoBehaviour:
   input: 
   output: 
   boolName: IsGotDamage
-  value: 0
+  value: false
 --- !u!114 &2615470567369533969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,7 +930,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1512, y: 88}
+  position: {x: 1528, y: 88}
   ports:
     keys: []
     values: []
@@ -1236,7 +1168,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1000, y: 24}
+  position: {x: 984, y: 24}
   ports:
     keys: []
     values: []

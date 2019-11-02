@@ -106,18 +106,6 @@ public class CharacterModel2 : MonoBehaviour
 		}
 	}
 
-	public void CheckEscape()
-	{
-		if (isDamaged)
-		{
-			ai.IsEscape = true;
-		}
-		else
-		{
-			ai.IsEscape = false;
-		}
-	}
-
 	private void StopAgent()
 	{
 		agent.speed = 0.0f;
@@ -138,7 +126,7 @@ public class CharacterModel2 : MonoBehaviour
 	{
 		if (other.tag == "player_attack")
 		{
-			isDamaged = true;
+			ai.IsGotDamage = true;
 		}
 	}
 }

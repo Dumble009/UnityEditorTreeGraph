@@ -2,24 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BT_Interrupt : BT_Node
+namespace BT
 {
-	public BT_Interrupt() : base() { }
-
-	public override ResultContainer Next()
+	public class BT_Interrupt : BT_Node
 	{
-		if (children != null && children.Count > 0)
+		public BT_Interrupt() : base() { }
+
+		public override ResultContainer Next()
 		{
-			if (children[0] != null)
+			if (children != null && children.Count > 0)
 			{
-				return children[0].Next();
+				if (children[0] != null)
+				{
+					return children[0].Next();
+				}
 			}
+			return new ResultContainer(BT_Result.FAILURE);
 		}
-		return new ResultContainer(BT_Result.FAILURE);
-	}
 
-	public bool IsInterrupt()
-	{
-		return condition.Invoke();
+		public bool IsInterrupt()
+		{
+			return condition.Invoke();
+		}
 	}
 }
