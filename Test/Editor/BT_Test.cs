@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using BT;
 
-public class UnitTest
+public class BT_Test
 {
 	[Test]
 	public void SuccessTest()
@@ -426,10 +426,9 @@ public class UnitTest
 		//
 		// root - timing - ex1 - ex_target
 		//
+		// timing : this node makes a timing which always returns true.
 		// ex1 : should be called once at first tick.
-		// failure1 : should be called once at first tick.
 		// ex_target : should be called twice. Second tick should start from this node.
-		// success 1 : should be called twice.
 
 		BT_Root root = new BT_Root();
 		BehaviourTree tree = new BehaviourTree(root);
@@ -475,10 +474,7 @@ public class UnitTest
 		//
 		// root - timing - ex1 - ex_target
 		//
-		// ex1 : should be called once at first tick.
-		// failure1 : should be called once at first tick.
-		// ex_target : should be called twice. Second tick should start from this node.
-		// success 1 : should be called twice.
+		// timing : this is a timer node which waits 0.1s.
 
 		BT_Root root = new BT_Root();
 		BehaviourTree tree = new BehaviourTree(root);
@@ -509,21 +505,154 @@ public class UnitTest
 		Assert.AreEqual(true, isOK1);
 		Assert.AreEqual(true, isOK2);
 
+		// wait 0.05s. timing hasn't activated yet.
 		System.Threading.Thread.Sleep(50);
 
 		tree.Tick();
 		Assert.AreEqual(false, isOK1);
 		Assert.AreEqual(false, isOK2);
 
-		System.Threading.Thread.Sleep(100);
+		// wait 0.06s. (0.11s has passed from beginning.) timing has activated.
+		System.Threading.Thread.Sleep(60);
 
 		tree.Tick();
 		Assert.AreEqual(false, isOK1);
 		Assert.AreEqual(true, isOK2);
 
+		// starts from root.
 		tree.Tick();
 		Assert.AreEqual(true, isOK1);
 		Assert.AreEqual(false, isOK2);
+	}
+
+	[Test]
+	public void TimerOverwriteTest()
+	{
+		//Timer Overwrite Test
+		//
+		// root - timing - ex1 - ex_target
+		//
+		// timing : this is a timer node which waits 0.1s. this will be overwritten.
+
+		BT_Root root = new BT_Root();
+		BehaviourTree tree = new BehaviourTree(root);
+		BT_Timing timing = new BT_Timing(tree, true, false);
+		BT_Execute ex1 = new BT_Execute();
+		BT_Execute ex_target = new BT_Execute();
+
+		root.AddChild(timing);
+		timing.AddChild(ex1);
+		ex1.AddChild(ex_target);
+
+		float waitTime = 0.1f;
+		timing.SetTimingCreator(() => {
+			return new Timer(ex_target, waitTime);
+		});
+
+		bool isOK1 = false, isOK2 = false;
+
+		ex1.AddEvent(() => {
+			isOK1 = !isOK1;
+		});
+
+		ex_target.AddEvent(() => {
+			isOK2 = !isOK2;
+		});
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		// wait 0.05s. timing hasn't activated yet.
+		System.Threading.Thread.Sleep(50);
+
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK2);
+
+		// wait 0.06s. (0.11s has passed since beginning, but timing is overwritten.) timing hasn't activated yet.
+		System.Threading.Thread.Sleep(60);
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		// wait 0.11s. (0.11s has passed since last tick.) timing has activated.
+		System.Threading.Thread.Sleep(110);
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(false, isOK2);
+
+		// starts from root.
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(true, isOK2);
+	}
+
+	[Test]
+	public void TimerMultipleTest()
+	{
+		//Timer Multiple Test
+		//
+		// root - timing - ex1 - ex_target
+		//
+		// timing : this is a timer node which waits 0.1s. this can be created multiply.
+
+		BT_Root root = new BT_Root();
+		BehaviourTree tree = new BehaviourTree(root);
+		BT_Timing timing = new BT_Timing(tree, false, true);
+		BT_Execute ex1 = new BT_Execute();
+		BT_Execute ex_target = new BT_Execute();
+
+		root.AddChild(timing);
+		timing.AddChild(ex1);
+		ex1.AddChild(ex_target);
+
+		float waitTime = 0.1f;
+		timing.SetTimingCreator(() => {
+			return new Timer(ex_target, waitTime);
+		});
+
+		bool isOK1 = false, isOK2 = false;
+
+		ex1.AddEvent(() => {
+			isOK1 = !isOK1;
+		});
+
+		ex_target.AddEvent(() => {
+			isOK2 = !isOK2;
+		});
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		// wait 0.05s. timing hasn't activated yet. second timing is created.
+		System.Threading.Thread.Sleep(50);
+
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK2);
+
+		// wait 0.06s. first timing has activated, but second one hasn't yet.
+		System.Threading.Thread.Sleep(60);
+
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		// wait 0.05s. second timing  has activated.
+		System.Threading.Thread.Sleep(50);
+
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK2);
+
+		// starts from root.
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
 	}
 
 	[Test]
@@ -533,10 +662,7 @@ public class UnitTest
 		//
 		// root - timing - ex1 - ex_target
 		//
-		// ex1 : should be called once at first tick.
-		// failure1 : should be called once at first tick.
-		// ex_target : should be called twice. Second tick should start from this node.
-		// success 1 : should be called twice.
+		// timing : this is a framecounter node which waits 2 frames.
 
 		BT_Root root = new BT_Root();
 		BehaviourTree tree = new BehaviourTree(root);
@@ -547,8 +673,7 @@ public class UnitTest
 		root.AddChild(timing);
 		timing.AddChild(ex1);
 		ex1.AddChild(ex_target);
-
-		float waitTime = 0.1f;
+		
 		timing.SetTimingCreator(() => {
 			return new FrameCounter(ex_target, 2);
 		});
@@ -567,13 +692,9 @@ public class UnitTest
 		Assert.AreEqual(true, isOK1);
 		Assert.AreEqual(true, isOK2);
 
-		System.Threading.Thread.Sleep(50);
-
 		tree.Tick();
 		Assert.AreEqual(false, isOK1);
 		Assert.AreEqual(false, isOK2);
-
-		System.Threading.Thread.Sleep(100);
 
 		tree.Tick();
 		Assert.AreEqual(true, isOK1);
@@ -585,6 +706,144 @@ public class UnitTest
 
 		tree.Tick();
 		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(true, isOK2);
+	}
+
+	[Test]
+	public void FrameCounterOverwriteTest()
+	{
+		//FrameCounter Overwrite Test
+		//
+		// root - ex1 - ex_target - if1 - timing
+		//
+		// timing : this is a framecounter node which waits 1 frames.
+		// if1 : should be positive at first and second frames.
+
+		BT_Root root = new BT_Root();
+		BehaviourTree tree = new BehaviourTree(root);
+		BT_Execute ex1 = new BT_Execute();
+		BT_Execute ex_target = new BT_Execute();
+		BT_If if1 = new BT_If();
+		BT_Timing timing = new BT_Timing(tree, true, false);
+
+		root.AddChild(ex1);
+		ex1.AddChild(ex_target);
+		ex_target.AddChild(if1);
+		if1.AddChild(timing);
+
+		timing.SetTimingCreator(() => {
+			return new FrameCounter(ex_target, 1);
+		});
+
+		bool isOK1 = false, isOK2 = false;
+
+		ex1.AddEvent(() => {
+			isOK1 = !isOK1;
+		});
+
+		ex_target.AddEvent(() => {
+			isOK2 = !isOK2;
+		});
+
+		int count = 0;
+
+		if1.SetCondition(() => {
+			count++;
+			return count <= 2;
+		});
+
+		// first timing is created.
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		// first timing is overwritten.
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK2);
+		
+		// first timing hasn't activated yet. if become negative.
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
+		
+		// first timing is activated.
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(false, isOK2);
+
+		// start from root.
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(true, isOK2);
+	}
+
+	[Test]
+	public void FrameCounterMultipleTest()
+	{
+		//FrameCounter Multiple Test
+		//
+		// root - ex1 - ex_target - if1 - timing
+		//
+		// timing : this is a framecounter node which waits 1 frames.
+		// if1 : should be positive at first and second frames.
+
+		BT_Root root = new BT_Root();
+		BehaviourTree tree = new BehaviourTree(root);
+		BT_Execute ex1 = new BT_Execute();
+		BT_Execute ex_target = new BT_Execute();
+		BT_If if1 = new BT_If();
+		BT_Timing timing = new BT_Timing(tree, false, true);
+
+		root.AddChild(ex1);
+		ex1.AddChild(ex_target);
+		ex_target.AddChild(if1);
+		if1.AddChild(timing);
+
+		timing.SetTimingCreator(() => {
+			return new FrameCounter(ex_target, 1);
+		});
+
+		bool isOK1 = false, isOK2 = false;
+
+		ex1.AddEvent(() => {
+			isOK1 = !isOK1;
+		});
+
+		ex_target.AddEvent(() => {
+			isOK2 = !isOK2;
+		});
+
+		int count = 0;
+
+		if1.SetCondition(() => {
+			count++;
+			return count <= 2;
+		});
+
+		// first timing is created.
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		// first timing hasn't activated yet. second timing is created.
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK2);
+
+		// first timing has activated. second timing hasn't activated yet. if node become negative.
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(true, isOK2);
+
+		//second timing has activated.
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK2);
+
+		//start from root
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
 		Assert.AreEqual(true, isOK2);
 	}
 }

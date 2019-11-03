@@ -19,17 +19,7 @@ namespace BT
 
 		public void Tick()
 		{
-			foreach (BT_Interrupt interrupt in interrupts)
-			{
-				if (interrupt.IsInterrupt())
-				{
-					ResultContainer _result = interrupt.Next();
-					ProcessResult(_result);
-
-					return;
-				}
-			}
-
+			// Check Timings
 			int timingLength = timings.Count;
 			bool isTimingActivated = false;
 			int activatedIndex = -1;
@@ -41,7 +31,6 @@ namespace BT
 					ProcessResult(_result);
 					isTimingActivated = true;
 					activatedIndex = i;
-					break;
 				}
 			}
 
@@ -50,6 +39,18 @@ namespace BT
 				timings.RemoveAt(activatedIndex);
 
 				return;
+			}
+
+			// Check Interrupts
+			foreach (BT_Interrupt interrupt in interrupts)
+			{
+				if (interrupt.IsInterrupt())
+				{
+					ResultContainer _result = interrupt.Next();
+					ProcessResult(_result);
+
+					return;
+				}
 			}
 
 			BT_Node nextNode = (isContinued && continueNode != null) ? continueNode : root;

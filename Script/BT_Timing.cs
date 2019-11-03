@@ -14,7 +14,7 @@ namespace BT
 		protected BehaviourTree tree;
 		protected bool isOverwrite;
 		protected bool isMultiple;
-		protected Timing lastInstance;
+		public Timing lastInstance;
 		protected TimingCreate timingCreator;
 
 		public override ResultContainer Next()

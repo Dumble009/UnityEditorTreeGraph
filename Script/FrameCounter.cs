@@ -2,8 +2,8 @@
 {
 	public class FrameCounter : Timing
 	{
-		int waitCount;
-		uint currentFrameCount;
+		public int waitCount;
+		public uint currentFrameCount;
 
 		public FrameCounter(BT_Node node, int _waitCount) : base(node)
 		{
