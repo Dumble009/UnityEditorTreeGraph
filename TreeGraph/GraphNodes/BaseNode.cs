@@ -46,7 +46,12 @@ public class BaseNode : Node,IBTGraphNode
         return true;
     }
 
-    virtual public string GetCode(){
+	virtual public string GetDeclare()
+	{
+		return "";
+	}
+
+    virtual public string GetInit(){
         return "";
     }
 

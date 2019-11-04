@@ -24,36 +24,35 @@ public class EditorTreeCompiler
 											.OrderBy(x => x.GetType().ToString())
 											.ToArray();
         foreach(SubNode node in sortedSubNodes){
-            code += node.GetCode();
+            code += node.GetInit();
         }
 
         code += "override public void MakeTree(){\n";
         code += "base.MakeTree();\n";
-        code += root.GetCode();
+
+		foreach (Node node in nodes)
+		{
+			if (node is IBTGraphNode i)
+			{
+				code += i.GetDeclare() + "\n";
+			}
+		}
+
+        code += root.GetInit();
         Node firstChild = root.GetOutputPort("output").GetConnections()[0].node;
         BuildTree(ref code, firstChild, root);
 		foreach (Node node in nodes)
 		{
 			if (node is InterruptNode interrupt)
 			{
-				code += interrupt.GetCode();
+				code += interrupt.GetInit();
 				BuildTree(ref code, interrupt.GetOutputPort("output").GetConnections()[0].node, interrupt);
 			}
 		}
         code += "}\n"; // maketree close
 
         code += "}"; // class close
-					 /*
-						 string path = Application.dataPath + "/"+FileNameToClassName(fileName);
-						 string extension = Path.GetExtension(path);
-						 if(string.IsNullOrEmpty(extension)){
-							 path += ".cs";
-						 }
-
-						 StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.ASCII);
-						 sw.Write(code);
-						 sw.Close();
-						 */
+					
 		return code;
     }
 
@@ -63,7 +62,7 @@ public class EditorTreeCompiler
 		bool isTargetCreated = createdNodes.Contains(ibt_target.GetNodeName());
 		if (!isTargetCreated)
 		{
-			code += ibt_target.GetCode();
+			code += ibt_target.GetInit();
 			createdNodes.Add(ibt_target.GetNodeName());
 		}
 		code += ibt_parent.GetNodeName() + ".AddChild(" + ibt_target.GetNodeName() + ");\n";

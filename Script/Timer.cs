@@ -3,9 +3,9 @@ namespace BT
 {
 	public class Timer : Timing
 	{
-		float startTime;
-		float waitTime;
-		public Timer(BT_Node node, float _waitTime) : base(node)
+		double startTime;
+		double waitTime;
+		public Timer(BT_Node node, double _waitTime) : base(node)
 		{
 			startTime = 0;
 			waitTime = _waitTime;
@@ -15,13 +15,13 @@ namespace BT
 		{
 			base.Init();
 			DateTime now = DateTime.Now;
-			startTime = now.Second + (now.Millisecond / 1000.0f);
+			startTime = now.Second + (now.Millisecond / 1000.0d);
 		}
 
 		public override bool Check()
 		{
 			DateTime now = DateTime.Now;
-			float currentTime = now.Second + (now.Millisecond / 1000.0f);
+			double currentTime = now.Second + (now.Millisecond / 1000.0d);
 
 			return currentTime - startTime >= waitTime;
 		}

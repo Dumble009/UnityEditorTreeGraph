@@ -6,13 +6,13 @@ public class BoolNode : SubNode
 {
     public bool defaultValue;
 
-    override public string GetCode(){
+    override public string GetInit(){
 		string code = "";
 		if (!isInherited)
 		{
 			/*code = "[UnityEngine.SerializeField]\n";
 			code += "public bool " + nodeName + "=" + defaultValue.ToString().ToLower() + ";\n";*/
-			code = string.Format(CodeTemplateReader.Instance.GetTemplate("Bool.txt"), nodeName, defaultValue.ToString().ToLower()) ;
+			code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Bool.txt"), nodeName, defaultValue.ToString().ToLower()) ;
 		}
         return code;
     }

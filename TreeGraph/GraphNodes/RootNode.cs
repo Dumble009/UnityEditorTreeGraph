@@ -30,10 +30,16 @@ public class RootNode : Node, IBTGraphNode
         }
     }
 
-    public string GetCode(){
+	public string GetDeclare()
+	{
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Root.txt"), nodeName);
+		return code;
+	}
+
+    public string GetInit(){
 		/*string code = "BT_Root "+nodeName+" = new BT_Root();\n";
         code += "behaviourTree = new BehaviourTree("+nodeName+");\n";*/
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Root.txt"), nodeName, "behaviourTree");
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Root.txt"), nodeName, "behaviourTree");
         return code;
     }
 

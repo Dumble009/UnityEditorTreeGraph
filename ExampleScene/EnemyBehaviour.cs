@@ -72,6 +72,19 @@ BT_Execute ActivateEscape = new BT_Execute();
 ActivateEscape.AddEvent(()=>{
 	IsEscape = true;
 });ResetDamageFlag.AddChild(ActivateEscape);
-ActivateEscape.AddChild(moveableCheck);
+BT_Timing EscapeTimer = new BT_Timing(behaviourTree, true, false);
+EscapeTimer.SetTimingCreator(()=>{
+	return new Timer(ResetDamageFlag, 3.0f);
+});ActivateEscape.AddChild(EscapeTimer);
+EscapeTimer.AddChild(moveableCheck);
+BT_Interrupt EscapeResetInterrupt = new BT_Interrupt();
+EscapeResetInterrupt.SetCondition(()=>{
+	return false;
+});
+behaviourTree.AddInterrupt(EscapeResetInterrupt);BT_Execute EscapeResetter = new BT_Execute();
+EscapeResetter.AddEvent(()=>{
+	IsEscape = false;
+});EscapeResetInterrupt.AddChild(EscapeResetter);
+EscapeResetter.AddChild(moveableCheck);
 }
 }

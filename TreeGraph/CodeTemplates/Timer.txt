@@ -1,0 +1,4 @@
+BT_Timing {0} = new BT_Timing({1}, {2}, {3});
+{0}.SetTimingCreator(()=>{{
+	return new Timer({4}, {5});
+}});

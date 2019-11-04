@@ -34,9 +34,9 @@ public class SetIntNode : BaseNode
 		}
 	}
 
-	public override string GetCode()
+	public override string GetInit()
 	{
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("SetParameter.txt"), nodeName, intName, value);
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("SetParameter.txt"), nodeName, intName, value);
 		return code;
 	}
 }

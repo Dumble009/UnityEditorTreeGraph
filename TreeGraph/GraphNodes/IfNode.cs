@@ -23,12 +23,19 @@ public class IfNode : BaseNode
       }
    }
 
-   override public string GetCode(){
+	public override string GetDeclare()
+	{
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("If.txt"), nodeName);
+		return code;
+	}
+
+	override public string GetInit()
+	{
 		/*string code = "BT_If " + nodeName + " = new BT_If();\n";
 		code += nodeName + ".SetCondition(()=>{return "+boolName+";});\n";*/
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("If.txt"), nodeName, condition);
-      return code;
-   }
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("If.txt"), nodeName, condition);
+		return code;
+	}
 
 	public override void InheritFrom(Node original)
 	{

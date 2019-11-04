@@ -4,10 +4,15 @@ using UnityEngine;
 [CreateNodeMenu("Miscellaneous/Failure")]
 public class FailureNode : BaseNode
 {
-	public override string GetCode()
+	public override string GetDeclare()
 	{
-		//string code = "BT_Failure " + nodeName + "= new BT_Failure();\n";
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Failure.txt"), nodeName);
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Failure.txt"), nodeName);
+		return code;
+	}
+
+	public override string GetInit()
+	{
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Failure.txt"), nodeName);
 		return code;
 	}
 }

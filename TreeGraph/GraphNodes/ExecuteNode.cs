@@ -28,10 +28,16 @@ public class ExecuteNode : BaseNode
         }
     }
 
-    override public string GetCode(){
+	public override string GetDeclare()
+	{
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Execute.txt"), nodeName);
+		return code;
+	}
+
+	override public string GetInit(){
 		/*string code = "BT_Execute "+nodeName+"= new BT_Execute();\n";
         code += nodeName + ".AddEvent(()=>{"+eventName+".Invoke();});\n";*/
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Execute.txt"), nodeName, eventName);
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Execute.txt"), nodeName, eventName);
         return code;
     }
 

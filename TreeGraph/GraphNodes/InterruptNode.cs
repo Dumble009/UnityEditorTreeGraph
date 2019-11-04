@@ -39,12 +39,18 @@ public class InterruptNode : Node, IBTGraphNode
 		}
 	}
 
-	public string GetCode()
+	public string GetDeclare()
+	{
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Interrupt.txt"), nodeName);
+		return code;
+	}
+
+	public string GetInit()
 	{
 		/*string code = "BT_Interrupt " + nodeName + " = new BT_Interrupt();\n";
 		code += nodeName + ".SetCondition(()=>{ return "+boolName+";});\n";
 		code += "behaviourTree.AddInterrupt("+nodeName+");\n";*/
-		string code = string.Format(CodeTemplateReader.Instance.GetTemplate("Interrupt.txt"), nodeName, condition, "behaviourTree");
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Interrupt.txt"), nodeName, condition, "behaviourTree");
 		return code;
 	}
 

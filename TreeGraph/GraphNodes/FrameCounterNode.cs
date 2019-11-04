@@ -2,12 +2,12 @@
 using UnityEngine;
 using XNode;
 
-public class TimerNode : BaseNode
+public class FrameCounterNode : BaseNode
 {
 	[SerializeField]
 	string targetNode;
 	[SerializeField]
-	string waitTime;
+	string waitFrame;
 	[SerializeField]
 	bool isOverwrite, isMultiple;
 
@@ -18,22 +18,24 @@ public class TimerNode : BaseNode
 		if (!string.IsNullOrEmpty(targetNode))
 		{
 			bool isTargetFound = false;
-			bool isWaitTimeValid = false;
+			bool isWaitFrameValid = false;
 			foreach (Node node in nodes)
 			{
 				if (node is SubNode s)
 				{
-					if (s.nodeName == waitTime)
+					if (s.nodeName == waitFrame)
 					{
-						isWaitTimeValid = true;
+						isWaitFrameValid = true;
 					}
 				}
-				else if (node is IBTGraphNode i)
+				else
 				{
-					if (i.GetNodeName() == targetNode)
+					if (node is IBTGraphNode i)
 					{
-						isTargetFound = true;
-						break;
+						if (i.GetNodeName() == targetNode)
+						{
+							isTargetFound = true;
+						}
 					}
 				}
 			}
@@ -43,10 +45,10 @@ public class TimerNode : BaseNode
 				Debug.LogError(nodeName + ": \"" + nodeName + "\" doesn't exist.");
 			}
 
-			double tmp;
-			if (!isWaitTimeValid && !double.TryParse(waitTime, out tmp))
+			uint tmp;
+			if (!isWaitFrameValid && !uint.TryParse(waitFrame, out tmp))
 			{
-				Debug.LogError(nodeName + ": WaitTime is invalid.");
+				Debug.LogError(nodeName + ": WaitFrame is invalid.");
 			}
 		}
 		else
@@ -54,9 +56,9 @@ public class TimerNode : BaseNode
 			Debug.LogError(nodeName + ": TargetNode is empty.");
 		}
 
-		if (string.IsNullOrEmpty(waitTime))
+		if (string.IsNullOrEmpty(waitFrame))
 		{
-			Debug.LogError(nodeName + ": WaitTime is empty.");
+			Debug.LogError(nodeName + ": WaitFrame is empty.");
 		}
 	}
 
@@ -68,7 +70,7 @@ public class TimerNode : BaseNode
 			isOverwrite.ToString().ToLower(),
 			isMultiple.ToString().ToLower()
 		};
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Timer.txt"), args);
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("FrameCounter.txt"), args);
 
 		return code;
 	}
@@ -81,9 +83,9 @@ public class TimerNode : BaseNode
 			isOverwrite.ToString().ToLower(),
 			isMultiple.ToString().ToLower(),
 			targetNode,
-			waitTime
+			waitFrame
 		};
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Timer.txt"), args);
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("FrameCounter.txt"), args);
 
 		return code;
 	}
