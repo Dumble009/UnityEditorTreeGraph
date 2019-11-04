@@ -19,10 +19,13 @@ namespace BT
 
 		public override ResultContainer Next()
 		{
+			UnityEngine.Debug.Log("next");
 			if (tree != null)
 			{
+				UnityEngine.Debug.Log("tree != null");
 				if (lastInstance == null || lastInstance.IsActivated || isMultiple)
 				{
+					UnityEngine.Debug.Log("create new timing");
 					lastInstance = CreateNewTiming();
 					lastInstance.Init();
 					tree.AddTiming(lastInstance);
@@ -31,6 +34,7 @@ namespace BT
 				{
 					if (isOverwrite)
 					{
+						UnityEngine.Debug.Log("init timing");
 						lastInstance.Init();
 					}
 				}

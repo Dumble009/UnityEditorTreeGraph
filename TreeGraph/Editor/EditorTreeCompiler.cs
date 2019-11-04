@@ -29,10 +29,12 @@ public class EditorTreeCompiler
 
         code += "override public void MakeTree(){\n";
         code += "base.MakeTree();\n";
+		code += root.GetDeclare() + root.GetInit();
+		var rootChild = root.GetOutputPort("output").GetConnection(0).node as IBTGraphNode;
 
 		foreach (Node node in nodes)
 		{
-			if (!(node is SubNode))
+			if (!(node is SubNode) && !(node is RootNode))
 			{
 				if (node is IBTGraphNode i)
 				{
@@ -58,8 +60,10 @@ public class EditorTreeCompiler
 			{
 				if (node is IBTGraphNode i)
 				{
-					code += i.GetInit() + "\n";
-
+					if (!(node is RootNode))
+					{
+						code += i.GetInit() + "\n";
+					}
 					var children = node.GetOutputPort("output").GetConnections()
 											.OrderBy(x => x.node.position.y)
 											.ToArray();

@@ -13,8 +13,7 @@ public UnityEngine.Events.UnityEvent attackablecheck_event;[UnityEngine.Serializ
 public UnityEngine.Events.UnityEvent moveablecheck_event;[UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent escape_event;override public void MakeTree(){
 base.MakeTree();
-BT_Root root = new BT_Root();
-BT_Selector selector1 = new BT_Selector();
+BT_Root root = new BT_Root();behaviourTree = new BehaviourTree(root);BT_Selector selector1 = new BT_Selector();
 BT_Execute attack = new BT_Execute();
 BT_Execute chase = new BT_Execute();
 BT_Execute patrol = new BT_Execute();
@@ -33,7 +32,6 @@ BT_Execute ActivateEscape = new BT_Execute();
 BT_Timing EscapeTimer = new BT_Timing(behaviourTree, true, false);
 BT_Interrupt EscapeResetInterrupt = new BT_Interrupt();
 BT_Execute EscapeResetter = new BT_Execute();
-behaviourTree = new BehaviourTree(root);
 root.AddChild(moveableCheck);
 
 selector1.AddChild(if_found);

@@ -117,7 +117,7 @@ public class CharacterModel1 : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "player_attack")
+		if (other.tag == "player_attack" && ai)
 		{
 			ai.IsGotDamage = true;
 		}

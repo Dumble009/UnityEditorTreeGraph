@@ -9,6 +9,7 @@ namespace BT
 		{
 			startTime = 0;
 			waitTime = _waitTime;
+			UnityEngine.Debug.Log("created");
 		}
 
 		public override void Init()
@@ -16,13 +17,14 @@ namespace BT
 			base.Init();
 			DateTime now = DateTime.Now;
 			startTime = now.Second + (now.Millisecond / 1000.0d);
+			UnityEngine.Debug.Log("init");
 		}
 
 		public override bool Check()
 		{
 			DateTime now = DateTime.Now;
 			double currentTime = now.Second + (now.Millisecond / 1000.0d);
-
+			UnityEngine.Debug.Log("check:" + (currentTime - startTime).ToString());
 			return currentTime - startTime >= waitTime;
 		}
 	}

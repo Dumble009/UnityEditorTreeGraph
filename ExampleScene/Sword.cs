@@ -23,7 +23,6 @@ public class Sword : MonoBehaviour
 		float angle = -90.0f;
 		while (angle <= 90.0f)
 		{
-			Debug.Log(angle);
 			angle += swingSpeed * Time.deltaTime;
 			Vector3 euler = transform.localRotation.eulerAngles;
 			euler.y = angle;
