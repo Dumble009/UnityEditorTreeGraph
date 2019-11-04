@@ -1,4 +1,3 @@
-BT_Execute {0} = new BT_Execute();
 {0}.AddEvent(()=>{{
 	{1} = {2};
 }});

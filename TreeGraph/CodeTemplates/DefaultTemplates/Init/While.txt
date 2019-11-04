@@ -1,0 +1,3 @@
+{0}.SetCondition(()=>{{
+	return {1};
+}});

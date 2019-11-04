@@ -24,7 +24,7 @@ public class EditorTreeCompiler
 											.OrderBy(x => x.GetType().ToString())
 											.ToArray();
         foreach(SubNode node in sortedSubNodes){
-            code += node.GetInit();
+            code += node.GetDeclare();
         }
 
         code += "override public void MakeTree(){\n";
@@ -32,13 +32,16 @@ public class EditorTreeCompiler
 
 		foreach (Node node in nodes)
 		{
-			if (node is IBTGraphNode i)
+			if (!(node is SubNode))
 			{
-				code += i.GetDeclare() + "\n";
+				if (node is IBTGraphNode i)
+				{
+					code += i.GetDeclare() + "\n";
+				}
 			}
 		}
 
-        code += root.GetInit();
+		/*code += root.GetInit();
         Node firstChild = root.GetOutputPort("output").GetConnections()[0].node;
         BuildTree(ref code, firstChild, root);
 		foreach (Node node in nodes)
@@ -47,6 +50,28 @@ public class EditorTreeCompiler
 			{
 				code += interrupt.GetInit();
 				BuildTree(ref code, interrupt.GetOutputPort("output").GetConnections()[0].node, interrupt);
+			}
+		}*/
+		foreach (Node node in nodes)
+		{
+			if (!(node is SubNode))
+			{
+				if (node is IBTGraphNode i)
+				{
+					code += i.GetInit() + "\n";
+
+					var children = node.GetOutputPort("output").GetConnections()
+											.OrderBy(x => x.node.position.y)
+											.ToArray();
+					foreach (NodePort port in children)
+					{
+						Node child = port.node;
+						if (child is IBTGraphNode i_child)
+						{
+							code += i.GetNodeName() + ".AddChild(" + i_child.GetNodeName() + ");\n";
+						}
+					}
+				}
 			}
 		}
         code += "}\n"; // maketree close

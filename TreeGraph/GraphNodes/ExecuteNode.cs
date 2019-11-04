@@ -30,7 +30,7 @@ public class ExecuteNode : BaseNode
 
 	public override string GetDeclare()
 	{
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Execute.txt"), nodeName);
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Execute.txt"), nodeName);
 		return code;
 	}
 

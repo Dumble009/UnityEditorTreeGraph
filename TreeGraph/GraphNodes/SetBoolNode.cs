@@ -34,6 +34,12 @@ public class SetBoolNode : BaseNode
 		}
 	}
 
+	public override string GetDeclare()
+	{
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("SetParameter.txt"), nodeName);
+		return code;
+	}
+
 	public override string GetInit()
 	{
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("SetParameter.txt"), nodeName, boolName, value);

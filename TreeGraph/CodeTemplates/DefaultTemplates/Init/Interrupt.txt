@@ -1,4 +1,4 @@
-BT_While {0} = new BT_While();
 {0}.SetCondition(()=>{{
 	return {1};
 }});
+{2}.AddInterrupt({0});

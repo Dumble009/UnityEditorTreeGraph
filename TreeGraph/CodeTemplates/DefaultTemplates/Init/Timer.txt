@@ -1,0 +1,3 @@
+{0}.SetTimingCreator(()=>{{
+	return new Timer({1}, {2});
+}});

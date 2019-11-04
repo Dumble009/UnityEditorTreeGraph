@@ -5,8 +5,8 @@ public class CodeTemplateReader
 {
 	private CodeTemplateReader()
 	{
-		declareDirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates/Declare";
-		initDirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates/Init";
+		declareDirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates/DefaultTemplates/Declare";
+		initDirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates/DefaultTemplates/Init";
 	}
 
 	private static CodeTemplateReader instance;

@@ -75,11 +75,8 @@ public class TimerNode : BaseNode
 
 	public override string GetInit()
 	{
-		object[] args = new object[6] {
+		object[] args = new object[3] {
 			nodeName,
-			"behaviourTree",
-			isOverwrite.ToString().ToLower(),
-			isMultiple.ToString().ToLower(),
 			targetNode,
 			waitTime
 		};
