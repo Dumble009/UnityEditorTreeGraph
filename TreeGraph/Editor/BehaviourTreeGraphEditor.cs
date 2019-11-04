@@ -19,7 +19,8 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
         GUI.EndGroup();
 
         GUI.Box(new Rect(0, NodeEditorWindow.current.topPadding, 120, Screen.height), "");
-        GUILayout.BeginArea(new Rect(0, 30, 120, Screen.height - 10));
+		
+        GUILayout.BeginArea(new Rect(0, NodeEditorWindow.current.topPadding + 2, 120, Screen.height - 20));
         if(GUILayout.Button("Test")){
             EditorTreeTester.RunTest(target.nodes);
         }
