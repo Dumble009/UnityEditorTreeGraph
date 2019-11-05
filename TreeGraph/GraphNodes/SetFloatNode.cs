@@ -45,4 +45,14 @@ public class SetFloatNode : BaseNode
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("SetParameter.txt"), nodeName, floatName, value);
 		return code;
 	}
+
+	public override void InheritFrom(Node original)
+	{
+		base.InheritFrom(original);
+		if (original is SetFloatNode f)
+		{
+			this.floatName = f.floatName;
+			this.value = f.value;
+		}
+	}
 }

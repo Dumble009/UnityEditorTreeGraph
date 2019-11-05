@@ -45,4 +45,14 @@ public class SetBoolNode : BaseNode
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("SetParameter.txt"), nodeName, boolName, value);
 		return code;
 	}
+
+	public override void InheritFrom(Node original)
+	{
+		base.InheritFrom(original);
+		if (original is SetBoolNode s)
+		{
+			this.boolName = s.boolName;
+			this.value = s.value;
+		}
+	}
 }

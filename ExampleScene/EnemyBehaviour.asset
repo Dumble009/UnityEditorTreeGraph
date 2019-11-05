@@ -32,7 +32,7 @@ MonoBehaviour:
   m_Name: Interrupt
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1528, y: 168}
+  position: {x: -1736, y: 168}
   ports:
     keys:
     - output
@@ -43,7 +43,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: input
-        node: {fileID: 1531000726174887872}
+        node: {fileID: 846621184164116881}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -536,9 +536,10 @@ MonoBehaviour:
   - {fileID: 1531000726174887872}
   - {fileID: 526714005604858332}
   - {fileID: 5755565669294184549}
-  - {fileID: 0}
   - {fileID: 6342771964047879831}
   - {fileID: 3712515241169657576}
+  - {fileID: 846621184164116881}
+  - {fileID: 0}
 --- !u!114 &61243793012206222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +553,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -248, y: 136}
+  position: {x: -344, y: 136}
   ports:
     keys: []
     values: []
@@ -690,6 +691,54 @@ MonoBehaviour:
   nodeName: IsAttackable
   isInherited: 0
   defaultValue: 0
+--- !u!114 &846621184164116881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda4c45232ca63c41af7474f1aa0379b, type: 3}
+  m_Name: Set Bool
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1512, y: 136}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: 846621184164116881}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: -8967391931752289661}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: 846621184164116881}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 1531000726174887872}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: SetFound
+  input: 
+  output: 
+  boolName: IsFound
+  value: true
 --- !u!114 &1109584535537828814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,7 +855,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: output
-        node: {fileID: -8967391931752289661}
+        node: {fileID: 846621184164116881}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -1000,7 +1049,7 @@ MonoBehaviour:
   m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1512, y: 328}
+  position: {x: -1720, y: 328}
   ports:
     keys: []
     values: []

@@ -45,4 +45,14 @@ public class SetIntNode : BaseNode
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("SetParameter.txt"), nodeName, intName, value);
 		return code;
 	}
+
+	public override void InheritFrom(Node original)
+	{
+		base.InheritFrom(original);
+		if (original is SetIntNode i)
+		{
+			this.intName = i.intName;
+			this.value = i.value;
+		}
+	}
 }

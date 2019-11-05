@@ -86,4 +86,16 @@ public class FrameCounterNode : BaseNode
 
 		return code;
 	}
+
+	public override void InheritFrom(Node original)
+	{
+		base.InheritFrom(original);
+		if (original is FrameCounterNode f)
+		{
+			this.targetNode = f.targetNode;
+			this.waitFrame = f.waitFrame;
+			this.isOverwrite = f.isOverwrite;
+			this.isMultiple = f.isMultiple;
+		}
+	}
 }

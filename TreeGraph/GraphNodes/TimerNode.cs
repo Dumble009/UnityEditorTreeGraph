@@ -60,6 +60,18 @@ public class TimerNode : BaseNode
 		}
 	}
 
+	public override void InheritFrom(Node original)
+	{
+		base.InheritFrom(original);
+		if (original is TimerNode t)
+		{
+			this.targetNode = t.targetNode;
+			this.waitTime = t.waitTime;
+			this.isOverwrite = t.isOverwrite;
+			this.isMultiple = t.isMultiple;
+		}
+	}
+
 	public override string GetDeclare()
 	{
 		object[] args = new object[4] {

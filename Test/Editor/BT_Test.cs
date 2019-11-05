@@ -97,7 +97,7 @@ public class BT_Test
 		// selector algorithm test
 		//
 		//                         1  __ failure __ ex1 
-		//root - sequence -|
+		//root - selector -|
 		//                         2 | -- ex2 -- succcess
 		//                         3 ----ex3  
 		//

@@ -1,17 +1,6 @@
 using BT;
-public class EnemyBehaviour:BehaviourTreeComponent{
-[UnityEngine.SerializeField]
-public bool IsFound = false;[UnityEngine.SerializeField]
-public bool IsAttackable = false;[UnityEngine.SerializeField]
-public bool IsMoveable = false;[UnityEngine.SerializeField]
-public bool IsEscape = false;[UnityEngine.SerializeField]
-public bool IsGotDamage = false;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent attack_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent chase_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent patrol_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent attackablecheck_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent moveablecheck_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent escape_event;override public void MakeTree(){
+public class TimidEnemy:EnemyBehaviour{
+override public void MakeTree(){
 base.MakeTree();
 BT_Root root = new BT_Root();behaviourTree = new BehaviourTree(root);BT_Selector selector1 = new BT_Selector();
 BT_Execute attack = new BT_Execute();
@@ -29,9 +18,6 @@ BT_Execute escape = new BT_Execute();
 BT_Interrupt DamageInterrupt = new BT_Interrupt();
 BT_Execute ResetDamageFlag = new BT_Execute();
 BT_Execute ActivateEscape = new BT_Execute();
-BT_Timing EscapeTimer = new BT_Timing(behaviourTree, true, false);
-BT_Interrupt EscapeResetInterrupt = new BT_Interrupt();
-BT_Execute EscapeResetter = new BT_Execute();
 BT_Execute SetFound = new BT_Execute();
 root.AddChild(moveableCheck);
 
@@ -93,20 +79,7 @@ ResetDamageFlag.AddChild(ActivateEscape);
 ActivateEscape.AddEvent(()=>{
 	IsEscape = true;
 });
-ActivateEscape.AddChild(EscapeTimer);
-EscapeTimer.SetTimingCreator(()=>{
-	return new Timer(EscapeResetInterrupt, 3.0);
-});
-EscapeTimer.AddChild(moveableCheck);
-EscapeResetInterrupt.SetCondition(()=>{
-	return false;
-});
-behaviourTree.AddInterrupt(EscapeResetInterrupt);
-EscapeResetInterrupt.AddChild(EscapeResetter);
-EscapeResetter.AddEvent(()=>{
-	IsEscape = false;
-});
-EscapeResetter.AddChild(moveableCheck);
+ActivateEscape.AddChild(moveableCheck);
 SetFound.AddEvent(()=>{
 	IsFound = true;
 });
