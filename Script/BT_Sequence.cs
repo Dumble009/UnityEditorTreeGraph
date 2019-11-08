@@ -25,10 +25,10 @@ namespace BT
 						currentIndex = 0;
 					}
 				}
-				else if (result.Result == BT_Result.FAILURE)
+				/*else if (result.Result == BT_Result.FAILURE)
 				{
 					currentIndex = 0;
-				}
+				}*/
 
 				return result;
 			}
