@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using XNode;
-
+[CreateNodeMenu("Control/If")]
 public class IfNode : BaseNode
 {
 	//public string boolName;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
-
+[CreateNodeMenu("Fork/Sequence")]
 public class SequenceNode : BaseMultiOutputNode
 {
 	override public bool Test(List<Node> nodes)

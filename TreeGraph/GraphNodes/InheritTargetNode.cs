@@ -1,5 +1,6 @@
 ﻿using XNode;
 using UnityEngine;
+[CreateNodeMenu("")]
 public class InheritTargetNode : Node
 {
 	[SerializeField, NonEditable]

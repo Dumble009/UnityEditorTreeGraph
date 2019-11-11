@@ -1,7 +1,7 @@
 ﻿using XNode;
 using System.Collections.Generic;
 using UnityEngine;
-
+[CreateNodeMenu("Head/Root")]
 public class RootNode : Node, IBTGraphNode
 {
     public string nodeName;

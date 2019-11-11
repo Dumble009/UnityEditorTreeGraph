@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using XNode;
-
+[CreateNodeMenu("Timing/FrameCounter")]
 public class FrameCounterNode : BaseNode
 {
 	[SerializeField]

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using XNode;
-
+[CreateNodeMenu("Fork/Selector")]
 public class SelectorNode : BaseMultiOutputNode
 {
 	override public bool Test(List<Node> nodes)

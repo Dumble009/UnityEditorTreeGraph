@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using XNode;
 using UnityEngine;
+[CreateNodeMenu("Execute")]
 public class ExecuteNode : BaseNode
 {
     public string eventName;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
-
+[CreateNodeMenu("Head/Interrupt")]
 public class InterruptNode : Node, IBTGraphNode
 {
 	public string nodeName;
