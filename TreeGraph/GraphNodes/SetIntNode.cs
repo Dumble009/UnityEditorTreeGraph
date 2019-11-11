@@ -40,13 +40,13 @@ public class SetIntNode : BaseNode
 
 	public override string GetDeclare()
 	{
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("SetParameter.txt"), nodeName);
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("SetParameter"), nodeName);
 		return code;
 	}
 
 	public override string GetInit()
 	{
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("SetParameter.txt"), nodeName, intName, value);
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("SetParameter"), nodeName, intName, value);
 		return code;
 	}
 

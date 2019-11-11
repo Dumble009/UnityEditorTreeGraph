@@ -76,7 +76,7 @@ public class FrameCounterNode : BaseNode
 			isOverwrite.ToString().ToLower(),
 			isMultiple.ToString().ToLower()
 		};
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("FrameCounter.txt"), args);
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("FrameCounter"), args);
 
 		return code;
 	}
@@ -88,7 +88,7 @@ public class FrameCounterNode : BaseNode
 			targetNode,
 			waitFrame
 		};
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("FrameCounter.txt"), args);
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("FrameCounter"), args);
 
 		return code;
 	}

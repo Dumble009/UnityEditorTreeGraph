@@ -32,7 +32,7 @@ public class IfNode : BaseNode
 
 	public override string GetDeclare()
 	{
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("If.txt"), nodeName);
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("If"), nodeName);
 		return code;
 	}
 
@@ -40,7 +40,7 @@ public class IfNode : BaseNode
 	{
 		/*string code = "BT_If " + nodeName + " = new BT_If();\n";
 		code += nodeName + ".SetCondition(()=>{return "+boolName+";});\n";*/
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("If.txt"), nodeName, condition);
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("If"), nodeName, condition);
 		return code;
 	}
 

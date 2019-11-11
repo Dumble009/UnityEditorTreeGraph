@@ -86,7 +86,7 @@ public class TimerNode : BaseNode
 			isOverwrite.ToString().ToLower(),
 			isMultiple.ToString().ToLower()
 		};
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Timer.txt"), args);
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Timer"), args);
 
 		return code;
 	}
@@ -98,7 +98,7 @@ public class TimerNode : BaseNode
 			targetNode,
 			waitTime
 		};
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Timer.txt"), args);
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Timer"), args);
 
 		return code;
 	}

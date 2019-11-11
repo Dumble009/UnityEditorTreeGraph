@@ -23,9 +23,13 @@ public class EditorTreeCompiler
 		var sortedSubNodes = subNodes
 											.OrderBy(x => x.GetType().ToString())
 											.ToArray();
-        foreach(SubNode node in sortedSubNodes){
-            code += node.GetDeclare();
-        }
+		foreach (SubNode node in sortedSubNodes)
+		{
+			if (!node.isInherited)
+			{
+				code += node.GetDeclare();
+			}
+		}
 
         code += "override public void MakeTree(){\n";
         code += "base.MakeTree();\n";

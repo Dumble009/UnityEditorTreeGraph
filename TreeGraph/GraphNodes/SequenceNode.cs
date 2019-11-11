@@ -19,14 +19,14 @@ public class SequenceNode : BaseMultiOutputNode
 
 	public override string GetDeclare()
 	{
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Sequence.txt"), nodeName);
+		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Sequence"), nodeName);
 		return code;
 	}
 
 	override public string GetInit()
 	{
 		//string code = "BT_Sequence "+nodeName+"= new BT_Sequence();\n";
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Sequence.txt"), nodeName);
+		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Sequence"), nodeName);
 		return code;
 	}
 }

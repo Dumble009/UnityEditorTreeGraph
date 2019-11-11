@@ -4,14 +4,13 @@ public class FloatNode : SubNode
 {
     public float defaultValue;
 
-    override public string GetDeclare(){
+	override public string GetDeclare()
+	{
 		string code = "";
-		if (!isInherited)
-		{
-			/*code = "[UnityEngine.SerializeField]\n";
-			code += "float " + nodeName + "=" + defaultValue.ToString() + "f;\n";*/
-			code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Float.txt"), nodeName, defaultValue.ToString());
-		}
-        return code;
-    }
+		/*code = "[UnityEngine.SerializeField]\n";
+		code += "float " + nodeName + "=" + defaultValue.ToString() + "f;\n";*/
+		code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Float"), nodeName, defaultValue.ToString());
+
+		return code;
+	}
 }
