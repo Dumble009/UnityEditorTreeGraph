@@ -5,12 +5,17 @@ using XNode;
 
 public class SequenceNode : BaseMultiOutputNode
 {
-    override public void Test(List<Node> nodes){
-        base.Test(nodes);
-        if(!this.GetOutputPort("output").IsConnected){
-            Debug.LogError(nodeName+": This node doesn't have any children.");
-        }
-    }
+	override public bool Test(List<Node> nodes)
+	{
+		bool result = base.Test(nodes);
+		if (!this.GetOutputPort("output").IsConnected)
+		{
+			Debug.LogError(nodeName + ": This node doesn't have any children.");
+			result = false;
+		}
+
+		return result;
+	}
 
 	public override string GetDeclare()
 	{
@@ -18,9 +23,10 @@ public class SequenceNode : BaseMultiOutputNode
 		return code;
 	}
 
-	override public string GetInit(){
+	override public string GetInit()
+	{
 		//string code = "BT_Sequence "+nodeName+"= new BT_Sequence();\n";
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Sequence.txt"), nodeName);
-        return code;
-    }
+		return code;
+	}
 }

@@ -5,12 +5,13 @@ public class ExecuteNode : BaseNode
 {
     public string eventName;
 
-    override public void Test(List<Node> nodes){
-        base.Test(nodes);
+    override public bool Test(List<Node> nodes){
+        bool result = base.Test(nodes);
         
         if(!string.IsNullOrEmpty(nodeName)){
             if(string.IsNullOrEmpty(eventName)){
                 Debug.LogError(nodeName + ": Event name is empty");
+				result = false;
             }else{
                 bool isEventExist = false;
                 foreach(Node node in nodes){
@@ -23,9 +24,12 @@ public class ExecuteNode : BaseNode
                 }
                 if(!isEventExist){
                     Debug.LogError(nodeName+": Event name \""+eventName+"\" doesn't exist.");
+					result = false;
                 }
             }
         }
+
+		return result;
     }
 
 	public override string GetDeclare()

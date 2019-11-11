@@ -20,11 +20,13 @@ public class InterruptNode : Node, IBTGraphNode
 		nodeName = name;
 	}
 
-	public void Test(List<Node> nodes)
+	public bool Test(List<Node> nodes)
 	{
+		bool result = true;
 		if (string.IsNullOrEmpty(nodeName))
 		{
 			Debug.LogError("This node doesn't have a name. All node should have an unique name.");
+			result = false;
 		}
 		
 		foreach (Node node in nodes)
@@ -34,9 +36,12 @@ public class InterruptNode : Node, IBTGraphNode
 				if (this.nodeName == i.GetNodeName() && node != this)
 				{
 					Debug.LogError(nodeName + ":This nodename is not unique.");
+					result = false;
 				}
 			}
 		}
+
+		return result;
 	}
 
 	public string GetDeclare()

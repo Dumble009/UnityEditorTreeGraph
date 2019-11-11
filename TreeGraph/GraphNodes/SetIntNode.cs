@@ -6,12 +6,13 @@ public class SetIntNode : BaseNode
 {
 	public string intName;
 	public string value;
-	public override void Test(List<Node> nodes)
+	public override bool Test(List<Node> nodes)
 	{
-		base.Test(nodes);
+		bool result = base.Test(nodes);
 		if (string.IsNullOrEmpty(intName))
 		{
 			Debug.LogError(nodeName + " : Parameter name is empty.");
+			result = false;
 		}
 		else
 		{
@@ -30,8 +31,11 @@ public class SetIntNode : BaseNode
 			if (!isParameterExist)
 			{
 				Debug.LogError(nodeName + " : Int parameter \"" + intName + "\" doesn't exist.");
+				result = false;
 			}
 		}
+
+		return result;
 	}
 
 	public override string GetDeclare()

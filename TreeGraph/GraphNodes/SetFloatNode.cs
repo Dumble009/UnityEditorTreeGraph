@@ -6,12 +6,13 @@ public class SetFloatNode : BaseNode
 {
 	public string floatName;
 	public string value;
-	public override void Test(List<Node> nodes)
+	public override bool Test(List<Node> nodes)
 	{
-		base.Test(nodes);
+		bool result = base.Test(nodes);
 		if (string.IsNullOrEmpty(floatName))
 		{
 			Debug.LogError(nodeName + " : Parameter name is empty.");
+			result = false;
 		}
 		else
 		{
@@ -30,8 +31,11 @@ public class SetFloatNode : BaseNode
 			if (!isParameterExist)
 			{
 				Debug.LogError(nodeName + " : Float parameter \"" + floatName + "\" doesn't exist.");
+				result = false;
 			}
 		}
+
+		return result;
 	}
 
 	public override string GetDeclare()

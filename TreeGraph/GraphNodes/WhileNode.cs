@@ -7,17 +7,25 @@ public class WhileNode : BaseNode
 	[TextArea]
 	public string condition;
 
-    override public void Test(List<Node> nodes){
-        base.Test(nodes);
-        if(!string.IsNullOrEmpty(nodeName)){
-            if(string.IsNullOrEmpty(condition)){
-                Debug.LogError(nodeName+": condition is empty.");
-            }
-        }
-        if(!this.GetOutputPort("output").IsConnected){
-            Debug.LogAssertion(nodeName+": This node doesn't have any children.");
-        }
-    }
+	override public bool Test(List<Node> nodes)
+	{
+		bool result = base.Test(nodes);
+		if (!string.IsNullOrEmpty(nodeName))
+		{
+			if (string.IsNullOrEmpty(condition))
+			{
+				Debug.LogError(nodeName + ": condition is empty.");
+				result = false;
+			}
+		}
+		if (!this.GetOutputPort("output").IsConnected)
+		{
+			Debug.LogAssertion(nodeName + ": This node doesn't have any children.");
+			result = false;
+		}
+
+		return result;
+	}
 
 	public override string GetDeclare()
 	{

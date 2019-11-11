@@ -6,25 +6,28 @@ using XNodeEditor;
 [CustomNodeGraphEditor(typeof(BehaviourTreeGraph))]
 public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 {
-    bool pFloatFoldout = false;
-    bool pIntFoldout = false;
-    bool pBoolFoldout = false;
-    bool pEventFoldout = false;
-    bool pConditionFoldout = false;
-    Vector2 scrollPosition = new Vector2(0, 0);
+	bool pFloatFoldout = false;
+	bool pIntFoldout = false;
+	bool pBoolFoldout = false;
+	bool pEventFoldout = false;
+	bool pConditionFoldout = false;
+	Vector2 scrollPosition = new Vector2(0, 0);
 	string inherited_prefix = "Inherited_";
 	BehaviourTreeGraph inheritGraph;
-	
-    override public void OnGUI(){
-        GUI.EndGroup();
 
-        GUI.Box(new Rect(0, NodeEditorWindow.current.topPadding, 120, Screen.height), "");
-		
-        GUILayout.BeginArea(new Rect(0, NodeEditorWindow.current.topPadding + 2, 120, Screen.height - 20));
-        if(GUILayout.Button("Test")){
-            EditorTreeTester.RunTest(target.nodes);
-        }
-        if(GUILayout.Button("Compile")){
+	override public void OnGUI()
+	{
+		GUI.EndGroup();
+
+		GUI.Box(new Rect(0, NodeEditorWindow.current.topPadding, 120, Screen.height), "");
+
+		GUILayout.BeginArea(new Rect(0, NodeEditorWindow.current.topPadding + 2, 120, Screen.height - 20));
+		if (GUILayout.Button("Test"))
+		{
+			EditorTreeTester.RunTest(target.nodes);
+		}
+		if (GUILayout.Button("Compile") && EditorTreeTester.RunTest(target.nodes))
+		{
 			string inheritedClass = "";
 			bool isInherited = false;
 			foreach (Node node in target.nodes)
@@ -66,19 +69,22 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 		{
 			DisableInherit();
 		}
-		
+
 		scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-        pFloatFoldout = EditorGUILayout.Foldout(pFloatFoldout, "Float");
+		pFloatFoldout = EditorGUILayout.Foldout(pFloatFoldout, "Float");
 
 		GUIStyleState original = new GUIStyleState();
 		GUIStyleState inherited = new GUIStyleState();
 		original.textColor = Color.black;
 		inherited.textColor = Color.blue;
 
-        if(pFloatFoldout){
-            EditorGUI.indentLevel++;
-            foreach(Node node in target.nodes){
-                if(node is FloatNode f){
+		if (pFloatFoldout)
+		{
+			EditorGUI.indentLevel++;
+			foreach (Node node in target.nodes)
+			{
+				if (node is FloatNode f)
+				{
 					GUIStyle style = new GUIStyle();
 					if (f.isInherited)
 					{
@@ -88,16 +94,19 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 					{
 						style.normal = original;
 					}
-                    EditorGUILayout.LabelField(f.nodeName+":"+f.defaultValue.ToString(), style);
-                }
-            }
-            EditorGUI.indentLevel--;
-        }
-        pIntFoldout = EditorGUILayout.Foldout(pIntFoldout, "Int");
-        if(pIntFoldout){
-            EditorGUI.indentLevel++;
-            foreach(Node node in target.nodes){
-                if(node is IntNode i){
+					EditorGUILayout.LabelField(f.nodeName + ":" + f.defaultValue.ToString(), style);
+				}
+			}
+			EditorGUI.indentLevel--;
+		}
+		pIntFoldout = EditorGUILayout.Foldout(pIntFoldout, "Int");
+		if (pIntFoldout)
+		{
+			EditorGUI.indentLevel++;
+			foreach (Node node in target.nodes)
+			{
+				if (node is IntNode i)
+				{
 					GUIStyle style = new GUIStyle();
 					if (i.isInherited)
 					{
@@ -108,16 +117,19 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 						style.normal = original;
 					}
 					EditorGUILayout.LabelField(i.nodeName + ":" + i.defaultValue.ToString(), style);
-                }
-            }
-            EditorGUI.indentLevel--;
-        }
+				}
+			}
+			EditorGUI.indentLevel--;
+		}
 
-        pBoolFoldout = EditorGUILayout.Foldout(pBoolFoldout, "Bool");
-        if(pBoolFoldout){
-            EditorGUI.indentLevel++;
-            foreach(Node node in target.nodes){
-                if(node is BoolNode b){
+		pBoolFoldout = EditorGUILayout.Foldout(pBoolFoldout, "Bool");
+		if (pBoolFoldout)
+		{
+			EditorGUI.indentLevel++;
+			foreach (Node node in target.nodes)
+			{
+				if (node is BoolNode b)
+				{
 					GUIStyle style = new GUIStyle();
 					if (b.isInherited)
 					{
@@ -128,16 +140,19 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 						style.normal = original;
 					}
 					EditorGUILayout.LabelField(b.nodeName + ":" + b.defaultValue.ToString(), style);
-                }
-            }
-            EditorGUI.indentLevel--;
-        }
+				}
+			}
+			EditorGUI.indentLevel--;
+		}
 
-        pEventFoldout = EditorGUILayout.Foldout(pEventFoldout, "Event");
-        if(pEventFoldout){
-            EditorGUI.indentLevel++;
-            foreach(Node node in target.nodes){
-                if(node is EventNode e){
+		pEventFoldout = EditorGUILayout.Foldout(pEventFoldout, "Event");
+		if (pEventFoldout)
+		{
+			EditorGUI.indentLevel++;
+			foreach (Node node in target.nodes)
+			{
+				if (node is EventNode e)
+				{
 					GUIStyle style = new GUIStyle();
 					if (e.isInherited)
 					{
@@ -148,17 +163,17 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 						style.normal = original;
 					}
 					EditorGUILayout.LabelField(e.nodeName, style);
-                }
-            }
-            EditorGUI.indentLevel--;
-        }
+				}
+			}
+			EditorGUI.indentLevel--;
+		}
 
-        GUILayout.EndScrollView();
-        GUILayout.EndArea();
-        
+		GUILayout.EndScrollView();
+		GUILayout.EndArea();
 
-        GUI.BeginGroup(new Rect(0, NodeEditorWindow.current.topPadding - NodeEditorWindow.current.topPadding * NodeEditorWindow.current.zoom, Screen.width, Screen.height));
-    }
+
+		GUI.BeginGroup(new Rect(0, NodeEditorWindow.current.topPadding - NodeEditorWindow.current.topPadding * NodeEditorWindow.current.zoom, Screen.width, Screen.height));
+	}
 
 	public override void RemoveNode(Node node)
 	{

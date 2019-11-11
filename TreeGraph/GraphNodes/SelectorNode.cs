@@ -4,12 +4,17 @@ using XNode;
 
 public class SelectorNode : BaseMultiOutputNode
 {
-    override public void Test(List<Node> nodes){
-        base.Test(nodes);
-        if(!this.GetOutputPort("output").IsConnected){
-            Debug.LogError(nodeName+": This node doesn't have any children.");
-        }
-    }
+	override public bool Test(List<Node> nodes)
+	{
+		bool result = base.Test(nodes);
+		if (!this.GetOutputPort("output").IsConnected)
+		{
+			Debug.LogError(nodeName + ": This node doesn't have any children.");
+			result = false;
+		}
+
+		return result;
+	}
 
 	public override string GetDeclare()
 	{
@@ -17,9 +22,10 @@ public class SelectorNode : BaseMultiOutputNode
 		return code;
 	}
 
-	override public string GetInit(){
+	override public string GetInit()
+	{
 		//string code = "BT_Selector "+nodeName+" = new BT_Selector();\n";
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Selector.txt"), nodeName);
-        return code;
-    }
+		return code;
+	}
 }

@@ -6,12 +6,13 @@ public class SetBoolNode : BaseNode
 {
 	public string boolName;
 	public string value;
-	public override void Test(List<Node> nodes)
+	public override bool Test(List<Node> nodes)
 	{
-		base.Test(nodes);
+		bool result = base.Test(nodes);
 		if (string.IsNullOrEmpty(boolName))
 		{
 			Debug.LogError(nodeName + " : Parameter name is empty.");
+			result = false;
 		}
 		else
 		{
@@ -30,8 +31,11 @@ public class SetBoolNode : BaseNode
 			if (!isParameterExist)
 			{
 				Debug.LogError(nodeName + " : Bool parameter \"" + boolName + "\" doesn't exist.");
+				result = false;
 			}
 		}
+
+		return result;
 	}
 
 	public override string GetDeclare()

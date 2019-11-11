@@ -11,9 +11,9 @@ public class FrameCounterNode : BaseNode
 	[SerializeField]
 	bool isOverwrite, isMultiple;
 
-	public override void Test(List<Node> nodes)
+	public override bool Test(List<Node> nodes)
 	{
-		base.Test(nodes);
+		bool result = base.Test(nodes);
 
 		if (!string.IsNullOrEmpty(targetNode))
 		{
@@ -43,23 +43,29 @@ public class FrameCounterNode : BaseNode
 			if (!isTargetFound)
 			{
 				Debug.LogError(nodeName + ": \"" + nodeName + "\" doesn't exist.");
+				result = false;
 			}
 
 			uint tmp;
 			if (!isWaitFrameValid && !uint.TryParse(waitFrame, out tmp))
 			{
 				Debug.LogError(nodeName + ": WaitFrame is invalid.");
+				result = false;
 			}
 		}
 		else
 		{
 			Debug.LogError(nodeName + ": TargetNode is empty.");
+			result = false;
 		}
 
 		if (string.IsNullOrEmpty(waitFrame))
 		{
 			Debug.LogError(nodeName + ": WaitFrame is empty.");
+			result = false;
 		}
+
+		return result;
 	}
 
 	public override string GetDeclare()

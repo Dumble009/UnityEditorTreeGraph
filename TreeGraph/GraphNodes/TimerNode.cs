@@ -11,9 +11,9 @@ public class TimerNode : BaseNode
 	[SerializeField]
 	bool isOverwrite, isMultiple;
 
-	public override void Test(List<Node> nodes)
+	public override bool Test(List<Node> nodes)
 	{
-		base.Test(nodes);
+		bool result = base.Test(nodes);
 
 		if (!string.IsNullOrEmpty(targetNode))
 		{
@@ -41,23 +41,29 @@ public class TimerNode : BaseNode
 			if (!isTargetFound)
 			{
 				Debug.LogError(nodeName + ": \"" + nodeName + "\" doesn't exist.");
+				result = false;
 			}
 
 			double tmp;
 			if (!isWaitTimeValid && !double.TryParse(waitTime, out tmp))
 			{
 				Debug.LogError(nodeName + ": WaitTime is invalid.");
+				result = false;
 			}
 		}
 		else
 		{
 			Debug.LogError(nodeName + ": TargetNode is empty.");
+			result = false;
 		}
 
 		if (string.IsNullOrEmpty(waitTime))
 		{
 			Debug.LogError(nodeName + ": WaitTime is empty.");
+			result = false;
 		}
+
+		return result;
 	}
 
 	public override void InheritFrom(Node original)
