@@ -5,8 +5,8 @@ public class CodeTemplateReader
 {
 	private CodeTemplateReader()
 	{
-		declareDirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates/DefaultTemplates/Declare";
-		initDirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates/DefaultTemplates/Init";
+		dirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates/";
+		jsonReader = new JsonReader();
 	}
 
 	private static CodeTemplateReader instance;
@@ -19,13 +19,14 @@ public class CodeTemplateReader
 			return instance;
 		}
 	}
-	string declareDirName;
-	string initDirName;
+	string dirName;
+	private JsonReader jsonReader;
 
-	public string GetDeclareTemplate(string fileName)
+	public string GetDeclareTemplate(string key)
 	{
 		string template = "";
-		string path = Path.Combine(declareDirName, fileName);
+		string fileName = jsonReader.GetDeclare(key);
+		string path = Path.Combine(dirName, fileName);
 		using (var str = new StreamReader(path))
 		{
 			template = str.ReadToEnd();
@@ -33,10 +34,11 @@ public class CodeTemplateReader
 		return template;
 	}
 
-	public string GetInitTemplate(string fileName)
+	public string GetInitTemplate(string key)
 	{
 		string template = "";
-		string path = Path.Combine(initDirName, fileName);
+		string fileName = jsonReader.GetInit(key);
+		string path = Path.Combine(dirName, fileName);
 		using (var str = new StreamReader(path))
 		{
 			template = str.ReadToEnd();

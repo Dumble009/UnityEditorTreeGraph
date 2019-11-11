@@ -8,7 +8,7 @@ class JsonReader
 	private CodeTemplateHolder templateHolder;
 	public JsonReader()
 	{
-		using (var fs = new StreamReader(Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplateTable.json"))
+		using (var fs = new StreamReader(Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates/CodeTemplateTable.json"))
 		{
 			string str = fs.ReadToEnd();
 			byte[] data = System.Text.Encoding.Unicode.GetBytes(str);
