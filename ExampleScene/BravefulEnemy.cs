@@ -15,6 +15,10 @@ BT_If if_patrol = new BT_If();
 BT_If If_chase = new BT_If();
 BT_Interrupt DamageInterrupt = new BT_Interrupt();
 BT_Execute ResetDamageFlag = new BT_Execute();
+BT_Execute ActivateEscape = new BT_Execute();
+BT_Timing EscapeTimer = new BT_Timing(behaviourTree, true, false);
+BT_Interrupt EscapeResetInterrupt = new BT_Interrupt();
+BT_Execute EscapeResetter = new BT_Execute();
 BT_Execute SetFound = new BT_Execute();
 root.AddChild(moveableCheck);
 
@@ -64,7 +68,24 @@ DamageInterrupt.AddChild(SetFound);
 ResetDamageFlag.AddEvent(()=>{
 	IsGotDamage = false;
 });
-ResetDamageFlag.AddChild(moveableCheck);
+ResetDamageFlag.AddChild(ActivateEscape);
+ActivateEscape.AddEvent(()=>{
+	IsEscape = true;
+});
+ActivateEscape.AddChild(EscapeTimer);
+EscapeTimer.SetTimingCreator(()=>{
+	return new Timer(EscapeResetInterrupt, 3.0);
+});
+EscapeTimer.AddChild(moveableCheck);
+EscapeResetInterrupt.SetCondition(()=>{
+	return false;
+});
+behaviourTree.AddInterrupt(EscapeResetInterrupt);
+EscapeResetInterrupt.AddChild(EscapeResetter);
+EscapeResetter.AddEvent(()=>{
+	IsEscape = false;
+});
+EscapeResetter.AddChild(moveableCheck);
 SetFound.AddEvent(()=>{
 	IsFound = true;
 });

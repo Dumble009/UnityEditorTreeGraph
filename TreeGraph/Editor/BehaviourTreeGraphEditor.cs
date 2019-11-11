@@ -205,8 +205,10 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 		}
 		if (!isAlreadyInherited)
 		{
-			InheritTargetNode t = target.AddNode(typeof(InheritTargetNode)) as InheritTargetNode;
+			InheritTargetNode t = target.AddNode<InheritTargetNode>() as InheritTargetNode;
+			t.name = "Inherit Target";
 			t.target = inheritGraph.name;
+			AssetDatabase.AddObjectToAsset(t, target);
 			List<Node> createdNonSubNodes = new List<Node>();
 			Dictionary<string, List<string>> outputPorts = new Dictionary<string, List<string>>();
 			foreach (Node _node in inheritGraph.nodes)
