@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 794e521d2586b52499e55746d8feed00, type: 3}
-  m_Name: Inherited_Bool
+  m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 264, y: -232}
@@ -18,7 +18,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: IsFound
-  isInherited: 1
+  isInherited: 0
   defaultValue: 0
 --- !u!114 &-7490732331196896567
 MonoBehaviour:
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
-  m_Name: Inherited_Event
+  m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 472, y: 264}
@@ -348,7 +348,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: patrol_event
-  isInherited: 1
+  isInherited: 0
 --- !u!114 &-3826770958755024311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
-  m_Name: Inherited_Event
+  m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 1256, y: 328}
@@ -399,7 +399,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: chase_event
-  isInherited: 1
+  isInherited: 0
 --- !u!114 &-3211236946156594584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 794e521d2586b52499e55746d8feed00, type: 3}
-  m_Name: Inherited_Bool
+  m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -1720, y: 328}
@@ -610,7 +610,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: IsGotDamage
-  isInherited: 1
+  isInherited: 0
   defaultValue: 0
 --- !u!114 &-1241269330400409071
 MonoBehaviour:
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 794e521d2586b52499e55746d8feed00, type: 3}
-  m_Name: Inherited_Bool
+  m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 920, y: -424}
@@ -692,7 +692,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: IsEscape
-  isInherited: 1
+  isInherited: 0
   defaultValue: 0
 --- !u!114 &991743528510158158
 MonoBehaviour:
@@ -807,7 +807,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
-  m_Name: Inherited_Event
+  m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: -344, y: 136}
@@ -815,7 +815,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: moveablecheck_event
-  isInherited: 1
+  isInherited: 0
 --- !u!114 &3340084649742273747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 794e521d2586b52499e55746d8feed00, type: 3}
-  m_Name: Inherited_Bool
+  m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 200, y: 280}
@@ -834,7 +834,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: IsMoveable
-  isInherited: 1
+  isInherited: 0
   defaultValue: 0
 --- !u!114 &4002870159132740207
 MonoBehaviour:
@@ -846,7 +846,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
-  m_Name: Inherited_Event
+  m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 1528, y: 88}
@@ -854,7 +854,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: attack_event
-  isInherited: 1
+  isInherited: 0
 --- !u!114 &4303985239166212673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 794e521d2586b52499e55746d8feed00, type: 3}
-  m_Name: Inherited_Bool
+  m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 1272, y: 72}
@@ -920,7 +920,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: IsAttackable
-  isInherited: 1
+  isInherited: 0
   defaultValue: 0
 --- !u!114 &5405617297030902515
 MonoBehaviour:
@@ -1009,7 +1009,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
-  m_Name: Inherited_Event
+  m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 1192, y: -392}
@@ -1017,7 +1017,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: escape_event
-  isInherited: 1
+  isInherited: 0
 --- !u!114 &7395523242507395593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77559845e6d75134abb4a2960baf85e5, type: 3}
-  m_Name: Inherited_Event
+  m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 984, y: 24}
@@ -1036,7 +1036,7 @@ MonoBehaviour:
     keys: []
     values: []
   nodeName: attackablecheck_event
-  isInherited: 1
+  isInherited: 0
 --- !u!114 &8048699513869682909
 MonoBehaviour:
   m_ObjectHideFlags: 0

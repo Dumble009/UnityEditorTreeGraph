@@ -177,9 +177,17 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 
 	public override void RemoveNode(Node node)
 	{
+		Debug.Log(node is InheritTargetNode);
 		if (node is SubNode sub)
 		{
 			if (!sub.isInherited)
+			{
+				base.RemoveNode(node);
+			}
+		}
+		else if (node is InheritTargetNode inh)
+		{
+			if (inh.IsDeletable)
 			{
 				base.RemoveNode(node);
 			}
@@ -208,6 +216,7 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 			InheritTargetNode t = target.AddNode<InheritTargetNode>() as InheritTargetNode;
 			t.name = "Inherit Target";
 			t.target = inheritGraph.name;
+			t.IsDeletable = false;
 			AssetDatabase.AddObjectToAsset(t, target);
 			List<Node> createdNonSubNodes = new List<Node>();
 			Dictionary<string, List<string>> outputPorts = new Dictionary<string, List<string>>();
@@ -323,7 +332,10 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 			}
 			if (node is InheritTargetNode t)
 			{
+				t.IsDeletable = true;
 				inheritTargetNode = t;
+
+				isInherited = true;
 			}
 		}
 		if (isInherited && inheritTargetNode != null)
