@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class BaseMultiOutputNode : Node, IBTGraphNode
 {
     public string nodeName;
-    [Input(ShowBackingValue.Unconnected, ConnectionType.Multiple, TypeConstraint.None, false)] public string input;
-    [Output(ShowBackingValue.Unconnected, ConnectionType.Multiple, false)] public string output;
+    [Input(ShowBackingValue.Never, ConnectionType.Multiple, TypeConstraint.None, false)] public string input;
+    [Output(ShowBackingValue.Never, ConnectionType.Multiple, false)] public string output;
 
     override public object GetValue(NodePort port){
         return nodeName;

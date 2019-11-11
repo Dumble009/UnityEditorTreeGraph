@@ -5,7 +5,7 @@ using UnityEngine;
 public class RootNode : Node, IBTGraphNode
 {
     public string nodeName;
-    [Output(ShowBackingValue.Unconnected, ConnectionType.Override, false)] public string output;
+    [Output(ShowBackingValue.Never, ConnectionType.Override, false)] public string output;
 
     public string GetNodeName(){
         return nodeName;
