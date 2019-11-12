@@ -25,10 +25,7 @@ public class CodeTemplateReader
 		JsonReader jsonReader = new JsonReader();
 		string template = "";
 		string fileName = jsonReader.GetDeclare(key);
-		Debug.Log(dirName);
-		Debug.Log(fileName);
 		string path = Path.Combine(dirName, fileName);
-		Debug.Log(path);
 		using (var str = new StreamReader(path))
 		{
 			template = str.ReadToEnd();
@@ -41,6 +38,19 @@ public class CodeTemplateReader
 		JsonReader jsonReader = new JsonReader();
 		string template = "";
 		string fileName = jsonReader.GetInit(key);
+		string path = Path.Combine(dirName, fileName);
+		using (var str = new StreamReader(path))
+		{
+			template = str.ReadToEnd();
+		}
+		return template;
+	}
+
+	public string GetClassTemplate()
+	{
+		JsonReader jsonReader = new JsonReader();
+		string template = "";
+		string fileName = jsonReader.GetClassTemplate();
 		string path = Path.Combine(dirName, fileName);
 		using (var str = new StreamReader(path))
 		{

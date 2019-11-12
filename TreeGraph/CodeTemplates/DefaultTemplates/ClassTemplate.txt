@@ -1,0 +1,11 @@
+using BT;
+public class {0} : {1} 
+{{
+{2}
+
+override public void MakeTree()
+{{
+base.MakeTree();
+{3}
+}}
+}}

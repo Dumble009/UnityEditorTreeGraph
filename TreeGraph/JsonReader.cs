@@ -35,10 +35,16 @@ class JsonReader
 	{
 		return templateHolder.CodeTemplatesInit[key];
 	}
+
+	public string GetClassTemplate()
+	{
+		return templateHolder.ClassTemplate;
+	}
 }
 
 public class CodeTemplateHolder
 {
 	public Dictionary<string, string> CodeTemplatesDeclare { get; set; }
 	public Dictionary<string, string> CodeTemplatesInit { get; set; }
+	public string ClassTemplate;
 }

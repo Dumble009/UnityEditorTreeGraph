@@ -17,8 +17,8 @@ public class EditorTreeCompiler
                 root = r;
             }
         }
-        
-        string code = "using BT;\npublic class "+FileNameToClassName(fileName)+":"+FileNameToClassName(inheritTarget)+"{\n";
+
+		/*string code = "using BT;\npublic class "+FileNameToClassName(fileName)+":"+FileNameToClassName(inheritTarget)+"{\n";
 
 		var sortedSubNodes = subNodes
 											.OrderBy(x => x.GetType().ToString())
@@ -47,17 +47,6 @@ public class EditorTreeCompiler
 			}
 		}
 
-		/*code += root.GetInit();
-        Node firstChild = root.GetOutputPort("output").GetConnections()[0].node;
-        BuildTree(ref code, firstChild, root);
-		foreach (Node node in nodes)
-		{
-			if (node is InterruptNode interrupt)
-			{
-				code += interrupt.GetInit();
-				BuildTree(ref code, interrupt.GetOutputPort("output").GetConnections()[0].node, interrupt);
-			}
-		}*/
 		foreach (Node node in nodes)
 		{
 			if (!(node is SubNode))
@@ -84,8 +73,67 @@ public class EditorTreeCompiler
 		}
         code += "}\n"; // maketree close
 
-        code += "}"; // class close
-					
+        code += "}"; // class close*/
+
+		string template = CodeTemplateReader.Instance.GetClassTemplate();
+
+		string className = FileNameToClassName(fileName);
+		string inheritName = FileNameToClassName(inheritTarget);
+
+		string declareParameters = "";
+		var sortedSubNodes = subNodes
+											.OrderBy(x => x.GetType().ToString())
+											.ToArray();
+		foreach (SubNode node in sortedSubNodes)
+		{
+			if (!node.isInherited)
+			{
+				declareParameters += node.GetDeclare();
+			}
+		}
+
+		string constructTree = "";
+		constructTree += root.GetDeclare() + root.GetInit();
+		var rootChild = root.GetOutputPort("output").GetConnection(0).node as IBTGraphNode;
+
+		foreach (Node node in nodes)
+		{
+			if (!(node is SubNode) && !(node is RootNode))
+			{
+				if (node is IBTGraphNode i)
+				{
+					constructTree += i.GetDeclare() + "\n";
+				}
+			}
+		}
+
+		foreach (Node node in nodes)
+		{
+			if (!(node is SubNode))
+			{
+				if (node is IBTGraphNode i)
+				{
+					if (!(node is RootNode))
+					{
+						constructTree += i.GetInit() + "\n";
+					}
+					var children = node.GetOutputPort("output").GetConnections()
+											.OrderBy(x => x.node.position.y)
+											.ToArray();
+					foreach (NodePort port in children)
+					{
+						Node child = port.node;
+						if (child is IBTGraphNode i_child)
+						{
+							constructTree += i.GetNodeName() + ".AddChild(" + i_child.GetNodeName() + ");\n";
+						}
+					}
+				}
+			}
+		}
+		
+		string code = string.Format(template, className, inheritName, declareParameters, constructTree);
+
 		return code;
     }
 

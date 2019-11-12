@@ -35,5 +35,7 @@
 {"Key":"Success", "Value":"DefaultTemplates/Init/Success.txt"},
 {"Key":"Timer", "Value":"DefaultTemplates/Init/Timer.txt"},
 {"Key":"While", "Value":"DefaultTemplates/Init/While.txt"}
-]
+],
+
+"ClassTemplate":"DefaultTemplates/ClassTemplate.txt"
 }
