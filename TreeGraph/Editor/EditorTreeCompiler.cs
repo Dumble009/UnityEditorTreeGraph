@@ -3,10 +3,30 @@ using XNode;
 using UnityEngine;
 using System.IO;
 using System.Linq;
-public class EditorTreeCompiler
+
+public class EditorTreeCompiler : ScriptableObject
 {
-	static List<string> createdNodes;
-    static public string Compile(string fileName, List<Node> nodes, string inheritTarget = "BehaviourTreeComponent"){
+	virtual public string Compile(string fileName, List<Node> nodes, string inheritTarget = "")
+	{
+		return "";
+	}
+	public string FileNameToClassName(string fileName)
+	{
+		return fileName.Replace(" ", "_");
+	}
+}
+
+[CreateAssetMenu(fileName = "BehaviourTreeCompiler",
+								menuName = "Compilers/BehaviourTreeCompiler")]
+public class BehaviourTreeCompiler : EditorTreeCompiler
+{
+	List<string> createdNodes;
+	protected string inheritedClass = "BehaviourTreeComponent";
+    override public string Compile(string fileName, List<Node> nodes, string inheritTarget = ""){
+		if (string.IsNullOrEmpty(inheritTarget))
+		{
+			inheritTarget = inheritedClass;
+		}
         List<SubNode> subNodes = new List<SubNode>();
 		createdNodes = new List<string>();
         RootNode root = new RootNode();
@@ -137,7 +157,7 @@ public class EditorTreeCompiler
 		return code;
     }
 
-    static public void BuildTree(ref string code, Node target, Node parent){
+    public void BuildTree(ref string code, Node target, Node parent){
         IBTGraphNode ibt_target = target as IBTGraphNode,
                      ibt_parent = parent as IBTGraphNode;
 		bool isTargetCreated = createdNodes.Contains(ibt_target.GetNodeName());
@@ -159,9 +179,4 @@ public class EditorTreeCompiler
 			}
 		}
     }
-
-	static public string FileNameToClassName(string fileName)
-	{
-		return fileName.Replace(" ", "_");
-	}
 }

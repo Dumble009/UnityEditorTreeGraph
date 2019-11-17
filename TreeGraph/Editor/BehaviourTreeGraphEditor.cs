@@ -42,13 +42,13 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 			string code = "";
 			if (isInherited)
 			{
-				code = EditorTreeCompiler.Compile(target.name, target.nodes, inheritedClass);
+				code = BehaviourTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes, inheritedClass);
 			}
 			else
 			{
-				code = EditorTreeCompiler.Compile(target.name, target.nodes);
+				code = BehaviourTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes);
 			}
-			string path = EditorUtility.SaveFilePanelInProject("", EditorTreeCompiler.FileNameToClassName(target.name), "cs", "");
+			string path = EditorUtility.SaveFilePanelInProject("", BehaviourTreeGraphSettings.Instance.Compiler.FileNameToClassName(target.name), "cs", "");
 			if (!string.IsNullOrEmpty(path))
 			{
 				System.IO.StreamWriter sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.ASCII);
