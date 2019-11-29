@@ -1,6 +1,9 @@
 using BT;
-public class BravefulEnemy:EnemyBehaviour{
-override public void MakeTree(){
+public class BravefulEnemy : EnemyBehaviour 
+{
+
+override public void MakeTree()
+{
 base.MakeTree();
 BT_Root root = new BT_Root();behaviourTree = new BehaviourTree(root);BT_Selector selector1 = new BT_Selector();
 BT_Execute attack = new BT_Execute();
@@ -90,5 +93,6 @@ SetFound.AddEvent(()=>{
 	IsFound = true;
 });
 SetFound.AddChild(ResetDamageFlag);
+
 }
 }

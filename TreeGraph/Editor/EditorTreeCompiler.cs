@@ -55,15 +55,15 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 				string key = node.GetKey();
 				string source = CodeTemplateReader.GetDeclareTemplate(key);
 				//declareParameters += node.GetDeclare();
-				declareParameters = CodeTemplateInterpolator.Interpolate(source, holder);
+				declareParameters += CodeTemplateInterpolator.Interpolate(source, holder);
 			}
 		}
 
 		string constructTree = "";
 		CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
 		string rootKey = root.GetKey();
-		string rootDeclare = CodeTemplateReader.GetDeclareTemplate(rootKey);
-		string rootInit = CodeTemplateReader.GetInitTemplate(rootKey);
+		string rootDeclare = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetDeclareTemplate(rootKey), rootParameter);
+		string rootInit = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetInitTemplate(rootKey), rootParameter);
 		constructTree += rootDeclare + rootInit;
 		var rootChild = root.GetOutputPort("output").GetConnection(0).node as IBTGraphNode;
 
@@ -117,7 +117,6 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 		templateParameter.SetParameter("inheritName", inheritName);
 		templateParameter.SetParameter("declareParameters", declareParameters);
 		templateParameter.SetParameter("constructTree", constructTree);
-
 		string code = CodeTemplateInterpolator.Interpolate(template, templateParameter);
 		return code;
     }

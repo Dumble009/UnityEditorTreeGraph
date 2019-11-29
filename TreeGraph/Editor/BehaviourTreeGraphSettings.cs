@@ -13,7 +13,6 @@ public class BehaviourTreeGraphSettings : ScriptableObject
 			if (instance == null)
 			{
 				string[] files = Directory.GetFiles(Application.dataPath, "BehaviourTreeGraphSettings.asset", SearchOption.AllDirectories);
-				Debug.Log(Application.dataPath);
 				if (files.Length > 0)
 				{
 					files[0] = files[0].Replace('\\', '/');
@@ -21,7 +20,6 @@ public class BehaviourTreeGraphSettings : ScriptableObject
 					Uri bas = new Uri(Application.dataPath);
 					Uri rel = bas.MakeRelativeUri(abs);
 					string path = rel.ToString();
-					Debug.Log(path);
 					instance = (BehaviourTreeGraphSettings)AssetDatabase.LoadAssetAtPath(path, typeof(BehaviourTreeGraphSettings));
 				}
 			}

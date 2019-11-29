@@ -1,3 +1,3 @@
-{{name}}.SetTimingCreator(()=>{{
+{{name}}.SetTimingCreator(()=>{
 	return new FrameCounter({{targetNode}}, {{waitFrame}});
-}});
+});

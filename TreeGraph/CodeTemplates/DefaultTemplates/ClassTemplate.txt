@@ -1,11 +1,11 @@
 using BT;
-public class {0} : {1} 
-{{
-{2}
+public class {{className}} : {{inheritName}} 
+{
+{{declareParameters}}
 
 override public void MakeTree()
-{{
+{
 base.MakeTree();
-{3}
-}}
-}}
+{{constructTree}}
+}
+}
