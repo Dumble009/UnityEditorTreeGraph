@@ -180,7 +180,7 @@ namespace XNodeEditor {
         public static void Open(XNode.NodeGraph graph) {
             if (!graph) return;
 
-            NodeEditorWindow w = GetWindow(typeof(NodeEditorWindow), false, "BehaviourTreeGraph", true) as NodeEditorWindow;
+            NodeEditorWindow w = GetWindow(typeof(NodeEditorWindow), false, "EditorTreeGraph", true) as NodeEditorWindow;
             w.wantsMouseMove = true;
             w.graph = graph;
         }

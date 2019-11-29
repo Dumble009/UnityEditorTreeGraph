@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9657f1093f064c04b998b9397b7bd3e5, type: 3}
-  m_Name: BehaviourTreeGraphSettings
+  m_Name: EditorTreeGraphSettings
   m_EditorClassIdentifier: 
   Compiler: {fileID: 11400000, guid: 430432630236bc845b11f68e1fc65f28, type: 2}

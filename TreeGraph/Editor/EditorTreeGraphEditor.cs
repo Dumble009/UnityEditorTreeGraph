@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEditor;
 using XNode;
 using XNodeEditor;
-[CustomNodeGraphEditor(typeof(BehaviourTreeGraph))]
-public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
+[CustomNodeGraphEditor(typeof(EditorTreeGraph))]
+public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 {
 	bool pFloatFoldout = false;
 	bool pIntFoldout = false;
@@ -13,7 +13,7 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 	bool pConditionFoldout = false;
 	Vector2 scrollPosition = new Vector2(0, 0);
 	string inherited_prefix = "Inherited_";
-	BehaviourTreeGraph inheritGraph;
+	EditorTreeGraph inheritGraph;
 
 	override public void OnGUI()
 	{
@@ -42,13 +42,13 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 			string code = "";
 			if (isInherited)
 			{
-				code = BehaviourTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes, inheritedClass);
+				code = EditorTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes, inheritedClass);
 			}
 			else
 			{
-				code = BehaviourTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes);
+				code = EditorTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes);
 			}
-			string path = EditorUtility.SaveFilePanelInProject("", BehaviourTreeGraphSettings.Instance.Compiler.FileNameToClassName(target.name), "cs", "");
+			string path = EditorUtility.SaveFilePanelInProject("", EditorTreeGraphSettings.Instance.Compiler.FileNameToClassName(target.name), "cs", "");
 			if (!string.IsNullOrEmpty(path))
 			{
 				System.IO.StreamWriter sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.ASCII);
@@ -63,7 +63,7 @@ public class BehaviourTreeGraphEditor : XNodeEditor.NodeGraphEditor
 			Inherit();
 		}
 
-		inheritGraph = EditorGUILayout.ObjectField(inheritGraph, typeof(BehaviourTreeGraph)) as BehaviourTreeGraph;
+		inheritGraph = EditorGUILayout.ObjectField(inheritGraph, typeof(EditorTreeGraph)) as EditorTreeGraph;
 
 		if (GUILayout.Button("disable inherit"))
 		{
