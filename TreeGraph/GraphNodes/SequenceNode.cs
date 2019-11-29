@@ -29,4 +29,12 @@ public class SequenceNode : BaseMultiOutputNode
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Sequence"), nodeName);
 		return code;
 	}
+
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+
+		return holder;
+	}
 }

@@ -65,4 +65,9 @@ public class BaseNode : Node,IBTGraphNode
 	{
 
 	}
+
+	virtual public CodeTemplateParameterHolder GetParameterHolder()
+	{
+		return new CodeTemplateParameterHolder();
+	}
 }

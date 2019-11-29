@@ -7,4 +7,5 @@ public interface IBTGraphNode{
 	string GetDeclare();
     string GetInit();
 	void InheritFrom(Node original);
+	CodeTemplateParameterHolder GetParameterHolder();
 }

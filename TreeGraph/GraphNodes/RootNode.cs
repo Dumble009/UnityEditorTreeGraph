@@ -53,6 +53,14 @@ public class RootNode : Node, IBTGraphNode
         return code;
     }
 
+	public CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+
+		return holder;
+	}
+
 	public void InheritFrom(Node original)
 	{
 

@@ -16,4 +16,12 @@ public class SuccessNode : BaseNode
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Success"), nodeName);
 		return code;
 	}
+
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+
+		return holder;
+	}
 }

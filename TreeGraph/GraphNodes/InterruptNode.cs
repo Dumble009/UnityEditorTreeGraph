@@ -59,6 +59,15 @@ public class InterruptNode : Node, IBTGraphNode
 		return code;
 	}
 
+	public CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+		holder.SetParameter("condition", condition);
+
+		return holder;
+	}
+
 	public void InheritFrom(Node original)
 	{
 		if (original is InterruptNode interrupt_original)

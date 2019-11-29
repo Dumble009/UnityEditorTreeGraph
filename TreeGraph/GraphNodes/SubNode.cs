@@ -52,4 +52,9 @@ public class SubNode : Node, IBTGraphNode
 	{
 
 	}
+
+	virtual public CodeTemplateParameterHolder GetParameterHolder()
+	{
+		return new CodeTemplateParameterHolder();
+	}
 }

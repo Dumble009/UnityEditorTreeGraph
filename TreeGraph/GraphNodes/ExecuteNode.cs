@@ -46,6 +46,15 @@ public class ExecuteNode : BaseNode
         return code;
     }
 
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+		holder.SetParameter("value", eventName);
+
+		return holder;
+	}
+
 	public override void InheritFrom(Node original)
 	{
 		base.InheritFrom(original);

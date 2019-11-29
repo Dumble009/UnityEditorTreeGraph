@@ -10,4 +10,12 @@ public class EventNode : SubNode
 
 		return code;
 	}
+
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+
+		return holder;
+	}
 }

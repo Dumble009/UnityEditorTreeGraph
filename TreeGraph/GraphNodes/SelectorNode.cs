@@ -28,4 +28,12 @@ public class SelectorNode : BaseMultiOutputNode
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Selector"), nodeName);
 		return code;
 	}
+
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+
+		return holder;
+	}
 }

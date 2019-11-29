@@ -44,6 +44,15 @@ public class IfNode : BaseNode
 		return code;
 	}
 
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+		holder.SetParameter("condition", condition);
+
+		return holder;
+	}
+
 	public override void InheritFrom(Node original)
 	{
 		base.InheritFrom(original);

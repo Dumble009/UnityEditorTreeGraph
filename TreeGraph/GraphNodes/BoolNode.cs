@@ -16,4 +16,13 @@ public class BoolNode : SubNode
 
 		return code;
 	}
+
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+		holder.SetParameter("value", defaultValue.ToString().ToLower());
+
+		return holder;
+	}
 }

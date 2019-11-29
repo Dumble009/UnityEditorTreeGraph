@@ -15,4 +15,12 @@ public class FailureNode : BaseNode
 		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Failure"), nodeName);
 		return code;
 	}
+
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+
+		return holder;
+	}
 }

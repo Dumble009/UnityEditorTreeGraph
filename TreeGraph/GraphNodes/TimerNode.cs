@@ -102,4 +102,16 @@ public class TimerNode : BaseNode
 
 		return code;
 	}
+
+	public override CodeTemplateParameterHolder GetParameterHolder()
+	{
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("name", nodeName);
+		holder.SetParameter("isOverWrite", isOverwrite.ToString().ToLower());
+		holder.SetParameter("isMultiple", isMultiple.ToString().ToLower());
+		holder.SetParameter("targetNode", targetNode);
+		holder.SetParameter("waitTime", waitTime);
+
+		return holder;
+	}
 }
