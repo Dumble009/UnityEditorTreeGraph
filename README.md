@@ -1,4 +1,4 @@
-# UnityBehaviourTreeEditor
+# UnityEditorTreeGraph
 ![](https://i.imgur.com/IqZ3M8C.png)
 
 Writing routines of characters or enemies is tiresome work...
