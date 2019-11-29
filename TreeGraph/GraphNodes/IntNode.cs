@@ -22,4 +22,9 @@ public class IntNode : SubNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "Int";
+	}
 }

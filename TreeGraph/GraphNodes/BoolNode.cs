@@ -25,4 +25,9 @@ public class BoolNode : SubNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "Bool";
+	}
 }

@@ -8,4 +8,5 @@ public interface IBTGraphNode{
     string GetInit();
 	void InheritFrom(Node original);
 	CodeTemplateParameterHolder GetParameterHolder();
+	string GetKey();
 }

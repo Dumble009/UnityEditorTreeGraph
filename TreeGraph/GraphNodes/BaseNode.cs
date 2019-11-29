@@ -70,4 +70,9 @@ public class BaseNode : Node,IBTGraphNode
 	{
 		return new CodeTemplateParameterHolder();
 	}
+
+	virtual public string GetKey()
+	{
+		return "";
+	}
 }

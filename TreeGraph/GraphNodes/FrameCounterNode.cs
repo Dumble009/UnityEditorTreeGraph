@@ -116,4 +116,9 @@ public class FrameCounterNode : BaseNode
 			this.isMultiple = f.isMultiple;
 		}
 	}
+
+	public override string GetKey()
+	{
+		return "FrameCounter";
+	}
 }

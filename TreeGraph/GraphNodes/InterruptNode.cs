@@ -75,4 +75,9 @@ public class InterruptNode : Node, IBTGraphNode
 			this.condition = interrupt_original.condition;
 		}
 	}
+
+	public string GetKey()
+	{
+		return "Interrupt";
+	}
 }

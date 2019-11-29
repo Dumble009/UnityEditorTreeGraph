@@ -114,4 +114,9 @@ public class TimerNode : BaseNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "Timer";
+	}
 }

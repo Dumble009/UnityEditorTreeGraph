@@ -61,4 +61,9 @@ public class IfNode : BaseNode
 			this.condition = originalIf.condition;
 		}
 	}
+
+	public override string GetKey()
+	{
+		return "If";
+	}
 }

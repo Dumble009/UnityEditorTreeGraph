@@ -54,10 +54,15 @@ public class SetBoolNode : BaseNode
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
 		holder.SetParameter("name", nodeName);
-		holder.SetParameter("boolName", boolName);
+		holder.SetParameter("parameterName", boolName);
 		holder.SetParameter("value", value);
 
 		return holder;
+	}
+
+	public override string GetKey()
+	{
+		return "SetParameter";
 	}
 
 	public override void InheritFrom(Node original)

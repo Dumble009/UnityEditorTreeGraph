@@ -22,4 +22,9 @@ public class FloatNode : SubNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "Float";
+	}
 }

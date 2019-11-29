@@ -29,6 +29,11 @@ public class SelectorNode : BaseMultiOutputNode
 		return code;
 	}
 
+	public override string GetKey()
+	{
+		return "Selector";
+	}
+
 	public override CodeTemplateParameterHolder GetParameterHolder()
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();

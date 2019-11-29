@@ -54,10 +54,15 @@ public class SetFloatNode : BaseNode
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
 		holder.SetParameter("name", nodeName);
-		holder.SetParameter("floatName", floatName);
+		holder.SetParameter("parameterName", floatName);
 		holder.SetParameter("value", value);
 
 		return holder;
+	}
+
+	public override string GetKey()
+	{
+		return "SetParameter";
 	}
 
 	public override void InheritFrom(Node original)

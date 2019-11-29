@@ -57,4 +57,9 @@ public class SubNode : Node, IBTGraphNode
 	{
 		return new CodeTemplateParameterHolder();
 	}
+
+	virtual public string GetKey()
+	{
+		return "";
+	}
 }

@@ -58,4 +58,9 @@ public class WhileNode : BaseNode
 			this.condition = wh_original.condition;
 		}
 	}
+
+	public override string GetKey()
+	{
+		return "While";
+	}
 }

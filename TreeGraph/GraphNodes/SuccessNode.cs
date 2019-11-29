@@ -24,4 +24,9 @@ public class SuccessNode : BaseNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "Success";
+	}
 }

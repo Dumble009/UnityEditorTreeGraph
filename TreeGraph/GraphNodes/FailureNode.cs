@@ -23,4 +23,9 @@ public class FailureNode : BaseNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "Failure";
+	}
 }

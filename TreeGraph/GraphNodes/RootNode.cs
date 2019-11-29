@@ -61,6 +61,11 @@ public class RootNode : Node, IBTGraphNode
 		return holder;
 	}
 
+	public string GetKey()
+	{
+		return "Root";
+	}
+
 	public void InheritFrom(Node original)
 	{
 

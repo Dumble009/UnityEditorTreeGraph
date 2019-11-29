@@ -63,4 +63,9 @@ public class ExecuteNode : BaseNode
 			this.eventName = ex_original.eventName;
 		}
 	}
+
+	public override string GetKey()
+	{
+		return "Execute";
+	}
 }

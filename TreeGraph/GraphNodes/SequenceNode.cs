@@ -37,4 +37,9 @@ public class SequenceNode : BaseMultiOutputNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "Sequence";
+	}
 }
