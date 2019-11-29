@@ -16,19 +16,6 @@ public class SelectorNode : BaseMultiOutputNode
 		return result;
 	}
 
-	public override string GetDeclare()
-	{
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Selector"), nodeName);
-		return code;
-	}
-
-	override public string GetInit()
-	{
-		//string code = "BT_Selector "+nodeName+" = new BT_Selector();\n";
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Selector"), nodeName);
-		return code;
-	}
-
 	public override string GetKey()
 	{
 		return "Selector";

@@ -78,31 +78,6 @@ public class TimerNode : BaseNode
 		}
 	}
 
-	public override string GetDeclare()
-	{
-		object[] args = new object[4] {
-			nodeName,
-			"behaviourTree",
-			isOverwrite.ToString().ToLower(),
-			isMultiple.ToString().ToLower()
-		};
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Timer"), args);
-
-		return code;
-	}
-
-	public override string GetInit()
-	{
-		object[] args = new object[3] {
-			nodeName,
-			targetNode,
-			waitTime
-		};
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Timer"), args);
-
-		return code;
-	}
-
 	public override CodeTemplateParameterHolder GetParameterHolder()
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();

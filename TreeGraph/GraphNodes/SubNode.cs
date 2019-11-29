@@ -38,16 +38,6 @@ public class SubNode : Node, IBTGraphNode
 		nodeName = name;
 	}
 
-	virtual public string GetDeclare()
-	{
-		return "";
-	}
-
-	virtual public string GetInit()
-	{
-		return "";
-	}
-
 	virtual public void InheritFrom(Node original)
 	{
 

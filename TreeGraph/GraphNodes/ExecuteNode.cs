@@ -33,19 +33,6 @@ public class ExecuteNode : BaseNode
 		return result;
     }
 
-	public override string GetDeclare()
-	{
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("Execute"), nodeName);
-		return code;
-	}
-
-	override public string GetInit(){
-		/*string code = "BT_Execute "+nodeName+"= new BT_Execute();\n";
-        code += nodeName + ".AddEvent(()=>{"+eventName+".Invoke();});\n";*/
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("Execute"), nodeName, eventName);
-        return code;
-    }
-
 	public override CodeTemplateParameterHolder GetParameterHolder()
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();

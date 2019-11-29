@@ -52,15 +52,6 @@ public class BaseMultiOutputNode : Node, IBTGraphNode
         return true;
     }
 
-	virtual public string GetDeclare()
-	{
-		return "";
-	}
-
-    virtual public string GetInit(){
-        return "";
-    }
-
 	virtual public void InheritFrom(Node original)
 	{
 

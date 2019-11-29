@@ -68,31 +68,6 @@ public class FrameCounterNode : BaseNode
 		return result;
 	}
 
-	public override string GetDeclare()
-	{
-		object[] args = new object[4] {
-			nodeName,
-			"behaviourTree",
-			isOverwrite.ToString().ToLower(),
-			isMultiple.ToString().ToLower()
-		};
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("FrameCounter"), args);
-
-		return code;
-	}
-
-	public override string GetInit()
-	{
-		object[] args = new object[3] {
-			nodeName,
-			targetNode,
-			waitFrame
-		};
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("FrameCounter"), args);
-
-		return code;
-	}
-
 	public override CodeTemplateParameterHolder GetParameterHolder()
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();

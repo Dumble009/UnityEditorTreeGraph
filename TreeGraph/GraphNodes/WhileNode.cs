@@ -28,19 +28,6 @@ public class WhileNode : BaseNode
 		return result;
 	}
 
-	public override string GetDeclare()
-	{
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("While"), nodeName);
-		return code;
-	}
-
-	override public string GetInit(){
-		//string code = "BT_While "+nodeName+" = new BT_While();\n";
-		//code += nodeName+".SetCondition(()=>{return "+booleanName+";});\n";
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("While"), nodeName, condition);
-        return code;
-    }
-
 	public override CodeTemplateParameterHolder GetParameterHolder()
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();

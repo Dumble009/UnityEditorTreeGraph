@@ -38,18 +38,6 @@ public class SetFloatNode : BaseNode
 		return result;
 	}
 
-	public override string GetDeclare()
-	{
-		string code = string.Format(CodeTemplateReader.Instance.GetDeclareTemplate("SetParameter"), nodeName);
-		return code;
-	}
-
-	public override string GetInit()
-	{
-		string code = string.Format(CodeTemplateReader.Instance.GetInitTemplate("SetParameter"), nodeName, floatName, value);
-		return code;
-	}
-
 	public override CodeTemplateParameterHolder GetParameterHolder()
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();

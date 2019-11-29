@@ -38,64 +38,7 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
             }
         }
 
-		/*string code = "using BT;\npublic class "+FileNameToClassName(fileName)+":"+FileNameToClassName(inheritTarget)+"{\n";
-
-		var sortedSubNodes = subNodes
-											.OrderBy(x => x.GetType().ToString())
-											.ToArray();
-		foreach (SubNode node in sortedSubNodes)
-		{
-			if (!node.isInherited)
-			{
-				code += node.GetDeclare();
-			}
-		}
-
-        code += "override public void MakeTree(){\n";
-        code += "base.MakeTree();\n";
-		code += root.GetDeclare() + root.GetInit();
-		var rootChild = root.GetOutputPort("output").GetConnection(0).node as IBTGraphNode;
-
-		foreach (Node node in nodes)
-		{
-			if (!(node is SubNode) && !(node is RootNode))
-			{
-				if (node is IBTGraphNode i)
-				{
-					code += i.GetDeclare() + "\n";
-				}
-			}
-		}
-
-		foreach (Node node in nodes)
-		{
-			if (!(node is SubNode))
-			{
-				if (node is IBTGraphNode i)
-				{
-					if (!(node is RootNode))
-					{
-						code += i.GetInit() + "\n";
-					}
-					var children = node.GetOutputPort("output").GetConnections()
-											.OrderBy(x => x.node.position.y)
-											.ToArray();
-					foreach (NodePort port in children)
-					{
-						Node child = port.node;
-						if (child is IBTGraphNode i_child)
-						{
-							code += i.GetNodeName() + ".AddChild(" + i_child.GetNodeName() + ");\n";
-						}
-					}
-				}
-			}
-		}
-        code += "}\n"; // maketree close
-
-        code += "}"; // class close*/
-
-		string template = CodeTemplateReader.Instance.GetClassTemplate();
+		string template = CodeTemplateReader.GetClassTemplate();
 
 		string className = FileNameToClassName(fileName);
 		string inheritName = FileNameToClassName(inheritTarget);
@@ -108,12 +51,20 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 		{
 			if (!node.isInherited)
 			{
-				declareParameters += node.GetDeclare();
+				CodeTemplateParameterHolder holder = node.GetParameterHolder();
+				string key = node.GetKey();
+				string source = CodeTemplateReader.GetDeclareTemplate(key);
+				//declareParameters += node.GetDeclare();
+				declareParameters = CodeTemplateInterpolator.Interpolate(source, holder);
 			}
 		}
 
 		string constructTree = "";
-		constructTree += root.GetDeclare() + root.GetInit();
+		CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
+		string rootKey = root.GetKey();
+		string rootDeclare = CodeTemplateReader.GetDeclareTemplate(rootKey);
+		string rootInit = CodeTemplateReader.GetInitTemplate(rootKey);
+		constructTree += rootDeclare + rootInit;
 		var rootChild = root.GetOutputPort("output").GetConnection(0).node as IBTGraphNode;
 
 		foreach (Node node in nodes)
@@ -122,7 +73,11 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 			{
 				if (node is IBTGraphNode i)
 				{
-					constructTree += i.GetDeclare() + "\n";
+					CodeTemplateParameterHolder holder = i.GetParameterHolder();
+					string key = i.GetKey();
+					string source = CodeTemplateReader.GetDeclareTemplate(key);
+					constructTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
+					//constructTree += i.GetDeclare() + "\n";
 				}
 			}
 		}
@@ -135,7 +90,11 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 				{
 					if (!(node is RootNode))
 					{
-						constructTree += i.GetInit() + "\n";
+						CodeTemplateParameterHolder holder = i.GetParameterHolder();
+						string key = i.GetKey();
+						string source = CodeTemplateReader.GetInitTemplate(key);
+						constructTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
+						//constructTree += i.GetInit() + "\n";
 					}
 					var children = node.GetOutputPort("output").GetConnections()
 											.OrderBy(x => x.node.position.y)
@@ -152,31 +111,14 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 			}
 		}
 		
-		string code = string.Format(template, className, inheritName, declareParameters, constructTree);
+		//string code = string.Format(template, className, inheritName, declareParameters, constructTree);
+		CodeTemplateParameterHolder templateParameter = new CodeTemplateParameterHolder();
+		templateParameter.SetParameter("className", className);
+		templateParameter.SetParameter("inheritName", inheritName);
+		templateParameter.SetParameter("declareParameters", declareParameters);
+		templateParameter.SetParameter("constructTree", constructTree);
 
+		string code = CodeTemplateInterpolator.Interpolate(template, templateParameter);
 		return code;
-    }
-
-    public void BuildTree(ref string code, Node target, Node parent){
-        IBTGraphNode ibt_target = target as IBTGraphNode,
-                     ibt_parent = parent as IBTGraphNode;
-		bool isTargetCreated = createdNodes.Contains(ibt_target.GetNodeName());
-		if (!isTargetCreated)
-		{
-			code += ibt_target.GetInit();
-			createdNodes.Add(ibt_target.GetNodeName());
-		}
-		code += ibt_parent.GetNodeName() + ".AddChild(" + ibt_target.GetNodeName() + ");\n";
-
-		var children = target.GetOutputPort("output").GetConnections()
-			.OrderBy(x => x.node.position.y)
-			.ToArray();
-		if (!isTargetCreated)
-		{
-			foreach (NodePort port in children)
-			{
-				BuildTree(ref code, port.node, target);
-			}
-		}
     }
 }

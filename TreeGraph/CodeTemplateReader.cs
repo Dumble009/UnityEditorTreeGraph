@@ -3,24 +3,9 @@ using System.IO;
 
 public class CodeTemplateReader
 {
-	private CodeTemplateReader()
-	{
-		dirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates";
-	}
+	static string dirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates";
 
-	private static CodeTemplateReader instance;
-	public static CodeTemplateReader Instance {
-		get {
-			if (instance == null)
-			{
-				instance = new CodeTemplateReader();
-			}
-			return instance;
-		}
-	}
-	string dirName;
-
-	public string GetDeclareTemplate(string key)
+	public static string GetDeclareTemplate(string key)
 	{
 		JsonReader jsonReader = new JsonReader();
 		string template = "";
@@ -33,7 +18,7 @@ public class CodeTemplateReader
 		return template;
 	}
 
-	public string GetInitTemplate(string key)
+	public static string GetInitTemplate(string key)
 	{
 		JsonReader jsonReader = new JsonReader();
 		string template = "";
@@ -46,7 +31,7 @@ public class CodeTemplateReader
 		return template;
 	}
 
-	public string GetClassTemplate()
+	public static string GetClassTemplate()
 	{
 		JsonReader jsonReader = new JsonReader();
 		string template = "";
