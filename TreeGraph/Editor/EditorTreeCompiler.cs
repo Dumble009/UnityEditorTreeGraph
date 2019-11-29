@@ -118,6 +118,9 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 		templateParameter.SetParameter("declareParameters", declareParameters);
 		templateParameter.SetParameter("constructTree", constructTree);
 		string code = CodeTemplateInterpolator.Interpolate(template, templateParameter);
+		Debug.Log(code);
+		Debug.Log(declareParameters);
+		Debug.Log(constructTree);
 		return code;
     }
 }
