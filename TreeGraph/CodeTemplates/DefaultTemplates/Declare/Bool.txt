@@ -1,2 +1,2 @@
 [UnityEngine.SerializeField]
-public bool {0} = {1};
+public bool {{name}} = {{value}};

@@ -1,1 +1,1 @@
-BT_Interrupt {0} = new BT_Interrupt();
+BT_Interrupt {{name}} = new BT_Interrupt();

@@ -37,7 +37,7 @@ public class ExecuteNode : BaseNode
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
 		holder.SetParameter("name", nodeName);
-		holder.SetParameter("value", eventName);
+		holder.SetParameter("eventName", eventName);
 
 		return holder;
 	}

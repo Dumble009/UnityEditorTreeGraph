@@ -1,1 +1,1 @@
-BT_Selector {0} = new BT_Selector();
+BT_Selector {{name}} = new BT_Selector();

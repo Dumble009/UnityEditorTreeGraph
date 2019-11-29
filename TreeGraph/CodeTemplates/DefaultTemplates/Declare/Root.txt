@@ -1,1 +1,1 @@
-BT_Root {0} = new BT_Root();
+BT_Root {{name}} = new BT_Root();

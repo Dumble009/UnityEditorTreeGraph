@@ -1,1 +1,1 @@
-BT_Success {0} = new BT_Success();
+BT_Success {{name}} = new BT_Success();

@@ -1,4 +1,4 @@
-{0}.SetCondition(()=>{{
-	return {1};
+{{name}}.SetCondition(()=>{{
+	return {{condition}};
 }});
-{2}.AddInterrupt({0});
+behaviourTree.AddInterrupt({{name}});

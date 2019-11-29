@@ -1,1 +1,1 @@
-BT_If {0} = new BT_If();
+BT_If {{name}} = new BT_If();

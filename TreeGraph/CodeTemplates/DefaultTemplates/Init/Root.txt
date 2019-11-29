@@ -1,1 +1,1 @@
-{1} = new BehaviourTree({0});
+behaviourTree = new BehaviourTree({{name}});

@@ -1,2 +1,2 @@
 [UnityEngine.SerializeField]
-int {0} = {1};
+int {{name}} = {{value}};

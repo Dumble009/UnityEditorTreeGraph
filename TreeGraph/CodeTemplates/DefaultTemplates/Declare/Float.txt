@@ -1,2 +1,2 @@
 [UnityEngine.SerializeField]
-public float {0} = {1};
+public float {{name}} = {{value}};

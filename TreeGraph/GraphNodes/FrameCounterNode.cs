@@ -72,7 +72,7 @@ public class FrameCounterNode : BaseNode
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
 		holder.SetParameter("name", nodeName);
-		holder.SetParameter("isOverWrite", isOverwrite.ToString().ToLower());
+		holder.SetParameter("isOverwrite", isOverwrite.ToString().ToLower());
 		holder.SetParameter("isMultiple", isMultiple.ToString().ToLower());
 		holder.SetParameter("targetNode", targetNode);
 		holder.SetParameter("waitFrame", waitFrame);

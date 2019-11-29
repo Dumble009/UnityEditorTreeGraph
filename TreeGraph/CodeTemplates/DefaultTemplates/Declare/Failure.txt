@@ -1,1 +1,1 @@
-BT_Failure {0} = new BT_Failure();
+BT_Failure {{name}} = new BT_Failure();

@@ -1,1 +1,1 @@
-BT_Timing {0} = new BT_Timing({1}, {2}, {3});
+BT_Timing {{name}} = new BT_Timing(behaviourTree, {{isOverwrite}}, {{isMultiple}});
