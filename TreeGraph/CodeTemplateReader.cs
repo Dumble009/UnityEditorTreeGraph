@@ -3,7 +3,7 @@ using System.IO;
 
 public class CodeTemplateReader
 {
-	static string dirName = Application.dataPath + "/BehaviourTree/TreeGraph/CodeTemplates";
+	static string dirName = Application.dataPath + "/EditorTree/TreeGraph/CodeTemplates";
 
 	public static string GetDeclareTemplate(string key)
 	{
