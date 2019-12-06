@@ -1,0 +1,43 @@
+{
+"CodeTemplatesDeclare":[
+{"Key":"Bool","Value":"Declare/Bool.txt"},
+{"Key":"Event","Value":"Declare/Event.txt"},
+{"Key":"Execute", "Value":"Declare/Execute.txt"},
+{"Key":"Failure", "Value":"Declare/Failure.txt"},
+{"Key":"Float", "Value":"Declare/Float.txt"},
+{"Key":"FrameCounter", "Value":"Declare/FrameCounter.txt"},
+{"Key":"If", "Value":"Declare/If.txt"},
+{"Key":"Int", "Value":"Declare/Int.txt"},
+{"Key":"Interrupt", "Value":"Declare/Interrupt.txt"},
+{"Key":"Root", "Value":"Declare/Root.txt"},
+{"Key":"Selector", "Value":"Declare/Selector.txt"},
+{"Key":"Sequence", "Value":"Declare/Sequence.txt"},
+{"Key":"SetParameter", "Value":"Declare/SetParameter.txt"},
+{"Key":"Success", "Value":"Declare/Success.txt"},
+{"Key":"Timer", "Value":"Declare/Timer.txt"},
+{"Key":"While", "Value":"Declare/While.txt"}
+],
+
+"CodeTemplatesInit":[
+{"Key":"Bool","Value":"Init/Bool.txt"},
+{"Key":"Event","Value":"Init/Event.txt"},
+{"Key":"Execute", "Value":"Init/Execute.txt"},
+{"Key":"Failure", "Value":"Init/Failure.txt"},
+{"Key":"Float", "Value":"Init/Float.txt"},
+{"Key":"FrameCounter", "Value":"Init/FrameCounter.txt"},
+{"Key":"If", "Value":"Init/If.txt"},
+{"Key":"Int", "Value":"Init/Int.txt"},
+{"Key":"Interrupt", "Value":"Init/Interrupt.txt"},
+{"Key":"Root", "Value":"Init/Root.txt"},
+{"Key":"Selector", "Value":"Init/Selector.txt"},
+{"Key":"Sequence", "Value":"Init/Sequence.txt"},
+{"Key":"SetParameter", "Value":"Init/SetParameter.txt"},
+{"Key":"Success", "Value":"Init/Success.txt"},
+{"Key":"Timer", "Value":"Init/Timer.txt"},
+{"Key":"While", "Value":"Init/While.txt"}
+],
+
+"ClassTemplates":[
+{"Key":"Base","Value":"ClassTemplate.txt"}
+]
+}

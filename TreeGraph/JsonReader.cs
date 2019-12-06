@@ -6,9 +6,9 @@ using UnityEngine;
 class JsonReader
 {
 	private CodeTemplateHolder templateHolder;
-	public JsonReader()
+	public JsonReader(string path)
 	{
-		using (var fs = new StreamReader(Application.dataPath + "/EditorTree/TreeGraph/CodeTemplates/CodeTemplateTable.json"))
+		using (var fs = new StreamReader(path))
 		{
 			string str = fs.ReadToEnd();
 			byte[] data = System.Text.Encoding.Unicode.GetBytes(str);
@@ -36,9 +36,9 @@ class JsonReader
 		return templateHolder.CodeTemplatesInit[key];
 	}
 
-	public string GetClassTemplate()
+	public string GetClassTemplate(string key)
 	{
-		return templateHolder.ClassTemplate;
+		return templateHolder.ClassTemplates[key];
 	}
 }
 
@@ -46,5 +46,5 @@ public class CodeTemplateHolder
 {
 	public Dictionary<string, string> CodeTemplatesDeclare { get; set; }
 	public Dictionary<string, string> CodeTemplatesInit { get; set; }
-	public string ClassTemplate;
+	public Dictionary<string, string> ClassTemplates { get; set; }
 }

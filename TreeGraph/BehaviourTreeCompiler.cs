@@ -4,41 +4,36 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 
-public class EditorTreeCompiler : ScriptableObject
-{
-	virtual public string Compile(string fileName, List<Node> nodes, string inheritTarget = "")
-	{
-		return "";
-	}
-	public string FileNameToClassName(string fileName)
-	{
-		return fileName.Replace(" ", "_");
-	}
-}
-
 [CreateAssetMenu(fileName = "BehaviourTreeCompiler",
 								menuName = "Compilers/BehaviourTreeCompiler")]
 public class BehaviourTreeCompiler : EditorTreeCompiler
 {
 	List<string> createdNodes;
 	protected string inheritedClass = "BehaviourTreeComponent";
-    override public string Compile(string fileName, List<Node> nodes, string inheritTarget = ""){
+	override public string Compile(string fileName, List<Node> nodes, string inheritTarget = "")
+	{
+		Debug.Log("Start Compile");
 		if (string.IsNullOrEmpty(inheritTarget))
 		{
 			inheritTarget = inheritedClass;
 		}
-        List<SubNode> subNodes = new List<SubNode>();
+		List<SubNode> subNodes = new List<SubNode>();
 		createdNodes = new List<string>();
-        RootNode root = new RootNode();
-        foreach(Node node in nodes){
-            if(node is SubNode s){
-                subNodes.Add(s);
-            }else if(node is RootNode r){
-                root = r;
-            }
-        }
+		RootNode root = new RootNode();
+		foreach (Node node in nodes)
+		{
+			if (node is SubNode s)
+			{
+				subNodes.Add(s);
+			}
+			else if (node is RootNode r)
+			{
+				root = r;
+			}
+		}
 
-		string template = CodeTemplateReader.GetClassTemplate();
+		CodeTemplateReader.dirName = Path.Combine(Application.dataPath, codeTemplatePath);
+		string template = CodeTemplateReader.GetClassTemplate("Base");
 
 		string className = FileNameToClassName(fileName);
 		string inheritName = FileNameToClassName(inheritTarget);
@@ -110,7 +105,7 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 				}
 			}
 		}
-		
+
 		//string code = string.Format(template, className, inheritName, declareParameters, constructTree);
 		CodeTemplateParameterHolder templateParameter = new CodeTemplateParameterHolder();
 		templateParameter.SetParameter("className", className);
@@ -118,9 +113,6 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 		templateParameter.SetParameter("declareParameters", declareParameters);
 		templateParameter.SetParameter("constructTree", constructTree);
 		string code = CodeTemplateInterpolator.Interpolate(template, templateParameter);
-		Debug.Log(code);
-		Debug.Log(declareParameters);
-		Debug.Log(constructTree);
 		return code;
-    }
+	}
 }

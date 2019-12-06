@@ -3,11 +3,11 @@ using System.IO;
 
 public class CodeTemplateReader
 {
-	static string dirName = Application.dataPath + "/EditorTree/TreeGraph/CodeTemplates";
+	static public string dirName = "";
 
 	public static string GetDeclareTemplate(string key)
 	{
-		JsonReader jsonReader = new JsonReader();
+		JsonReader jsonReader = new JsonReader(Path.Combine(dirName, "CodeTemplateTable.json"));
 		string template = "";
 		string fileName = jsonReader.GetDeclare(key);
 		string path = Path.Combine(dirName, fileName);
@@ -20,7 +20,7 @@ public class CodeTemplateReader
 
 	public static string GetInitTemplate(string key)
 	{
-		JsonReader jsonReader = new JsonReader();
+		JsonReader jsonReader = new JsonReader(Path.Combine(dirName, "CodeTemplateTable.json"));
 		string template = "";
 		string fileName = jsonReader.GetInit(key);
 		string path = Path.Combine(dirName, fileName);
@@ -31,11 +31,11 @@ public class CodeTemplateReader
 		return template;
 	}
 
-	public static string GetClassTemplate()
+	public static string GetClassTemplate(string key)
 	{
-		JsonReader jsonReader = new JsonReader();
+		JsonReader jsonReader = new JsonReader(Path.Combine(dirName, "CodeTemplateTable.json"));
 		string template = "";
-		string fileName = jsonReader.GetClassTemplate();
+		string fileName = jsonReader.GetClassTemplate(key);
 		string path = Path.Combine(dirName, fileName);
 		using (var str = new StreamReader(path))
 		{
