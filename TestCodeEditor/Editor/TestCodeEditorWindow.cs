@@ -50,8 +50,51 @@ public class TestCodeEditorWindow : EditorWindow
 		};
 		GUILayout.Label("NewTestCase", titleStyle);
 		newTestCaseName = GUILayout.TextField(newTestCaseName);
-		
-		GUILayout.Button("Add");
+
+		if (GUILayout.Button("Add") && targetContainer)
+		{
+			bool isNewName = true;
+			foreach (var testCase in targetContainer.TestCases)
+			{
+				if (testCase.caseName == newTestCaseName)
+				{
+					isNewName = false;
+					break;
+				}
+			}
+
+			if (isNewName)
+			{
+				var newTestCase = ScriptableObject.CreateInstance<TestCase>();
+				newTestCase.Init();
+				newTestCase.name = newTestCaseName;
+				newTestCase.caseName = newTestCaseName;
+				if (targetContainer.TreeGraph != null)
+				{
+					foreach (var node in targetContainer.TreeGraph.nodes)
+					{
+						if (node is IBTGraphNode btNode)
+						{
+							if (node is SubNode subNode)
+							{
+								newTestCase.parameters.Add(subNode.GetNodeName(), "");
+							}
+							else
+							{
+								newTestCase.otherNodes.Add(btNode.GetNodeName());
+							}
+						}
+					}
+				}
+				targetContainer.TestCases.Add(newTestCase);
+				AssetDatabase.AddObjectToAsset(newTestCase, targetContainer);
+				AssetDatabase.SaveAssets();
+			}
+			else
+			{
+				Debug.LogError("Test Case \"" + newTestCaseName + "\" already exists.");
+			}
+		}
 		GUILayout.EndArea();
 	}
 
