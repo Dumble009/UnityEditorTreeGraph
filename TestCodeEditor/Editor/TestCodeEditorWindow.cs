@@ -31,13 +31,17 @@ public class TestCodeEditorWindow : EditorWindow
 
 	private void OnGUI()
 	{
-		Rect newTestCaseArea = new Rect(10, 10, this.position.width / 3.0f, this.position.height / 3.0f);
-		Draw_NewTestCase(newTestCaseArea);
+		Rect addTestCaseArea = new Rect(10, 10, this.position.width / 3.0f, 70);
+		Draw_NewTestCase(addTestCaseArea);
+
+		Rect testCasesArea = new Rect(10, 85, this.position.width / 3.0f, this.position.height - 95);
+		Draw_TestCasesList(testCasesArea);
 	}
 
 	string newTestCaseName = "";
 	private void Draw_NewTestCase(Rect area)
 	{
+		GUI.Box(area, "");
 		GUILayout.BeginArea(area);
 		GUIStyle titleStyle = new GUIStyle()
 		{
@@ -48,6 +52,20 @@ public class TestCodeEditorWindow : EditorWindow
 		newTestCaseName = GUILayout.TextField(newTestCaseName);
 		
 		GUILayout.Button("Add");
+		GUILayout.EndArea();
+	}
+
+	private void Draw_TestCasesList(Rect area)
+	{
+		GUI.Box(area, "");
+		GUILayout.BeginArea(area);
+		if (targetContainer.TestCases != null)
+		{
+			foreach (var testCase in targetContainer.TestCases)
+			{
+				GUILayout.Button(testCase.caseName);
+			}
+		}
 		GUILayout.EndArea();
 	}
 }
