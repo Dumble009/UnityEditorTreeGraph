@@ -32,6 +32,11 @@ public class TestCodeEditorWindow : EditorWindow
 
 	private void OnGUI()
 	{
+		titleStyle = new GUIStyle()
+		{
+			fontSize = 20,
+			fontStyle = FontStyle.Bold
+		};
 		float addTestCaseArea_X = 10;
 		float addTestCaseArea_Y = 10;
 		float addTestCaseArea_W = this.position.width / 3.0f;
@@ -55,15 +60,11 @@ public class TestCodeEditorWindow : EditorWindow
 	}
 
 	string newTestCaseName = "";
+	GUIStyle titleStyle;
 	private void Draw_AddNewTestCaseArea(Rect area)
 	{
 		GUI.Box(area, "");
 		GUILayout.BeginArea(area);
-		GUIStyle titleStyle = new GUIStyle()
-		{
-			fontSize = 20,
-			fontStyle = FontStyle.Bold
-		};
 		GUILayout.Label("NewTestCase", titleStyle);
 		newTestCaseName = GUILayout.TextField(newTestCaseName);
 
@@ -79,6 +80,7 @@ public class TestCodeEditorWindow : EditorWindow
 	{
 		GUI.Box(area, "");
 		GUILayout.BeginArea(area);
+		GUILayout.Label("TestCases", titleStyle);
 		if (targetContainer.TestCases != null)
 		{
 			foreach (var testCase in targetContainer.TestCases)
@@ -98,11 +100,6 @@ public class TestCodeEditorWindow : EditorWindow
 		{
 			GUI.Box(area, "");
 			GUILayout.BeginArea(area);
-			GUIStyle titleStyle = new GUIStyle()
-			{
-				fontSize = 20,
-				fontStyle = FontStyle.Bold
-			};
 			GUILayout.Label(selectedTestCase.caseName, titleStyle);
 			GUILayout.EndArea();
 		}
