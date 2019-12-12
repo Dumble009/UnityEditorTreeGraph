@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System.Linq;
+using System.Collections.Generic;
 
 public class TestCodeEditorWindow : EditorWindow
 {
@@ -29,36 +31,40 @@ public class TestCodeEditorWindow : EditorWindow
 		TestCodeEditorWindow w = GetWindow(typeof(TestCodeEditorWindow), false, "TestCodeEditor", true) as TestCodeEditorWindow;
 		w.targetContainer = container;
 		w.testCasesScrollPos = Vector2.zero;
+		w.parametersScrollPos = Vector2.zero;
 	}
 
 	GUIStyle titleStyle;
 	private void OnGUI()
 	{
-		titleStyle = new GUIStyle()
+		if (targetContainer != null)
 		{
-			fontSize = 20,
-			fontStyle = FontStyle.Bold
-		};
-		float addTestCaseArea_X = 10;
-		float addTestCaseArea_Y = 10;
-		float addTestCaseArea_W = this.position.width / 3.0f;
-		float addTestCaseArea_H = 70;
-		Rect addTestCaseArea = new Rect(addTestCaseArea_X, addTestCaseArea_Y, addTestCaseArea_W, addTestCaseArea_H);
-		Draw_AddNewTestCaseArea(addTestCaseArea);
+			titleStyle = new GUIStyle()
+			{
+				fontSize = 20,
+				fontStyle = FontStyle.Bold
+			};
+			float addTestCaseArea_X = 10;
+			float addTestCaseArea_Y = 10;
+			float addTestCaseArea_W = this.position.width / 3.0f;
+			float addTestCaseArea_H = 70;
+			Rect addTestCaseArea = new Rect(addTestCaseArea_X, addTestCaseArea_Y, addTestCaseArea_W, addTestCaseArea_H);
+			Draw_AddNewTestCaseArea(addTestCaseArea);
 
-		float testCasesArea_X = addTestCaseArea_X;
-		float testCasesArea_Y = addTestCaseArea_Y + addTestCaseArea_H + 5;
-		float testCasesArea_W = addTestCaseArea_W;
-		float testCasesArea_H = this.position.height - testCasesArea_Y - 10;
-		Rect testCasesArea = new Rect(testCasesArea_X, testCasesArea_Y, testCasesArea_W, testCasesArea_H);
-		Draw_TestCasesListArea(testCasesArea);
+			float testCasesArea_X = addTestCaseArea_X;
+			float testCasesArea_Y = addTestCaseArea_Y + addTestCaseArea_H + 5;
+			float testCasesArea_W = addTestCaseArea_W;
+			float testCasesArea_H = this.position.height - testCasesArea_Y - 10;
+			Rect testCasesArea = new Rect(testCasesArea_X, testCasesArea_Y, testCasesArea_W, testCasesArea_H);
+			Draw_TestCasesListArea(testCasesArea);
 
-		float testCaseEditArea_X = addTestCaseArea_X + addTestCaseArea_W + 10;
-		float testCaseEditArea_Y = addTestCaseArea_Y;
-		float testCaseEditArea_W = this.position.width - testCaseEditArea_X - 10;
-		float testCaseEditArea_H = this.position.height - testCaseEditArea_Y - 10;
-		Rect testCaseEditArea = new Rect(testCaseEditArea_X, testCaseEditArea_Y, testCaseEditArea_W, testCaseEditArea_H);
-		Draw_TestCaseEditArea(testCaseEditArea);
+			float testCaseEditArea_X = addTestCaseArea_X + addTestCaseArea_W + 10;
+			float testCaseEditArea_Y = addTestCaseArea_Y;
+			float testCaseEditArea_W = this.position.width - testCaseEditArea_X - 10;
+			float testCaseEditArea_H = this.position.height - testCaseEditArea_Y - 10;
+			Rect testCaseEditArea = new Rect(testCaseEditArea_X, testCaseEditArea_Y, testCaseEditArea_W, testCaseEditArea_H);
+			Draw_TestCaseEditArea(testCaseEditArea);
+		}
 	}
 
 	string newTestCaseName = "";
@@ -99,21 +105,107 @@ public class TestCodeEditorWindow : EditorWindow
 		GUILayout.EndArea();
 	}
 
+	Vector2 parametersScrollPos = Vector2.zero;
 	private void Draw_TestCaseEditArea(Rect area)
 	{
 		if (selectedTestCase != null)
 		{
-			Rect propertyArea = new Rect(area.x + 10, area.y + 30, (area.width - 30) / 2, area.height - 90);
-			Rect extraConditionArea = new Rect(area.x + 10, propertyArea.y + propertyArea.height + 10, propertyArea.width, 40);
-			Rect needToCallNodesArea = new Rect(propertyArea.x + propertyArea.width + 10, propertyArea.y, (area.width - 30) / 2, (area.height - propertyArea.y - 10) / 2);
+			Rect parametersArea = new Rect(area.x + 10, area.y + 30, (area.width - 30) / 2, area.height - 90);
+			Rect extraConditionArea = new Rect(area.x + 10, parametersArea.y + parametersArea.height + 10, parametersArea.width, 40);
+			Rect needToCallNodesArea = new Rect(parametersArea.x + parametersArea.width + 10, parametersArea.y, (area.width - 30) / 2, (area.height - parametersArea.y - 10) / 2);
 			Rect otherNodesArea = new Rect(needToCallNodesArea.x, needToCallNodesArea.y + needToCallNodesArea.height + 10, needToCallNodesArea.width, needToCallNodesArea.height);
 			GUI.Box(area, "");
-			GUI.Box(propertyArea, "");
+
+			GUI.Box(parametersArea, "");
+			Draw_ParametersArea(parametersArea);
+
 			GUI.Box(extraConditionArea, "");
 			GUI.Box(needToCallNodesArea, "");
 			GUI.Box(otherNodesArea, "");
 			GUILayout.BeginArea(area);
 			GUILayout.Label(selectedTestCase.caseName, titleStyle);
+			GUILayout.EndArea();
+
+			if (GUI.changed)
+			{
+				EditorUtility.SetDirty(targetContainer);
+			}
+		}
+	}
+
+	private void Draw_ParametersArea(Rect area)
+	{
+		if (selectedTestCase != null)
+		{
+			GUILayout.BeginArea(area);
+			parametersScrollPos = GUILayout.BeginScrollView(parametersScrollPos);
+			FloatNode[] floatNodes = targetContainer.TreeGraph.nodes
+														.Where(x => {
+															return x is FloatNode;
+														})
+														.Cast<FloatNode>()
+														.ToArray();
+			GUILayout.Label("Float", titleStyle);
+			foreach (var node in floatNodes)
+			{
+				string nodeName = node.GetNodeName();
+				TestCaseParameter parameter = selectedTestCase.parameters
+																	.Where(x => {
+																		return x.name == nodeName;
+																	})
+																	.First();
+				if (parameter != null)
+				{
+					GUILayout.Label(parameter.name);
+					parameter.value = GUILayout.TextField(parameter.value);
+				}
+			}
+
+			IntNode[] intNodes = targetContainer.TreeGraph.nodes
+														.Where(x => {
+															return x is IntNode;
+														})
+														.Cast<IntNode>()
+														.ToArray();
+
+			GUILayout.Label("\nInt", titleStyle);
+			foreach (var node in intNodes)
+			{
+				string nodeName = node.GetNodeName();
+				TestCaseParameter parameter = selectedTestCase.parameters
+																	.Where(x => {
+																		return x.name == nodeName;
+																	})
+																	.First();
+				if (parameter != null)
+				{
+					GUILayout.Label(parameter.name);
+					parameter.value = GUILayout.TextField(parameter.value);
+				}
+			}
+
+			BoolNode[] boolNodes = targetContainer.TreeGraph.nodes
+														.Where(x => {
+															return x is BoolNode;
+														})
+														.Cast<BoolNode>()
+														.ToArray();
+			GUILayout.Label("\nBool", titleStyle);
+			foreach (var node in boolNodes)
+			{
+				string nodeName = node.GetNodeName();
+				TestCaseParameter parameter = selectedTestCase.parameters
+																	.Where(x => {
+																		return x.name == nodeName;
+																	})
+																	.First();
+				if (parameter != null)
+				{
+					GUILayout.Label(parameter.name);
+					parameter.value = GUILayout.TextField(parameter.value);
+				}
+			}
+			GUILayout.EndScrollView();
 			GUILayout.EndArea();
 		}
 	}
@@ -142,9 +234,9 @@ public class TestCodeEditorWindow : EditorWindow
 				{
 					if (node is IBTGraphNode btNode)
 					{
-						if (node is SubNode subNode)
+						if (node is SubNode subNode && !(node is EventNode))
 						{
-							newTestCase.parameters.Add(subNode.GetNodeName(), "");
+							newTestCase.parameters.Add(new TestCaseParameter(subNode.GetNodeName(), ""));
 						}
 						else
 						{
