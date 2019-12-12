@@ -103,7 +103,15 @@ public class TestCodeEditorWindow : EditorWindow
 	{
 		if (selectedTestCase != null)
 		{
+			Rect propertyArea = new Rect(area.x + 10, area.y + 30, (area.width - 30) / 2, area.height - 90);
+			Rect extraConditionArea = new Rect(area.x + 10, propertyArea.y + propertyArea.height + 10, propertyArea.width, 40);
+			Rect needToCallNodesArea = new Rect(propertyArea.x + propertyArea.width + 10, propertyArea.y, (area.width - 30) / 2, (area.height - propertyArea.y - 10) / 2);
+			Rect otherNodesArea = new Rect(needToCallNodesArea.x, needToCallNodesArea.y + needToCallNodesArea.height + 10, needToCallNodesArea.width, needToCallNodesArea.height);
 			GUI.Box(area, "");
+			GUI.Box(propertyArea, "");
+			GUI.Box(extraConditionArea, "");
+			GUI.Box(needToCallNodesArea, "");
+			GUI.Box(otherNodesArea, "");
 			GUILayout.BeginArea(area);
 			GUILayout.Label(selectedTestCase.caseName, titleStyle);
 			GUILayout.EndArea();
