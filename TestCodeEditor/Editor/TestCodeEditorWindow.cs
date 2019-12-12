@@ -28,8 +28,10 @@ public class TestCodeEditorWindow : EditorWindow
 
 		TestCodeEditorWindow w = GetWindow(typeof(TestCodeEditorWindow), false, "TestCodeEditor", true) as TestCodeEditorWindow;
 		w.targetContainer = container;
+		w.testCasesScrollPos = Vector2.zero;
 	}
 
+	GUIStyle titleStyle;
 	private void OnGUI()
 	{
 		titleStyle = new GUIStyle()
@@ -60,7 +62,6 @@ public class TestCodeEditorWindow : EditorWindow
 	}
 
 	string newTestCaseName = "";
-	GUIStyle titleStyle;
 	private void Draw_AddNewTestCaseArea(Rect area)
 	{
 		GUI.Box(area, "");
@@ -76,6 +77,8 @@ public class TestCodeEditorWindow : EditorWindow
 		GUILayout.EndArea();
 	}
 
+
+	Vector2 testCasesScrollPos = Vector2.zero;
 	private void Draw_TestCasesListArea(Rect area)
 	{
 		GUI.Box(area, "");
@@ -83,6 +86,7 @@ public class TestCodeEditorWindow : EditorWindow
 		GUILayout.Label("TestCases", titleStyle);
 		if (targetContainer.TestCases != null)
 		{
+			testCasesScrollPos = GUILayout.BeginScrollView(testCasesScrollPos);
 			foreach (var testCase in targetContainer.TestCases)
 			{
 				if (GUILayout.Button(testCase.caseName))
@@ -90,6 +94,7 @@ public class TestCodeEditorWindow : EditorWindow
 					selectedTestCase = testCase;
 				}
 			}
+			GUILayout.EndScrollView();
 		}
 		GUILayout.EndArea();
 	}
