@@ -12,6 +12,7 @@ public class TestCodeContainer : ScriptableObject
 		}
 	}
 
+	[SerializeField]
 	List<TestCase> testCases;
 	public List<TestCase> TestCases {
 		get {
