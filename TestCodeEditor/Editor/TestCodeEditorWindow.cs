@@ -4,6 +4,7 @@ using UnityEditor;
 public class TestCodeEditorWindow : EditorWindow
 {
 	TestCodeContainer targetContainer;
+	TestCase selectedTestCase;
 
 	[UnityEditor.Callbacks.OnOpenAsset(0)]
 	public static bool Open(int instanceID, int line)
@@ -31,15 +32,30 @@ public class TestCodeEditorWindow : EditorWindow
 
 	private void OnGUI()
 	{
-		Rect addTestCaseArea = new Rect(10, 10, this.position.width / 3.0f, 70);
-		Draw_NewTestCase(addTestCaseArea);
+		float addTestCaseArea_X = 10;
+		float addTestCaseArea_Y = 10;
+		float addTestCaseArea_W = this.position.width / 3.0f;
+		float addTestCaseArea_H = 70;
+		Rect addTestCaseArea = new Rect(addTestCaseArea_X, addTestCaseArea_Y, addTestCaseArea_W, addTestCaseArea_H);
+		Draw_AddNewTestCaseArea(addTestCaseArea);
 
-		Rect testCasesArea = new Rect(10, 85, this.position.width / 3.0f, this.position.height - 95);
-		Draw_TestCasesList(testCasesArea);
+		float testCasesArea_X = addTestCaseArea_X;
+		float testCasesArea_Y = addTestCaseArea_Y + addTestCaseArea_H + 5;
+		float testCasesArea_W = addTestCaseArea_W;
+		float testCasesArea_H = this.position.height - testCasesArea_Y - 10;
+		Rect testCasesArea = new Rect(testCasesArea_X, testCasesArea_Y, testCasesArea_W, testCasesArea_H);
+		Draw_TestCasesListArea(testCasesArea);
+
+		float testCaseEditArea_X = addTestCaseArea_X + addTestCaseArea_W + 10;
+		float testCaseEditArea_Y = addTestCaseArea_Y;
+		float testCaseEditArea_W = this.position.width - testCaseEditArea_X - 10;
+		float testCaseEditArea_H = this.position.height - testCaseEditArea_Y - 10;
+		Rect testCaseEditArea = new Rect(testCaseEditArea_X, testCaseEditArea_Y, testCaseEditArea_W, testCaseEditArea_H);
+		Draw_TestCaseEditArea(testCaseEditArea);
 	}
 
 	string newTestCaseName = "";
-	private void Draw_NewTestCase(Rect area)
+	private void Draw_AddNewTestCaseArea(Rect area)
 	{
 		GUI.Box(area, "");
 		GUILayout.BeginArea(area);
@@ -59,7 +75,7 @@ public class TestCodeEditorWindow : EditorWindow
 		GUILayout.EndArea();
 	}
 
-	private void Draw_TestCasesList(Rect area)
+	private void Draw_TestCasesListArea(Rect area)
 	{
 		GUI.Box(area, "");
 		GUILayout.BeginArea(area);
@@ -67,10 +83,29 @@ public class TestCodeEditorWindow : EditorWindow
 		{
 			foreach (var testCase in targetContainer.TestCases)
 			{
-				GUILayout.Button(testCase.caseName);
+				if (GUILayout.Button(testCase.caseName))
+				{
+					selectedTestCase = testCase;
+				}
 			}
 		}
 		GUILayout.EndArea();
+	}
+
+	private void Draw_TestCaseEditArea(Rect area)
+	{
+		if (selectedTestCase != null)
+		{
+			GUI.Box(area, "");
+			GUILayout.BeginArea(area);
+			GUIStyle titleStyle = new GUIStyle()
+			{
+				fontSize = 20,
+				fontStyle = FontStyle.Bold
+			};
+			GUILayout.Label(selectedTestCase.caseName, titleStyle);
+			GUILayout.EndArea();
+		}
 	}
 
 	private void AddNewTestCase()
