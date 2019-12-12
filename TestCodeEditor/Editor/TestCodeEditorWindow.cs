@@ -32,6 +32,7 @@ public class TestCodeEditorWindow : EditorWindow
 		w.targetContainer = container;
 		w.testCasesScrollPos = Vector2.zero;
 		w.parametersScrollPos = Vector2.zero;
+		w.extraConditionTextAreaScrollPos = Vector2.zero;
 	}
 
 	GUIStyle titleStyle;
@@ -110,8 +111,8 @@ public class TestCodeEditorWindow : EditorWindow
 	{
 		if (selectedTestCase != null)
 		{
-			Rect parametersArea = new Rect(area.x + 10, area.y + 30, (area.width - 30) / 2, area.height - 90);
-			Rect extraConditionArea = new Rect(area.x + 10, parametersArea.y + parametersArea.height + 10, parametersArea.width, 40);
+			Rect parametersArea = new Rect(area.x + 10, area.y + 30, (area.width - 30) / 2, area.height / 2);
+			Rect extraConditionArea = new Rect(area.x + 10, parametersArea.y + parametersArea.height + 10, parametersArea.width, area.yMax - parametersArea.yMax - 20);
 			Rect needToCallNodesArea = new Rect(parametersArea.x + parametersArea.width + 10, parametersArea.y, (area.width - 30) / 2, (area.height - parametersArea.y - 10) / 2);
 			Rect otherNodesArea = new Rect(needToCallNodesArea.x, needToCallNodesArea.y + needToCallNodesArea.height + 10, needToCallNodesArea.width, needToCallNodesArea.height);
 			GUI.Box(area, "");
@@ -120,6 +121,8 @@ public class TestCodeEditorWindow : EditorWindow
 			Draw_ParametersArea(parametersArea);
 
 			GUI.Box(extraConditionArea, "");
+			Draw_ExtraConditionArea(extraConditionArea);
+
 			GUI.Box(needToCallNodesArea, "");
 			GUI.Box(otherNodesArea, "");
 			GUILayout.BeginArea(area);
@@ -205,6 +208,21 @@ public class TestCodeEditorWindow : EditorWindow
 					parameter.value = GUILayout.TextField(parameter.value);
 				}
 			}
+			GUILayout.EndScrollView();
+			GUILayout.EndArea();
+		}
+	}
+
+	Vector2 extraConditionTextAreaScrollPos = Vector2.zero;
+	private void Draw_ExtraConditionArea(Rect area)
+	{
+		if (selectedTestCase != null)
+		{
+			GUILayout.BeginArea(area);
+			GUILayout.Label("ExtraCondition", titleStyle);
+
+			extraConditionTextAreaScrollPos = GUILayout.BeginScrollView(extraConditionTextAreaScrollPos);
+			selectedTestCase.extraCondition = GUILayout.TextArea(selectedTestCase.extraCondition, GUILayout.Height(area.height - 60));
 			GUILayout.EndScrollView();
 			GUILayout.EndArea();
 		}

@@ -8,6 +8,7 @@ public class TestCase : ScriptableObject
 	public List<TestCaseParameter> parameters;
 	public List<string> otherNodes;
 	public List<string> needToCallNodes;
+	[TextArea]
 	public string extraCondition;
 
 	public void Init()
