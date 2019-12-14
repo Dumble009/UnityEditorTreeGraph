@@ -30,6 +30,7 @@ public class TestCodeEditorWindow : EditorWindow
 
 		TestCodeEditorWindow w = GetWindow(typeof(TestCodeEditorWindow), false, "TestCodeEditor", true) as TestCodeEditorWindow;
 		w.targetContainer = container;
+		w.selectedTestCase = null;
 		w.testCasesScrollPos = Vector2.zero;
 		w.parametersScrollPos = Vector2.zero;
 		w.extraConditionTextAreaScrollPos = Vector2.zero;
@@ -43,11 +44,17 @@ public class TestCodeEditorWindow : EditorWindow
 		{
 			titleStyle = new GUIStyle()
 			{
+				fontSize = 15,
+				fontStyle = FontStyle.Normal
+			};
+			GUIStyle containerNameStyle = new GUIStyle()
+			{
 				fontSize = 20,
 				fontStyle = FontStyle.Bold
 			};
+			GUILayout.Label(targetContainer.name, containerNameStyle);
 			float addTestCaseArea_X = 10;
-			float addTestCaseArea_Y = 10;
+			float addTestCaseArea_Y = 30;
 			float addTestCaseArea_W = this.position.width / 3.0f;
 			float addTestCaseArea_H = 70;
 			Rect addTestCaseArea = new Rect(addTestCaseArea_X, addTestCaseArea_Y, addTestCaseArea_W, addTestCaseArea_H);
