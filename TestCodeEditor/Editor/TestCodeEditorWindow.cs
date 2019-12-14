@@ -80,6 +80,7 @@ public class TestCodeEditorWindow : EditorWindow
 		if (GUILayout.Button("Add") && targetContainer)
 		{
 			AddNewTestCase();
+			newTestCaseName = string.Empty;
 		}
 		
 		GUILayout.EndArea();
