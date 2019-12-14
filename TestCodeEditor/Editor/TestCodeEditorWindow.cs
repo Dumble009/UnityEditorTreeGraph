@@ -126,7 +126,7 @@ public class TestCodeEditorWindow : EditorWindow
 		{
 			Rect parametersArea = new Rect(area.x + 10, area.y + 30, (area.width - 30) / 2, area.height / 2);
 			Rect extraConditionArea = new Rect(area.x + 10, parametersArea.y + parametersArea.height + 10, parametersArea.width, area.yMax - parametersArea.yMax - 20);
-			Rect needToCallNodesArea = new Rect(parametersArea.x + parametersArea.width + 10, parametersArea.y, (area.width - 30) / 2, (area.height - parametersArea.y - 10) / 2);
+			Rect needToCallNodesArea = new Rect(parametersArea.x + parametersArea.width + 10, parametersArea.y, (area.width - 30) / 2, (area.height - parametersArea.y + 10) / 2);
 			Rect otherNodesArea = new Rect(needToCallNodesArea.x, needToCallNodesArea.y + needToCallNodesArea.height + 10, needToCallNodesArea.width, needToCallNodesArea.height);
 			GUI.Box(area, "");
 
