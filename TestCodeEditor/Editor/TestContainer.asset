@@ -37,7 +37,7 @@ MonoBehaviour:
   - sf1
   - si1
   needToCallNodes: []
-  extraCondition: 
+  extraCondition: extra condition here
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

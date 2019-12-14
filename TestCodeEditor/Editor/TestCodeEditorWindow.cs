@@ -222,7 +222,7 @@ public class TestCodeEditorWindow : EditorWindow
 			GUILayout.Label("ExtraCondition", titleStyle);
 
 			extraConditionTextAreaScrollPos = GUILayout.BeginScrollView(extraConditionTextAreaScrollPos);
-			selectedTestCase.extraCondition = GUILayout.TextArea(selectedTestCase.extraCondition, GUILayout.Height(area.height - 60));
+			selectedTestCase.extraCondition = GUILayout.TextArea(selectedTestCase.extraCondition, GUILayout.Height(area.height - 30));
 			GUILayout.EndScrollView();
 			GUILayout.EndArea();
 		}
