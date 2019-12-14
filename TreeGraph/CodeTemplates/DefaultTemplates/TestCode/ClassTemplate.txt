@@ -5,6 +5,7 @@ BehaviourTree behaviourTree;
 [SetUp]
 void Init()
 {
+{{delcareParameters}}
 {{constructTree}}
 }
 

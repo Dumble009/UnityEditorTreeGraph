@@ -45,6 +45,7 @@
 {"Key":"Base", "Value":[
 
 {"Key":"Class","Value":"ClassTemplate.txt"}
+{"Key":"TestFunction", "Value":"TestFunctionTemplate.txt"}
 
 ]}
 ]

@@ -99,6 +99,30 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 			}
 		}
 
+		//Create TestCases
+		string testFunctions = "";
+		string functionTemplate = CodeTemplateReader.GetTemplate("Base", "TestFunction");
+		foreach (var testCase in container.TestCases)
+		{
+			string initParameters = "";
+			foreach (var parameter in testCase.parameters)
+			{
+				initParameters += parameter.name + "=" + parameter.value + ";\n";
+			}
+
+			string asserts = "";
+			foreach (var needToCallNode in testCase.needToCallNodes)
+			{
+				//create asserts here
+			}
+
+			CodeTemplateParameterHolder functionParameter = new CodeTemplateParameterHolder();
+			functionParameter.SetParameter("functionName", testCase.caseName);
+			functionParameter.SetParameter("initParameters", initParameters);
+			functionParameter.SetParameter("asserts", asserts);
+			testFunctions += CodeTemplateInterpolator.Interpolate(functionTemplate, functionParameter);
+		}
+
 		//string code = string.Format(template, className, inheritName, declareParameters, constructTree);
 		CodeTemplateParameterHolder templateParameter = new CodeTemplateParameterHolder();
 		templateParameter.SetParameter("className", className);
