@@ -1,0 +1,12 @@
+using BT;
+public class {{className}}
+{
+BehaviourTree behaviourTree;
+[SetUp]
+void Init()
+{
+{{constructTree}}
+}
+
+{{testCases}}
+}

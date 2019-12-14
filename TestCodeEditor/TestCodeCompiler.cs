@@ -5,8 +5,13 @@ using XNode;
 
 public class TestCodeCompiler : ScriptableObject
 {
-	virtual public void Compile(List<Node> nodes, TestCodeContainer container)
+	public string codeTemplatePath;
+	virtual public void Compile(string fileName, List<Node> nodes, TestCodeContainer container)
 	{
 
+	}
+	public string FileNameToClassName(string fileName)
+	{
+		return fileName.Replace(" ", "_");
 	}
 }
