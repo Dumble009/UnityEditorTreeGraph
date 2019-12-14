@@ -231,6 +231,25 @@ public class TestCodeEditorWindow : EditorWindow
 		}
 	}
 
+	Vector2 needToCallNodesScrollPos = Vector2.zero;
+	private void Draw_NeedToCallNodes(Rect area)
+	{
+		if (selectedTestCase != null)
+		{
+			GUILayout.BeginArea(area);
+			GUILayout.Label("Need To Call", titleStyle);
+			needToCallNodesScrollPos = GUILayout.BeginScrollView(needToCallNodesScrollPos);
+
+			foreach (var nodeName in selectedTestCase.needToCallNodes)
+			{
+				GUILayout.Button(nodeName);
+			}
+
+			GUILayout.EndScrollView();
+			GUILayout.EndArea();
+		}
+	}
+
 	Vector2 otherNodesScrollPos = Vector2.zero;
 	private void Draw_OtherNodes(Rect area)
 	{
