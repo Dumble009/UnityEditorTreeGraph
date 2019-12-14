@@ -5,7 +5,7 @@ using UnityEngine;
 
 class JsonReader
 {
-	private CodeTemplateHolder templateHolder;
+	private CodeTemplatePathHolder templateHolder;
 	public JsonReader(string path)
 	{
 		using (var fs = new StreamReader(path))
@@ -16,35 +16,23 @@ class JsonReader
 			{
 				using (var sr = new StreamReader(ms))
 				{
-					var serializer = new DataContractJsonSerializer(typeof(CodeTemplateHolder));
+					var serializer = new DataContractJsonSerializer(typeof(CodeTemplatePathHolder));
 
 					ms.Position = 0;
 
-					templateHolder = (CodeTemplateHolder)serializer.ReadObject(ms);
+					templateHolder = (CodeTemplatePathHolder)serializer.ReadObject(ms);
 				}
 			}
 		}
 	}
 
-	public string GetDeclare(string key)
+	public string GetTemplatePath(string key1, string key2)
 	{
-		return templateHolder.CodeTemplatesDeclare[key];
-	}
-
-	public string GetInit(string key)
-	{
-		return templateHolder.CodeTemplatesInit[key];
-	}
-
-	public string GetClassTemplate(string key)
-	{
-		return templateHolder.ClassTemplates[key];
+		return templateHolder.CodeTemplatePaths[key1][key2];
 	}
 }
 
-public class CodeTemplateHolder
+public class CodeTemplatePathHolder
 {
-	public Dictionary<string, string> CodeTemplatesDeclare { get; set; }
-	public Dictionary<string, string> CodeTemplatesInit { get; set; }
-	public Dictionary<string, string> ClassTemplates { get; set; }
+	public Dictionary<string, Dictionary<string, string>> CodeTemplatePaths;
 }

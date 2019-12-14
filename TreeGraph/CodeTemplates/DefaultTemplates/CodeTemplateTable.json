@@ -1,5 +1,7 @@
 {
-"CodeTemplatesDeclare":[
+"CodeTemplatePaths":[
+{"Key":"Declare", "Value":[
+
 {"Key":"Bool","Value":"Declare/Bool.txt"},
 {"Key":"Event","Value":"Declare/Event.txt"},
 {"Key":"Execute", "Value":"Declare/Execute.txt"},
@@ -16,9 +18,11 @@
 {"Key":"Success", "Value":"Declare/Success.txt"},
 {"Key":"Timer", "Value":"Declare/Timer.txt"},
 {"Key":"While", "Value":"Declare/While.txt"}
-],
 
-"CodeTemplatesInit":[
+]},
+
+{"Key":"Init","Value":[
+
 {"Key":"Bool","Value":"Init/Bool.txt"},
 {"Key":"Event","Value":"Init/Event.txt"},
 {"Key":"Execute", "Value":"Init/Execute.txt"},
@@ -35,9 +39,13 @@
 {"Key":"Success", "Value":"Init/Success.txt"},
 {"Key":"Timer", "Value":"Init/Timer.txt"},
 {"Key":"While", "Value":"Init/While.txt"}
-],
 
-"ClassTemplates":[
-{"Key":"Base","Value":"ClassTemplate.txt"}
+]},
+
+{"Key":"Base", "Value":[
+
+{"Key":"Class","Value":"ClassTemplate.txt"}
+
+]}
 ]
 }

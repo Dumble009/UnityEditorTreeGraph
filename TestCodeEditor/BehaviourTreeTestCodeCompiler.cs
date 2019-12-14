@@ -27,7 +27,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		}
 
 		CodeTemplateReader.dirName = Path.Combine(Application.dataPath, codeTemplatePath);
-		string template = CodeTemplateReader.GetClassTemplate("Base");
+		string template = CodeTemplateReader.GetTemplate("Base", "Class");
 
 		string className = FileNameToClassName(fileName);
 
@@ -41,7 +41,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 			{
 				CodeTemplateParameterHolder holder = node.GetParameterHolder();
 				string key = node.GetKey();
-				string source = CodeTemplateReader.GetDeclareTemplate(key);
+				string source = CodeTemplateReader.GetTemplate("Declare", key);
 				//declareParameters += node.GetDeclare();
 				declareParameters += CodeTemplateInterpolator.Interpolate(source, holder);
 			}
@@ -50,8 +50,8 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		string constructTree = "";
 		CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
 		string rootKey = root.GetKey();
-		string rootDeclare = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetDeclareTemplate(rootKey), rootParameter);
-		string rootInit = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetInitTemplate(rootKey), rootParameter);
+		string rootDeclare = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Declare", rootKey), rootParameter);
+		string rootInit = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Init", rootKey), rootParameter);
 		constructTree += rootDeclare + rootInit;
 		var rootChild = root.GetOutputPort("output").GetConnection(0).node as IBTGraphNode;
 
@@ -63,7 +63,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 				{
 					CodeTemplateParameterHolder holder = i.GetParameterHolder();
 					string key = i.GetKey();
-					string source = CodeTemplateReader.GetDeclareTemplate(key);
+					string source = CodeTemplateReader.GetTemplate("Declare", key);
 					constructTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
 					//constructTree += i.GetDeclare() + "\n";
 				}
@@ -80,7 +80,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 					{
 						CodeTemplateParameterHolder holder = i.GetParameterHolder();
 						string key = i.GetKey();
-						string source = CodeTemplateReader.GetInitTemplate(key);
+						string source = CodeTemplateReader.GetTemplate("Init", key);
 						constructTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
 						//constructTree += i.GetInit() + "\n";
 					}

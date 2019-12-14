@@ -4,38 +4,17 @@ using System.IO;
 public class CodeTemplateReader
 {
 	static public string dirName = "";
-
-	public static string GetDeclareTemplate(string key)
+	static JsonReader jsonReader;
+	public static void Init(string codeTemplateTableDirName)
 	{
-		JsonReader jsonReader = new JsonReader(Path.Combine(dirName, "CodeTemplateTable.json"));
-		string template = "";
-		string fileName = jsonReader.GetDeclare(key);
-		string path = Path.Combine(dirName, fileName);
-		using (var str = new StreamReader(path))
-		{
-			template = str.ReadToEnd();
-		}
-		return template;
+		dirName = codeTemplateTableDirName;
+		jsonReader = new JsonReader(Path.Combine(dirName, "CodeTemplateTable.json"));
 	}
 
-	public static string GetInitTemplate(string key)
+	public static string GetTemplate(string key1, string key2)
 	{
-		JsonReader jsonReader = new JsonReader(Path.Combine(dirName, "CodeTemplateTable.json"));
 		string template = "";
-		string fileName = jsonReader.GetInit(key);
-		string path = Path.Combine(dirName, fileName);
-		using (var str = new StreamReader(path))
-		{
-			template = str.ReadToEnd();
-		}
-		return template;
-	}
-
-	public static string GetClassTemplate(string key)
-	{
-		JsonReader jsonReader = new JsonReader(Path.Combine(dirName, "CodeTemplateTable.json"));
-		string template = "";
-		string fileName = jsonReader.GetClassTemplate(key);
+		string fileName = jsonReader.GetTemplatePath(key1, key2);
 		string path = Path.Combine(dirName, fileName);
 		using (var str = new StreamReader(path))
 		{
