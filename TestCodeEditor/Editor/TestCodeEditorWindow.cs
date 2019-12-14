@@ -33,6 +33,7 @@ public class TestCodeEditorWindow : EditorWindow
 		w.testCasesScrollPos = Vector2.zero;
 		w.parametersScrollPos = Vector2.zero;
 		w.extraConditionTextAreaScrollPos = Vector2.zero;
+		w.otherNodesScrollPos = Vector2.zero;
 	}
 
 	GUIStyle titleStyle;
@@ -106,7 +107,6 @@ public class TestCodeEditorWindow : EditorWindow
 		GUILayout.EndArea();
 	}
 
-	Vector2 parametersScrollPos = Vector2.zero;
 	private void Draw_TestCaseEditArea(Rect area)
 	{
 		if (selectedTestCase != null)
@@ -125,6 +125,8 @@ public class TestCodeEditorWindow : EditorWindow
 
 			GUI.Box(needToCallNodesArea, "");
 			GUI.Box(otherNodesArea, "");
+			Draw_OtherNodes(otherNodesArea);
+
 			GUILayout.BeginArea(area);
 			GUILayout.Label(selectedTestCase.caseName, titleStyle);
 			GUILayout.EndArea();
@@ -136,6 +138,7 @@ public class TestCodeEditorWindow : EditorWindow
 		}
 	}
 
+	Vector2 parametersScrollPos = Vector2.zero;
 	private void Draw_ParametersArea(Rect area)
 	{
 		if (selectedTestCase != null)
@@ -228,6 +231,26 @@ public class TestCodeEditorWindow : EditorWindow
 		}
 	}
 
+	Vector2 otherNodesScrollPos = Vector2.zero;
+	private void Draw_OtherNodes(Rect area)
+	{
+		if (selectedTestCase != null)
+		{
+			GUILayout.BeginArea(area);
+			GUILayout.Label("Other Nodes", titleStyle);
+			otherNodesScrollPos = GUILayout.BeginScrollView(otherNodesScrollPos);
+
+			foreach (var nodeName in selectedTestCase.otherNodes)
+			{
+				GUILayout.Button(nodeName);
+			}
+
+			GUILayout.EndScrollView();
+			GUILayout.EndArea();
+		}
+	}
+
+
 	private void AddNewTestCase()
 	{
 		bool isNewName = true;
@@ -250,16 +273,14 @@ public class TestCodeEditorWindow : EditorWindow
 			{
 				foreach (var node in targetContainer.TreeGraph.nodes)
 				{
-					if (node is IBTGraphNode btNode)
+					if (node is SubNode subNode && !(node is EventNode))
 					{
-						if (node is SubNode subNode && !(node is EventNode))
-						{
-							newTestCase.parameters.Add(new TestCaseParameter(subNode.GetNodeName(), ""));
-						}
-						else
-						{
-							newTestCase.otherNodes.Add(btNode.GetNodeName());
-						}
+						newTestCase.parameters.Add(new TestCaseParameter(subNode.GetNodeName(), ""));
+					}
+					else
+					if (node is ExecuteNode ex)
+					{
+						newTestCase.otherNodes.Add(ex.GetNodeName());
 					}
 				}
 			}
