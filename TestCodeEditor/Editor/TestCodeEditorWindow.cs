@@ -124,6 +124,8 @@ public class TestCodeEditorWindow : EditorWindow
 			Draw_ExtraConditionArea(extraConditionArea);
 
 			GUI.Box(needToCallNodesArea, "");
+			Draw_NeedToCallNodes(needToCallNodesArea);
+
 			GUI.Box(otherNodesArea, "");
 			Draw_OtherNodes(otherNodesArea);
 
@@ -240,9 +242,25 @@ public class TestCodeEditorWindow : EditorWindow
 			GUILayout.Label("Need To Call", titleStyle);
 			needToCallNodesScrollPos = GUILayout.BeginScrollView(needToCallNodesScrollPos);
 
+			List<string> removeNodes = new List<string>();
 			foreach (var nodeName in selectedTestCase.needToCallNodes)
 			{
-				GUILayout.Button(nodeName);
+				if (GUILayout.Button(nodeName))
+				{
+					removeNodes.Add(nodeName);
+					if (!selectedTestCase.otherNodes.Contains(nodeName))
+					{
+						selectedTestCase.otherNodes.Add(nodeName);
+					}
+				}
+			}
+
+			foreach (var removeNode in removeNodes)
+			{
+				if (selectedTestCase.needToCallNodes.Contains(removeNode))
+				{
+					selectedTestCase.needToCallNodes.Remove(removeNode);
+				}
 			}
 
 			GUILayout.EndScrollView();
@@ -259,9 +277,25 @@ public class TestCodeEditorWindow : EditorWindow
 			GUILayout.Label("Other Nodes", titleStyle);
 			otherNodesScrollPos = GUILayout.BeginScrollView(otherNodesScrollPos);
 
+			List<string> removeNodes = new List<string>();
 			foreach (var nodeName in selectedTestCase.otherNodes)
 			{
-				GUILayout.Button(nodeName);
+				if (GUILayout.Button(nodeName))
+				{
+					removeNodes.Add(nodeName);
+					if (!selectedTestCase.needToCallNodes.Contains(nodeName))
+					{
+						selectedTestCase.needToCallNodes.Add(nodeName);
+					}
+				}
+			}
+
+			foreach (var removeNode in removeNodes)
+			{
+				if (selectedTestCase.otherNodes.Contains(removeNode))
+				{
+					selectedTestCase.otherNodes.Remove(removeNode);
+				}
 			}
 
 			GUILayout.EndScrollView();
