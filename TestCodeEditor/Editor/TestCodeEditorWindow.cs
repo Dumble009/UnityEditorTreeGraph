@@ -38,6 +38,7 @@ public class TestCodeEditorWindow : EditorWindow
 	}
 
 	GUIStyle titleStyle;
+	GUIStyle areaStyle;
 	private void OnGUI()
 	{
 		if (targetContainer != null)
@@ -46,6 +47,10 @@ public class TestCodeEditorWindow : EditorWindow
 			{
 				fontSize = 15,
 				fontStyle = FontStyle.Normal
+			};
+			areaStyle = new GUIStyle()
+			{
+				padding = new RectOffset(5, 0, 0, 5)
 			};
 			GUIStyle containerNameStyle = new GUIStyle()
 			{
@@ -80,7 +85,7 @@ public class TestCodeEditorWindow : EditorWindow
 	private void Draw_AddNewTestCaseArea(Rect area)
 	{
 		GUI.Box(area, "");
-		GUILayout.BeginArea(area);
+		GUILayout.BeginArea(area, areaStyle);
 		GUILayout.Label("NewTestCase", titleStyle);
 		newTestCaseName = GUILayout.TextField(newTestCaseName);
 
@@ -98,7 +103,7 @@ public class TestCodeEditorWindow : EditorWindow
 	private void Draw_TestCasesListArea(Rect area)
 	{
 		GUI.Box(area, "");
-		GUILayout.BeginArea(area);
+		GUILayout.BeginArea(area, areaStyle);
 		GUILayout.Label("TestCases", titleStyle);
 		if (targetContainer.TestCases != null)
 		{
@@ -137,7 +142,7 @@ public class TestCodeEditorWindow : EditorWindow
 			GUI.Box(otherNodesArea, "");
 			Draw_OtherNodes(otherNodesArea);
 
-			GUILayout.BeginArea(area);
+			GUILayout.BeginArea(area, areaStyle);
 			GUILayout.Label(selectedTestCase.caseName, titleStyle);
 			GUILayout.EndArea();
 
@@ -153,7 +158,7 @@ public class TestCodeEditorWindow : EditorWindow
 	{
 		if (selectedTestCase != null)
 		{
-			GUILayout.BeginArea(area);
+			GUILayout.BeginArea(area, areaStyle);
 			parametersScrollPos = GUILayout.BeginScrollView(parametersScrollPos);
 			FloatNode[] floatNodes = targetContainer.TreeGraph.nodes
 														.Where(x => {
@@ -231,7 +236,7 @@ public class TestCodeEditorWindow : EditorWindow
 	{
 		if (selectedTestCase != null)
 		{
-			GUILayout.BeginArea(area);
+			GUILayout.BeginArea(area, areaStyle);
 			GUILayout.Label("ExtraCondition", titleStyle);
 
 			extraConditionTextAreaScrollPos = GUILayout.BeginScrollView(extraConditionTextAreaScrollPos);
@@ -246,7 +251,7 @@ public class TestCodeEditorWindow : EditorWindow
 	{
 		if (selectedTestCase != null)
 		{
-			GUILayout.BeginArea(area);
+			GUILayout.BeginArea(area, areaStyle);
 			GUILayout.Label("Need To Call", titleStyle);
 			needToCallNodesScrollPos = GUILayout.BeginScrollView(needToCallNodesScrollPos);
 
@@ -281,7 +286,7 @@ public class TestCodeEditorWindow : EditorWindow
 	{
 		if (selectedTestCase != null)
 		{
-			GUILayout.BeginArea(area);
+			GUILayout.BeginArea(area, areaStyle);
 			GUILayout.Label("Other Nodes", titleStyle);
 			otherNodesScrollPos = GUILayout.BeginScrollView(otherNodesScrollPos);
 
