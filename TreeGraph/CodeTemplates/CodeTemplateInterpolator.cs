@@ -82,6 +82,10 @@ public class CodeTemplateParameterHolder
 
 	public string GetParameter(string name)
 	{
+		if (!parameterDict.ContainsKey(name))
+		{
+			UnityEngine.Debug.LogError("CodeInterpolateError: Parameter name \"" + name + "\" doesn't exist.");
+		}
 		return parameterDict[name];
 	}
 }

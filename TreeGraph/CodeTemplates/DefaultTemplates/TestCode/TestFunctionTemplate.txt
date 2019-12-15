@@ -3,7 +3,7 @@ public void {{functionName}}()
 {
 {{initParameters}}
 {{asserts}}
-foreach(val pair in calledFlag)
+foreach(var pair in calledFlag)
 {
 	calledFlag[pair.Key] = false;
 }

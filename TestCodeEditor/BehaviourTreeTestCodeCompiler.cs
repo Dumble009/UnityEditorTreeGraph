@@ -28,8 +28,9 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 				root = r;
 			}
 		}
+		
+		CodeTemplateReader.Init(Path.Combine(Application.dataPath, codeTemplatePath));
 
-		CodeTemplateReader.dirName = Path.Combine(Application.dataPath, codeTemplatePath);
 		string template = CodeTemplateReader.GetTemplate("Base", "Class");
 
 		string className = FileNameToClassName(fileName);
@@ -125,7 +126,10 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 			string initParameters = "";
 			foreach (var parameter in testCase.parameters)
 			{
-				initParameters += parameter.name + "=" + parameter.value + ";\n";
+				if (!string.IsNullOrEmpty(parameter.value))
+				{
+					initParameters += parameter.name + "=" + parameter.value + ";\n";
+				}
 			}
 
 			string asserts = "";

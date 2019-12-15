@@ -78,7 +78,10 @@ public class TestCodeEditorWindow : EditorWindow
 			float compileButtonArea_H = 20;
 			Rect compileButtonArea = new Rect(compileButtonArea_X, compileButtonArea_Y, compileButtonArea_W, compileButtonArea_H);
 			GUILayout.BeginArea(compileButtonArea);
-			GUILayout.Button("Compile");
+			if (GUILayout.Button("Compile"))
+			{
+				EditorTreeGraphSettings.Instance.TestCodeCompiler.Compile(targetContainer.name, targetContainer.TreeGraph.nodes, targetContainer);
+			}
 			GUILayout.EndArea();
 
 			float testCaseEditArea_X = addTestCaseArea_X + addTestCaseArea_W + 10;

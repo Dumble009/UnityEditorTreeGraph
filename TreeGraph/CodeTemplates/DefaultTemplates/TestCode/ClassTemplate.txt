@@ -8,11 +8,11 @@ using UnityEngine.TestTools;
 public class {{className}}
 {
 BehaviourTree behaviourTree;
-Dictionary<string, bool> calledFlag
+Dictionary<string, bool> calledFlag;
+{{declareParameters}}
 [SetUp]
 void Init()
 {
-{{delcareParameters}}
 {{constructTree}}
 
 calledFlag = new Dictionary<string, bool>();
