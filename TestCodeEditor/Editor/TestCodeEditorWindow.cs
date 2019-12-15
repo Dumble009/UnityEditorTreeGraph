@@ -68,9 +68,18 @@ public class TestCodeEditorWindow : EditorWindow
 			float testCasesArea_X = addTestCaseArea_X;
 			float testCasesArea_Y = addTestCaseArea_Y + addTestCaseArea_H + 5;
 			float testCasesArea_W = addTestCaseArea_W;
-			float testCasesArea_H = this.position.height - testCasesArea_Y - 10;
+			float testCasesArea_H = this.position.height - testCasesArea_Y - 10 - 25;
 			Rect testCasesArea = new Rect(testCasesArea_X, testCasesArea_Y, testCasesArea_W, testCasesArea_H);
 			Draw_TestCasesListArea(testCasesArea);
+
+			float compileButtonArea_X = addTestCaseArea_X;
+			float compileButtonArea_Y = testCasesArea.yMax + 5;
+			float compileButtonArea_W = 60;
+			float compileButtonArea_H = 20;
+			Rect compileButtonArea = new Rect(compileButtonArea_X, compileButtonArea_Y, compileButtonArea_W, compileButtonArea_H);
+			GUILayout.BeginArea(compileButtonArea);
+			GUILayout.Button("Compile");
+			GUILayout.EndArea();
 
 			float testCaseEditArea_X = addTestCaseArea_X + addTestCaseArea_W + 10;
 			float testCaseEditArea_Y = addTestCaseArea_Y;
