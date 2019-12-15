@@ -1,5 +1,10 @@
 [Test]
-public void {{functionName}}(){
+public void {{functionName}}()
+{
 {{initParameters}}
 {{asserts}}
+foreach(val pair in calledFlag)
+{
+	calledFlag[pair.Key] = false;
+}
 }

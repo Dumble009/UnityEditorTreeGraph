@@ -28,4 +28,6 @@ public class EditorTreeGraphSettings : ScriptableObject
 	}
 	[SerializeField]
 	public EditorTreeCompiler Compiler;
+	[SerializeField]
+	public TestCodeCompiler TestCodeCompiler;
 }

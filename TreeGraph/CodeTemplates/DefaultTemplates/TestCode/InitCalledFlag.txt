@@ -1,0 +1,4 @@
+clearFlag.Add({{name}}, false);
+{{eventName}}.AddListener(()=>{
+	clearFlag[{{exNodeName}}] = true;
+});

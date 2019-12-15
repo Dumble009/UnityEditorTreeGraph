@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System.Linq;
 using System.IO;
 using XNode;
 
+[CreateAssetMenu(fileName = "BehaviourTreeTestCodeCompiler",
+								menuName = "TestCodeCompilers/BehaviourTreeTestCodeCompiler")]
 public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 {
 	List<string> createdNodes;
@@ -99,9 +102,24 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 			}
 		}
 
+		//Init CalledFlag
+		string initCalledFlag = "";
+		var exNodes = nodes
+								.Where(x => {
+									return x is ExecuteNode;
+								})
+								.Cast<ExecuteNode>()
+								.ToArray();
+		string initCalledFlagTemplate = CodeTemplateReader.GetTemplate("Test", "InitCalledFlag");
+		foreach (var exNode in exNodes)
+		{
+			var parameterHolder = exNode.GetParameterHolder();
+			initCalledFlag += CodeTemplateInterpolator.Interpolate(initCalledFlagTemplate, parameterHolder);
+		}
+
 		//Create TestCases
-		string testFunctions = "";
-		string functionTemplate = CodeTemplateReader.GetTemplate("Base", "TestFunction");
+		string testCases = "";
+		string functionTemplate = CodeTemplateReader.GetTemplate("Test", "TestFunction");
 		foreach (var testCase in container.TestCases)
 		{
 			string initParameters = "";
@@ -111,16 +129,19 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 			}
 
 			string asserts = "";
+			string assertTemplate = CodeTemplateReader.GetTemplate("Test", "Assert");
 			foreach (var needToCallNode in testCase.needToCallNodes)
 			{
-				//create asserts here
+				CodeTemplateParameterHolder parameterHolder = new CodeTemplateParameterHolder();
+				parameterHolder.SetParameter("nodeName", needToCallNode);
+				asserts += CodeTemplateInterpolator.Interpolate(assertTemplate, parameterHolder);
 			}
 
 			CodeTemplateParameterHolder functionParameter = new CodeTemplateParameterHolder();
 			functionParameter.SetParameter("functionName", testCase.caseName);
 			functionParameter.SetParameter("initParameters", initParameters);
 			functionParameter.SetParameter("asserts", asserts);
-			testFunctions += CodeTemplateInterpolator.Interpolate(functionTemplate, functionParameter);
+			testCases += CodeTemplateInterpolator.Interpolate(functionTemplate, functionParameter);
 		}
 
 		//string code = string.Format(template, className, inheritName, declareParameters, constructTree);
@@ -128,6 +149,19 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		templateParameter.SetParameter("className", className);
 		templateParameter.SetParameter("declareParameters", declareParameters);
 		templateParameter.SetParameter("constructTree", constructTree);
+		templateParameter.SetParameter("initCalledFlag", initCalledFlag);
+		templateParameter.SetParameter("testCases", testCases);
 		string code = CodeTemplateInterpolator.Interpolate(template, templateParameter);
+
+		//Save TestCode file
+		string path = EditorUtility.SaveFilePanelInProject("", className, "cs", "");
+		if (!string.IsNullOrEmpty(path))
+		{
+			using (StreamWriter sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.ASCII))
+			{
+				sw.Write(code);
+			}
+			AssetDatabase.Refresh();
+		}
 	}
 }

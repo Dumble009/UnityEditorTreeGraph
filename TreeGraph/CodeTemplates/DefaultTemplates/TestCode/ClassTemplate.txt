@@ -1,12 +1,22 @@
 using BT;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
+
 public class {{className}}
 {
 BehaviourTree behaviourTree;
+Dictionary<string, bool> calledFlag
 [SetUp]
 void Init()
 {
 {{delcareParameters}}
 {{constructTree}}
+
+calledFlag = new Dictionary<string, bool>();
+{{initCalledFlag}}
 }
 
 {{testCases}}

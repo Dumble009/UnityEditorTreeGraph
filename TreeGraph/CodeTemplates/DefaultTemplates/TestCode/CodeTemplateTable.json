@@ -45,7 +45,14 @@
 {"Key":"Base", "Value":[
 
 {"Key":"Class","Value":"ClassTemplate.txt"}
-{"Key":"TestFunction", "Value":"TestFunctionTemplate.txt"}
+
+]},
+
+{"Key":"Test", "Value":[
+
+{"Key":"TestFunction", "Value":"TestFunctionTemplate.txt"},
+{"Key":"Assert", "Value":"AssertTemplate.txt"},
+{"Key":"InitCalledFlag", "Value":"InitCalledFlag.txt"}
 
 ]}
 ]
