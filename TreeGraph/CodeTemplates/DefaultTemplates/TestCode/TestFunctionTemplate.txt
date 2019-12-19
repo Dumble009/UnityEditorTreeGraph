@@ -2,9 +2,11 @@
 public void {{functionName}}()
 {
 {{initParameters}}
+behaviourTree.Tick();
 {{asserts}}
-foreach(var pair in calledFlag)
+var keys = calledFlag.Keys.ToArray();
+foreach(var key in keys)
 {
-	calledFlag[pair.Key] = false;
+	calledFlag[key] = false;
 }
 }

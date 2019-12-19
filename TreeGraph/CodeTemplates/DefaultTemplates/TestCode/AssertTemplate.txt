@@ -1,1 +1,1 @@
-Assert.AreEqual(true, calledFlag[{{nodeName}}]);
+Assert.AreEqual(true, calledFlag["{{nodeName}}"]);

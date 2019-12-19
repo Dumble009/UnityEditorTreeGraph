@@ -200,8 +200,8 @@ public class BT_Test
 		//                             |
 		//                          3 --- success2 --- ex3
 		//
-		// ex1 : should be activated twice
-		// ex2 : should be activated
+		// ex1 : should be activated once
+		// ex2 : should be activated twice
 		// ex3 : should not be activated
 
 		BT_Root root = new BT_Root();
@@ -246,8 +246,8 @@ public class BT_Test
 		Assert.AreEqual(false, isOK3);
 
 		root.Next();
-		Assert.AreEqual(false, isOK1);
-		Assert.AreEqual(true, isOK2);
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(false, isOK2);
 		Assert.AreEqual(false, isOK3);
 	}
 

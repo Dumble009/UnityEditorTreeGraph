@@ -11,7 +11,7 @@ BehaviourTree behaviourTree;
 Dictionary<string, bool> calledFlag;
 {{declareParameters}}
 [SetUp]
-void Init()
+public void Init()
 {
 {{constructTree}}
 

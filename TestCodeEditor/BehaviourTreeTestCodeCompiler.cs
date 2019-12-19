@@ -146,6 +146,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 			functionParameter.SetParameter("initParameters", initParameters);
 			functionParameter.SetParameter("asserts", asserts);
 			testCases += CodeTemplateInterpolator.Interpolate(functionTemplate, functionParameter);
+			Debug.Log(testCases);
 		}
 
 		//string code = string.Format(template, className, inheritName, declareParameters, constructTree);
