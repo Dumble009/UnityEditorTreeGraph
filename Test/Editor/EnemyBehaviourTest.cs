@@ -153,22 +153,6 @@ escape_event.AddListener(()=>{
 }
 
 [Test]
-public void Test1()
-{
-IsFound=false;
-IsAttackable=true;
-IsMoveable=true;
-IsEscape=true;
-IsGotDamage=false;
-
-behaviourTree.Tick();
-Assert.AreEqual(true, calledFlag["patrol"]);
-var keys = calledFlag.Keys.ToArray();
-foreach(var key in keys)
-{
-	calledFlag[key] = false;
-}
-}[Test]
 public void Test2()
 {
 IsFound=true;
@@ -178,7 +162,9 @@ IsEscape=false;
 IsGotDamage=false;
 
 behaviourTree.Tick();
-Assert.AreEqual(true, calledFlag["attack"]);Assert.AreEqual(true, IsAttackable && !IsEscape);
+Assert.AreEqual(true, calledFlag["attack"]);
+Assert.AreEqual(true, IsAttackable && !IsEscape);
+
 var keys = calledFlag.Keys.ToArray();
 foreach(var key in keys)
 {
@@ -195,6 +181,7 @@ IsGotDamage=false;
 
 behaviourTree.Tick();
 Assert.AreEqual(true, calledFlag["escape"]);
+
 var keys = calledFlag.Keys.ToArray();
 foreach(var key in keys)
 {

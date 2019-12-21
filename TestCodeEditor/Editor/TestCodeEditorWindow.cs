@@ -155,7 +155,13 @@ public class TestCodeEditorWindow : EditorWindow
 			Draw_OtherNodes(otherNodesArea);
 
 			GUILayout.BeginArea(area, areaStyle);
+			GUILayout.BeginHorizontal();
 			GUILayout.Label(selectedTestCase.caseName, titleStyle);
+			if (GUILayout.Button("delete"))
+			{
+				DeleteTestCase();
+			}
+			GUILayout.EndHorizontal();
 			GUILayout.EndArea();
 
 			if (GUI.changed)
@@ -328,7 +334,6 @@ public class TestCodeEditorWindow : EditorWindow
 		}
 	}
 
-
 	private void AddNewTestCase()
 	{
 		bool isNewName = true;
@@ -369,6 +374,17 @@ public class TestCodeEditorWindow : EditorWindow
 		else
 		{
 			Debug.LogError(newTestCaseName + "already exists.");
+		}
+	}
+
+	private void DeleteTestCase()
+	{
+		if (selectedTestCase && targetContainer)
+		{
+			AssetDatabase.RemoveObjectFromAsset(selectedTestCase);
+			targetContainer.TestCases.Remove(selectedTestCase);
+			selectedTestCase = null;
+			AssetDatabase.SaveAssets();
 		}
 	}
 }

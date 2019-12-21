@@ -1,38 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4722707213314285973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e46930c619daae418e238785c6a7541, type: 3}
-  m_Name: Test1
-  m_EditorClassIdentifier: 
-  caseName: Test1
-  parameters:
-  - name: IsFound
-    value: false
-  - name: IsAttackable
-    value: true
-  - name: IsMoveable
-    value: true
-  - name: IsEscape
-    value: true
-  - name: IsGotDamage
-    value: false
-  otherNodes:
-  - chase
-  - attackable_check
-  - moveableCheck
-  - attack
-  - escape
-  needToCallNodes:
-  - patrol
-  extraCondition: 
 --- !u!114 &-2238605622755765267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeGraph: {fileID: 11400000, guid: 077b661ca3b21d145ac2797dbb23dec3, type: 2}
   testCases:
-  - {fileID: -4722707213314285973}
   - {fileID: 4033512463609596267}
   - {fileID: -2238605622755765267}
 --- !u!114 &4033512463609596267
