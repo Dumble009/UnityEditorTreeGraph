@@ -52,7 +52,8 @@
 
 {"Key":"TestFunction", "Value":"TestFunctionTemplate.txt"},
 {"Key":"Assert", "Value":"AssertTemplate.txt"},
-{"Key":"InitCalledFlag", "Value":"InitCalledFlag.txt"}
+{"Key":"InitCalledFlag", "Value":"InitCalledFlag.txt"},
+{"Key":"ExtraCondition", "Value":"ExtraCondition.txt"}
 
 ]}
 ]

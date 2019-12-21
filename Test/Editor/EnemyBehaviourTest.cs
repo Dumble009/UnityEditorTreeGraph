@@ -155,13 +155,14 @@ escape_event.AddListener(()=>{
 [Test]
 public void Test1()
 {
-IsFound=true;
+IsFound=false;
 IsAttackable=true;
 IsMoveable=true;
-IsEscape=false;
+IsEscape=true;
+IsGotDamage=false;
 
 behaviourTree.Tick();
-Assert.AreEqual(true, calledFlag["attack"]);
+Assert.AreEqual(true, calledFlag["patrol"]);
 var keys = calledFlag.Keys.ToArray();
 foreach(var key in keys)
 {
@@ -171,12 +172,13 @@ foreach(var key in keys)
 public void Test2()
 {
 IsFound=true;
-IsAttackable=false;
+IsAttackable=true;
 IsMoveable=true;
 IsEscape=false;
+IsGotDamage=false;
 
 behaviourTree.Tick();
-Assert.AreEqual(true, calledFlag["chase"]);
+Assert.AreEqual(true, calledFlag["attack"]);Assert.AreEqual(true, IsAttackable && !IsEscape);
 var keys = calledFlag.Keys.ToArray();
 foreach(var key in keys)
 {
@@ -185,13 +187,14 @@ foreach(var key in keys)
 }[Test]
 public void Test3()
 {
-IsFound=false;
-IsAttackable=true;
+IsFound=true;
+IsAttackable=false;
 IsMoveable=true;
 IsEscape=true;
+IsGotDamage=false;
 
 behaviourTree.Tick();
-Assert.AreEqual(true, calledFlag["patrol"]);
+Assert.AreEqual(true, calledFlag["escape"]);
 var keys = calledFlag.Keys.ToArray();
 foreach(var key in keys)
 {

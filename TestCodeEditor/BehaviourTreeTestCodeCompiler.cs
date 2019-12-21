@@ -141,12 +141,19 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 				asserts += CodeTemplateInterpolator.Interpolate(assertTemplate, parameterHolder);
 			}
 
+			if (!string.IsNullOrEmpty(testCase.extraCondition) && !string.IsNullOrWhiteSpace(testCase.extraCondition))
+			{
+				string extraConditionTemplate = CodeTemplateReader.GetTemplate("Test", "ExtraCondition");
+				CodeTemplateParameterHolder extraConditionParameterHolder = new CodeTemplateParameterHolder();
+				extraConditionParameterHolder.SetParameter("extraCondition", testCase.extraCondition);
+				asserts += CodeTemplateInterpolator.Interpolate(extraConditionTemplate, extraConditionParameterHolder);
+			}
+
 			CodeTemplateParameterHolder functionParameter = new CodeTemplateParameterHolder();
 			functionParameter.SetParameter("functionName", testCase.caseName);
 			functionParameter.SetParameter("initParameters", initParameters);
 			functionParameter.SetParameter("asserts", asserts);
 			testCases += CodeTemplateInterpolator.Interpolate(functionTemplate, functionParameter);
-			Debug.Log(testCases);
 		}
 
 		//string code = string.Format(template, className, inheritName, declareParameters, constructTree);

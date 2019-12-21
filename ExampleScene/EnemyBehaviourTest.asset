@@ -23,7 +23,7 @@ MonoBehaviour:
   - name: IsEscape
     value: true
   - name: IsGotDamage
-    value: 
+    value: false
   otherNodes:
   - chase
   - attackable_check
@@ -48,23 +48,23 @@ MonoBehaviour:
   caseName: Test3
   parameters:
   - name: IsFound
-    value: 
+    value: true
   - name: IsAttackable
-    value: 
+    value: false
   - name: IsMoveable
-    value: 
+    value: true
   - name: IsEscape
-    value: 
+    value: true
   - name: IsGotDamage
-    value: 
+    value: false
   otherNodes:
   - attack
   - chase
   - patrol
   - attackable_check
   - moveableCheck
+  needToCallNodes:
   - escape
-  needToCallNodes: []
   extraCondition: 
 --- !u!114 &11400000
 MonoBehaviour:
@@ -98,21 +98,21 @@ MonoBehaviour:
   caseName: Test2
   parameters:
   - name: IsFound
-    value: 
+    value: true
   - name: IsAttackable
-    value: 
+    value: true
   - name: IsMoveable
-    value: 
+    value: true
   - name: IsEscape
-    value: 
+    value: false
   - name: IsGotDamage
-    value: 
+    value: false
   otherNodes:
-  - attack
   - chase
   - patrol
   - attackable_check
   - moveableCheck
   - escape
-  needToCallNodes: []
-  extraCondition: 
+  needToCallNodes:
+  - attack
+  extraCondition: IsAttackable && !IsEscape
