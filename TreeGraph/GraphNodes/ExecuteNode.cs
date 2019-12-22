@@ -8,7 +8,7 @@ public class ExecuteNode : BaseNode
 
     override public bool Test(List<Node> nodes){
         bool result = base.Test(nodes);
-        
+
         if(!string.IsNullOrEmpty(nodeName)){
             if(string.IsNullOrEmpty(eventName)){
                 Debug.LogError(nodeName + ": Event name is empty");
