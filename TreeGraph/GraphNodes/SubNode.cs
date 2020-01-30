@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 [CreateNodeMenu("")]
+[NodeTint("#aaffaa")]
 public class SubNode : Node, IBTGraphNode
 {
     public string nodeName;
