@@ -2,6 +2,7 @@
 using XNode;
 using UnityEngine;
 [CreateNodeMenu("Execute")]
+[NodeTint("#aaaaff")]
 public class ExecuteNode : BaseNode
 {
     public string eventName;

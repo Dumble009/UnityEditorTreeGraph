@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateNodeMenu("Head/Root")]
-[NodeTint("#ff9999")]
+[NodeTint("#ffaaaa")]
 public class RootNode : Node, IBTGraphNode
 {
     public string nodeName;
