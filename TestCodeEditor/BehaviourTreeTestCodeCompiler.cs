@@ -31,7 +31,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		
 		CodeTemplateReader.Init(Path.Combine(Application.dataPath, codeTemplatePath));
 
-		string template = CodeTemplateReader.GetTemplate("Base", "Class");
+		string classTemplate = CodeTemplateReader.GetTemplate("Base", "Class");
 
 		string className = FileNameToClassName(fileName);
 
@@ -51,12 +51,12 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 			}
 		}
 
-		string constructTree = "";
+		string constructedTree = "";
 		CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
 		string rootKey = root.GetKey();
 		string rootDeclare = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Declare", rootKey), rootParameter);
 		string rootInit = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Init", rootKey), rootParameter);
-		constructTree += rootDeclare + rootInit;
+		constructedTree += rootDeclare + rootInit;
 		var rootChild = root.GetOutputPort("output").GetConnection(0).node as IBTGraphNode;
 
 		foreach (Node node in nodes)
@@ -68,13 +68,15 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 					CodeTemplateParameterHolder holder = i.GetParameterHolder();
 					string key = i.GetKey();
 					string source = CodeTemplateReader.GetTemplate("Declare", key);
-					constructTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
-					//constructTree += i.GetDeclare() + "\n";
+					constructedTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
 				}
 			}
 		}
 
-		foreach (Node node in nodes)
+		Node[] sortedNodes = nodes
+											.OrderBy(x => x.position.y)
+											.ToArray();
+		foreach (Node node in sortedNodes)
 		{
 			if (!(node is SubNode))
 			{
@@ -85,8 +87,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 						CodeTemplateParameterHolder holder = i.GetParameterHolder();
 						string key = i.GetKey();
 						string source = CodeTemplateReader.GetTemplate("Init", key);
-						constructTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
-						//constructTree += i.GetInit() + "\n";
+						constructedTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
 					}
 					var children = node.GetOutputPort("output").GetConnections()
 											.OrderBy(x => x.node.position.y)
@@ -96,7 +97,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 						Node child = port.node;
 						if (child is IBTGraphNode i_child)
 						{
-							constructTree += i.GetNodeName() + ".AddChild(" + i_child.GetNodeName() + ");\n";
+							constructedTree += i.GetNodeName() + ".AddChild(" + i_child.GetNodeName() + ");\n";
 						}
 					}
 				}
@@ -160,10 +161,10 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		CodeTemplateParameterHolder templateParameter = new CodeTemplateParameterHolder();
 		templateParameter.SetParameter("className", className);
 		templateParameter.SetParameter("declareParameters", declareParameters);
-		templateParameter.SetParameter("constructTree", constructTree);
+		templateParameter.SetParameter("constructTree", constructedTree);
 		templateParameter.SetParameter("initCalledFlag", initCalledFlag);
 		templateParameter.SetParameter("testCases", testCases);
-		string code = CodeTemplateInterpolator.Interpolate(template, templateParameter);
+		string code = CodeTemplateInterpolator.Interpolate(classTemplate, templateParameter);
 
 		//Save TestCode file
 		string path = EditorUtility.SaveFilePanelInProject("", className, "cs", "");
