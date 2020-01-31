@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 [CreateNodeMenu("Head/Interrupt")]
+[NodeTint("#ffaaff")]
 public class InterruptNode : Node, IBTGraphNode
 {
 	public string nodeName;
