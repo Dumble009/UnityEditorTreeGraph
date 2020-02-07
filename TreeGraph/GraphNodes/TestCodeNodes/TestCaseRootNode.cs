@@ -1,18 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class TestCaseRootNode : MonoBehaviour
+using XNode;
+[NodeTint("#ffff00")]
+[CreateNodeMenu("TestCodeTree/Root")]
+public class TestCaseRootNode : Node, ITestTreeGraphNode
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public string nodeName;
+	[Output(ShowBackingValue.Never, ConnectionType.Override, false)] public string output;
+	public string GetKey()
+	{
+		throw new System.NotImplementedException();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public string GetNodeName()
+	{
+		return nodeName;
+	}
+
+	public CodeTemplateParameterHolder GetParameterHolder()
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public void InheritFrom(Node original)
+	{
+		
+	}
+
+	public void SetNodeName(string name)
+	{
+		nodeName = name;
+	}
 }
