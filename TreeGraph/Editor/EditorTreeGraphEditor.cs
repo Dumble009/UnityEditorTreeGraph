@@ -22,7 +22,7 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 		GUI.Box(new Rect(0, NodeEditorWindow.current.topPadding, 120, Screen.height), "");
 
 		GUILayout.BeginArea(new Rect(0, NodeEditorWindow.current.topPadding + 2, 120, Screen.height - 20));
-		if (GUILayout.Button("Test"))
+		if (GUILayout.Button("Static Test"))
 		{
 			EditorTreeTester.RunTest(target.nodes);
 		}
@@ -65,7 +65,7 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 
 		inheritGraph = EditorGUILayout.ObjectField(inheritGraph, typeof(EditorTreeGraph)) as EditorTreeGraph;
 
-		if (GUILayout.Button("disable inherit"))
+		if (GUILayout.Button("Disable Inherit"))
 		{
 			DisableInherit();
 		}
@@ -177,7 +177,6 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 
 	public override void RemoveNode(Node node)
 	{
-		Debug.Log(node is InheritTargetNode);
 		if (node is SubNode sub)
 		{
 			if (!sub.isInherited)
