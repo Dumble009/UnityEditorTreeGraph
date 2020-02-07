@@ -28,7 +28,7 @@ public class TimerNode : BaseNode
 						isWaitTimeValid = true;
 					}
 				}
-				else if (node is IBTGraphNode i)
+				else if (node is ITreeGraphNode i)
 				{
 					if (i.GetNodeName() == targetNode)
 					{

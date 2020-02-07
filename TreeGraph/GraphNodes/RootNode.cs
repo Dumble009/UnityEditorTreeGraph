@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateNodeMenu("Head/Root")]
 [NodeTint("#ffaaaa")]
-public class RootNode : Node, IBTGraphNode
+public class RootNode : Node, ITreeGraphNode
 {
     public string nodeName;
     [Output(ShowBackingValue.Never, ConnectionType.Override, false)] public string output;
@@ -28,7 +28,7 @@ public class RootNode : Node, IBTGraphNode
 
 		foreach (Node node in nodes)
 		{
-			if (node is IBTGraphNode i)
+			if (node is ITreeGraphNode i)
 			{
 				if (this.nodeName == i.GetNodeName() && node != this)
 				{

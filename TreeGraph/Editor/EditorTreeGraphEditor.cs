@@ -236,12 +236,12 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 					node.position = _node.position;
 					AssetDatabase.AddObjectToAsset(node, target);
 				}
-				else if (_node is IBTGraphNode i)
+				else if (_node is ITreeGraphNode i)
 				{
 					Node newNode = target.AddNode(_node.GetType());
 					newNode.OnCreated();
 
-					if (newNode is IBTGraphNode new_i)
+					if (newNode is ITreeGraphNode new_i)
 					{
 						new_i.SetNodeName(i.GetNodeName());
 						new_i.InheritFrom(_node);
@@ -261,7 +261,7 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 							var outputs = _node.GetOutputPort("output").GetConnections();
 							foreach (var output in outputs)
 							{
-								if (output.node is IBTGraphNode ibt_output)
+								if (output.node is ITreeGraphNode ibt_output)
 								{
 									if (!outputPorts[nodeName].Contains(ibt_output.GetNodeName()))
 									{
@@ -277,7 +277,7 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 
 			foreach (Node parent in createdNonSubNodes)
 			{
-				IBTGraphNode ibt_parent = parent as IBTGraphNode;
+				ITreeGraphNode ibt_parent = parent as ITreeGraphNode;
 				if (outputPorts.ContainsKey(ibt_parent.GetNodeName()))
 				{
 					foreach (string outputTarget in outputPorts[ibt_parent.GetNodeName()])
@@ -285,7 +285,7 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 						Node child = null;
 						foreach (Node _child in createdNonSubNodes)
 						{
-							IBTGraphNode ibt_target = _child as IBTGraphNode;
+							ITreeGraphNode ibt_target = _child as ITreeGraphNode;
 							if (ibt_target.GetNodeName() == outputTarget)
 							{
 								child = _child;

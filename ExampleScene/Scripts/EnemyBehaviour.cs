@@ -1,17 +1,27 @@
 using BT;
-public class EnemyBehaviour:BehaviourTreeComponent{
+public class EnemyBehaviour : BehaviourTreeComponent 
+{
 [UnityEngine.SerializeField]
 public bool IsFound = false;[UnityEngine.SerializeField]
 public bool IsAttackable = false;[UnityEngine.SerializeField]
 public bool IsMoveable = false;[UnityEngine.SerializeField]
 public bool IsEscape = false;[UnityEngine.SerializeField]
 public bool IsGotDamage = false;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent attack_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent chase_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent patrol_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent attackablecheck_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent moveablecheck_event;[UnityEngine.SerializeField]
-public UnityEngine.Events.UnityEvent escape_event;override public void MakeTree(){
+public UnityEngine.Events.UnityEvent attack_event = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent chase_event = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent patrol_event = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent attackablecheck_event = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent moveablecheck_event = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent escape_event = new UnityEngine.Events.UnityEvent();
+
+
+override public void MakeTree()
+{
 base.MakeTree();
 BT_Root root = new BT_Root();behaviourTree = new BehaviourTree(root);BT_Selector selector1 = new BT_Selector();
 BT_Execute attack = new BT_Execute();
@@ -33,23 +43,13 @@ BT_Timing EscapeTimer = new BT_Timing(behaviourTree, true, false);
 BT_Interrupt EscapeResetInterrupt = new BT_Interrupt();
 BT_Execute EscapeResetter = new BT_Execute();
 BT_Execute SetFound = new BT_Execute();
-root.AddChild(moveableCheck);
-
-selector1.AddChild(if_found);
-selector1.AddChild(if_patrol);
-attack.AddEvent(()=>{
-	attack_event.Invoke();
+If_escape.SetCondition(()=>{
+	return IsEscape && IsMoveable;
 });
-chase.AddEvent(()=>{
-	chase_event.Invoke();
+If_escape.AddChild(escape);
+escape.AddEvent(()=>{
+	escape_event.Invoke();
 });
-patrol.AddEvent(()=>{
-	patrol_event.Invoke();
-});
-
-selector2.AddChild(If_escape);
-selector2.AddChild(attackable_check);
-selector2.AddChild(If_chase);
 if_found.SetCondition(()=>{
 	return IsFound;
 });
@@ -62,6 +62,17 @@ attackable_check.AddEvent(()=>{
 	attackablecheck_event.Invoke();
 });
 attackable_check.AddChild(If_attack);
+
+selector2.AddChild(If_escape);
+selector2.AddChild(attackable_check);
+selector2.AddChild(If_chase);
+attack.AddEvent(()=>{
+	attack_event.Invoke();
+});
+root.AddChild(moveableCheck);
+
+selector1.AddChild(if_found);
+selector1.AddChild(if_patrol);
 moveableCheck.AddEvent(()=>{
 	moveablecheck_event.Invoke();
 });
@@ -70,22 +81,13 @@ if_patrol.SetCondition(()=>{
 	return IsMoveable;
 });
 if_patrol.AddChild(patrol);
-If_chase.SetCondition(()=>{
-	return IsMoveable;
+patrol.AddEvent(()=>{
+	patrol_event.Invoke();
 });
-If_chase.AddChild(chase);
-If_escape.SetCondition(()=>{
-	return IsEscape && IsMoveable;
+EscapeTimer.SetTimingCreator(()=>{
+	return new Timer(EscapeResetInterrupt, 3.0);
 });
-If_escape.AddChild(escape);
-escape.AddEvent(()=>{
-	escape_event.Invoke();
-});
-DamageInterrupt.SetCondition(()=>{
-	return IsGotDamage;
-});
-behaviourTree.AddInterrupt(DamageInterrupt);
-DamageInterrupt.AddChild(SetFound);
+EscapeTimer.AddChild(moveableCheck);
 ResetDamageFlag.AddEvent(()=>{
 	IsGotDamage = false;
 });
@@ -94,10 +96,22 @@ ActivateEscape.AddEvent(()=>{
 	IsEscape = true;
 });
 ActivateEscape.AddChild(EscapeTimer);
-EscapeTimer.SetTimingCreator(()=>{
-	return new Timer(EscapeResetInterrupt, 3.0);
+SetFound.AddEvent(()=>{
+	IsFound = true;
 });
-EscapeTimer.AddChild(moveableCheck);
+SetFound.AddChild(ResetDamageFlag);
+If_chase.SetCondition(()=>{
+	return IsMoveable;
+});
+If_chase.AddChild(chase);
+DamageInterrupt.SetCondition(()=>{
+	return IsGotDamage;
+});
+behaviourTree.AddInterrupt(DamageInterrupt);
+DamageInterrupt.AddChild(SetFound);
+chase.AddEvent(()=>{
+	chase_event.Invoke();
+});
 EscapeResetInterrupt.SetCondition(()=>{
 	return false;
 });
@@ -107,9 +121,6 @@ EscapeResetter.AddEvent(()=>{
 	IsEscape = false;
 });
 EscapeResetter.AddChild(moveableCheck);
-SetFound.AddEvent(()=>{
-	IsFound = true;
-});
-SetFound.AddChild(ResetDamageFlag);
+
 }
 }

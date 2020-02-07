@@ -37,7 +37,7 @@ public class EditorTreeTester
 		{
 			foreach (Node node in nodes)
 			{
-				if (node is IBTGraphNode i)
+				if (node is ITreeGraphNode i)
 				{
 					if (!i.Test(nodes))
 					{

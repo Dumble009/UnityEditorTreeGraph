@@ -37,6 +37,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 
 		string declareParameters = "";
 		var sortedSubNodes = subNodes
+											.Where(x => x != null)
 											.OrderBy(x => x.GetType().ToString())
 											.ToArray();
 		foreach (SubNode node in sortedSubNodes)
@@ -57,13 +58,13 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		string rootDeclare = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Declare", rootKey), rootParameter);
 		string rootInit = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Init", rootKey), rootParameter);
 		constructedTree += rootDeclare + rootInit;
-		var rootChild = root.GetOutputPort("output").GetConnection(0).node as IBTGraphNode;
+		var rootChild = root.GetOutputPort("output").GetConnection(0).node as ITreeGraphNode;
 
 		foreach (Node node in nodes)
 		{
 			if (!(node is SubNode) && !(node is RootNode))
 			{
-				if (node is IBTGraphNode i)
+				if (node is ITreeGraphNode i)
 				{
 					CodeTemplateParameterHolder holder = i.GetParameterHolder();
 					string key = i.GetKey();
@@ -74,13 +75,14 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		}
 
 		Node[] sortedNodes = nodes
+											.Where(x => x != null)
 											.OrderBy(x => x.position.y)
 											.ToArray();
 		foreach (Node node in sortedNodes)
 		{
 			if (!(node is SubNode))
 			{
-				if (node is IBTGraphNode i)
+				if (node is ITreeGraphNode i)
 				{
 					if (!(node is RootNode))
 					{
@@ -95,7 +97,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 					foreach (NodePort port in children)
 					{
 						Node child = port.node;
-						if (child is IBTGraphNode i_child)
+						if (child is ITreeGraphNode i_child)
 						{
 							constructedTree += i.GetNodeName() + ".AddChild(" + i_child.GetNodeName() + ");\n";
 						}
@@ -107,6 +109,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		//Init CalledFlag
 		string initCalledFlag = "";
 		var exNodes = nodes
+								.Where(x => x  != null)
 								.Where(x => {
 									return x is ExecuteNode;
 								})

@@ -1,6 +1,6 @@
 ﻿using XNode;
 using System.Collections.Generic;
-public interface IBTGraphNode{
+public interface ITreeGraphNode{
     string GetNodeName();
 	void SetNodeName(string name);
     bool Test(List<Node> nodes);

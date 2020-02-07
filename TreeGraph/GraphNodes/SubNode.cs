@@ -4,7 +4,7 @@ using UnityEngine;
 using XNode;
 [CreateNodeMenu("")]
 [NodeTint("#aaffaa")]
-public class SubNode : Node, IBTGraphNode
+public class SubNode : Node, ITreeGraphNode
 {
     public string nodeName;
     
@@ -18,7 +18,7 @@ public class SubNode : Node, IBTGraphNode
 			result = false;
         }else{
             foreach(Node node in nodes){
-                if(node is IBTGraphNode bt){
+                if(node is ITreeGraphNode bt){
                     if(bt.GetNodeName() == this.nodeName && node != this){
                         Debug.LogError(nodeName+":This nodename is not unique.");
 						result = false;

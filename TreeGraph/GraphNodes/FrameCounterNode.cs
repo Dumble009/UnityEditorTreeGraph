@@ -30,7 +30,7 @@ public class FrameCounterNode : BaseNode
 				}
 				else
 				{
-					if (node is IBTGraphNode i)
+					if (node is ITreeGraphNode i)
 					{
 						if (i.GetNodeName() == targetNode)
 						{

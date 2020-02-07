@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [CreateNodeMenu("")]
-public class BaseNode : Node,IBTGraphNode
+public class BaseNode : Node,ITreeGraphNode
 {
     public string nodeName;
     [Input(ShowBackingValue.Never, ConnectionType.Multiple, TypeConstraint.None, false)] public string input;
@@ -42,7 +42,7 @@ public class BaseNode : Node,IBTGraphNode
 
     public bool IsNameUnique(List<Node> nodes, string name, Node target){
         foreach(Node node in nodes){
-            if(node is IBTGraphNode bt){
+            if(node is ITreeGraphNode bt){
                 if(name == bt.GetNodeName() && target != node){
                     return false;
                 }
