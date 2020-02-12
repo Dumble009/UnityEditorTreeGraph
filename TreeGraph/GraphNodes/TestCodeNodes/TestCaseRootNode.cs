@@ -25,7 +25,10 @@ public class TestCaseRootNode : Node, ITestTreeGraphNode
 
 	public void InheritFrom(Node original)
 	{
-		
+		if (original is TestCaseRootNode r)
+		{
+			this.nodeName = r.nodeName;
+		}
 	}
 
 	public void SetNodeName(string name)
