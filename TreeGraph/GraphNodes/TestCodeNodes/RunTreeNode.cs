@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 
+[NodeTint("#ffff00")]
+[CreateNodeMenu("TestCodeTree/RunTree")]
 public class RunTreeNode : TestTreeBaseNode
 {
 	public string count;
