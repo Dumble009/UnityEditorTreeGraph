@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 
+[CreateNodeMenu("")]
 public class TestTreeBaseNode : Node, ITestTreeGraphNode
 {
 	public string nodeName;
