@@ -20,7 +20,10 @@ public class TestCaseRootNode : Node, ITestTreeGraphNode
 
 	public CodeTemplateParameterHolder GetParameterHolder()
 	{
-		throw new System.NotImplementedException();
+		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
+		holder.SetParameter("NodeName", nodeName);
+
+		return holder;
 	}
 
 	public void InheritFrom(Node original)
