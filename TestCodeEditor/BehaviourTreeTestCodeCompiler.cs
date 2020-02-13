@@ -131,26 +131,27 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		foreach (var testRoot in testRootNodes)
 		{
 			string testProcess = "";
-			var current = testRoot.Outputs.First().node;
+			var current = testRoot.GetOutputPort("output").GetConnections().First().node;
 			while (current is ITestTreeGraphNode i)
 			{
 				string template = CodeTemplateReader.GetTemplate("Test", i.GetKey());
 				var parameterHolder = i.GetParameterHolder();
 				testProcess += CodeTemplateInterpolator.Interpolate(template, parameterHolder);
-
-				var next = current.Outputs.First();
-				if (next == null)
+				
+				var connections = current.GetOutputPort("output").GetConnections().ToArray();
+				if (connections.Length == 0)
 				{
 					break;
 				}
 				else
 				{
-					current = next.node;
+					current = connections[0].node;
 				}
 			}
 
 			var testCaseParameterHolder = new CodeTemplateParameterHolder();
-			testCaseParameterHolder.SetParameter("Process", testProcess);
+			testCaseParameterHolder.SetParameter("functionName", testRoot.GetNodeName());
+			testCaseParameterHolder.SetParameter("testProcess", testProcess);
 
 			testCases += CodeTemplateInterpolator.Interpolate(functionTemplate, testCaseParameterHolder);
 		}

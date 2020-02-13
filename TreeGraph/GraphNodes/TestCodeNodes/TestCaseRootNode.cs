@@ -10,7 +10,7 @@ public class TestCaseRootNode : Node, ITestTreeGraphNode
 	[Output(ShowBackingValue.Never, ConnectionType.Override, false)] public string output;
 	public string GetKey()
 	{
-		throw new System.NotImplementedException();
+		return "";
 	}
 
 	public string GetNodeName()

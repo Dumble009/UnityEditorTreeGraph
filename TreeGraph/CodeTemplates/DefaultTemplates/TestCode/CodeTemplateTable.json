@@ -56,7 +56,7 @@
 {"Key":"CallValidation", "Value":"CallValidationTemplate.txt"},
 {"Key":"SetParameter", "Value":"SetParameterTemplate.txt"},
 {"Key":"RunTree", "Value":"RunTreeTemplate.txt"},
-{"Key":"WaitSeconds", "Value":"WaitSeconds.txt"}
+{"Key":"WaitSeconds", "Value":"WaitSecondsTemplate.txt"}
 ]}
 ]
 }
