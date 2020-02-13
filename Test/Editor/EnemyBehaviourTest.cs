@@ -160,7 +160,6 @@ IsAttackable=true;
 IsMoveable=true;
 IsEscape=false;
 IsGotDamage=false;
-
 behaviourTree.Tick();
 Assert.AreEqual(true, calledFlag["attack"]);
 Assert.AreEqual(true, IsAttackable && !IsEscape);
