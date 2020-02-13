@@ -23,7 +23,7 @@ public class TestTreeBaseNode : Node, ITestTreeGraphNode
 	public virtual CodeTemplateParameterHolder GetParameterHolder()
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
-		holder.SetParameter("NodeName", nodeName);
+		holder.SetParameter("nodeName", nodeName);
 
 		return holder;
 	}
