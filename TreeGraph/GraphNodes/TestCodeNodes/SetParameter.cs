@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[NodeTint("#ffff00")]
-[CreateNodeMenu("TestCodeTree/CallValidation")]
-public class CallValidation : TestTreeBaseNode
+
+public class SetParameter : TestTreeBaseNode
 {
-	public string targetNodeName;
+	public string parameterName;
+	public string value;
+
 	public override CodeTemplateParameterHolder GetParameterHolder()
 	{
 		CodeTemplateParameterHolder holder = base.GetParameterHolder();
-		holder.SetParameter("targetNodeName", targetNodeName);
+		holder.SetParameter("parameterName", parameterName);
+		holder.SetParameter("value", value);
 
 		return holder;
 	}

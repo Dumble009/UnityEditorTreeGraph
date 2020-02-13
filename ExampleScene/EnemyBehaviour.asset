@@ -163,6 +163,38 @@ MonoBehaviour:
   input: 
   output: 
   eventName: patrol_event
+--- !u!114 &-5163945150264537653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079453225bdb65d44909d43cf3aa47fa, type: 3}
+  m_Name: Test Case Root
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1816, y: 632}
+  ports:
+    keys:
+    - output
+    values:
+    - _fieldName: output
+      _node: {fileID: -5163945150264537653}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -1058143222742273782}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: TestCase1
+  output: 
 --- !u!114 &-4733126768688537027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,6 +452,53 @@ MonoBehaviour:
   input: 
   output: 
   condition: IsEscape && IsMoveable
+--- !u!114 &-1058143222742273782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d21d57a6bb37924ab082e8d686164d2, type: 3}
+  m_Name: Run Tree
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1560, y: 616}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: -1058143222742273782}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: -5163945150264537653}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -1058143222742273782}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 1174295292412305812}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: 
+  input: 
+  output: 
+  count: 1
 --- !u!114 &-310065827544826676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,7 +618,10 @@ MonoBehaviour:
   - {fileID: 6342771964047879831}
   - {fileID: 3712515241169657576}
   - {fileID: 846621184164116881}
+  - {fileID: -5163945150264537653}
+  - {fileID: -1058143222742273782}
   - {fileID: 0}
+  - {fileID: 1174295292412305812}
 --- !u!114 &61243793012206222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,6 +865,50 @@ MonoBehaviour:
   input: 
   output: 
   eventName: chase_event
+--- !u!114 &1174295292412305812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87da85e8162fe554ba76beed3a058c83, type: 3}
+  m_Name: Call Validation
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1240, y: 616}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: 1174295292412305812}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: -1058143222742273782}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: 1174295292412305812}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: 
+  input: 
+  output: 
+  targetNodeName: moveableCheck
 --- !u!114 &1406385027222839614
 MonoBehaviour:
   m_ObjectHideFlags: 0
