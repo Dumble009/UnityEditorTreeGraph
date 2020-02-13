@@ -11,7 +11,7 @@ using XNode;
 public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 {
 	List<string> createdNodes;
-	public override void Compile(string fileName, List<Node> nodes, TestCodeContainer container)
+	public override void Compile(string fileName, List<Node> nodes)
 	{
 		Debug.Log("Start Compile");
 		List<SubNode> subNodes = new List<SubNode>();

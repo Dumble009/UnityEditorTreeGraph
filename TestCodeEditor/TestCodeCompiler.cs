@@ -6,7 +6,7 @@ using XNode;
 public class TestCodeCompiler : ScriptableObject
 {
 	public string codeTemplatePath;
-	virtual public void Compile(string fileName, List<Node> nodes, TestCodeContainer container)
+	virtual public void Compile(string fileName, List<Node> nodes)
 	{
 
 	}
