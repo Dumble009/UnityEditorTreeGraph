@@ -15,4 +15,9 @@ public class WaitSeconds : TestTreeBaseNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "WaitSeconds";
+	}
 }

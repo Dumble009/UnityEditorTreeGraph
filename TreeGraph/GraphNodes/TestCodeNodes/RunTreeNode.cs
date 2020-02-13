@@ -15,4 +15,9 @@ public class RunTreeNode : TestTreeBaseNode
 		holder.SetParameter("count", count);
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "RunTree";
+	}
 }

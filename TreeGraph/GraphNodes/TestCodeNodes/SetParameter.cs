@@ -16,4 +16,9 @@ public class SetParameter : TestTreeBaseNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "SetParameter";
+	}
 }

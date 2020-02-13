@@ -13,4 +13,9 @@ public class CallValidation : TestTreeBaseNode
 
 		return holder;
 	}
+
+	public override string GetKey()
+	{
+		return "CallValidation";
+	}
 }
