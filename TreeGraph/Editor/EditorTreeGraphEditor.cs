@@ -58,6 +58,12 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 			}
 		}
 
+		if (GUILayout.Button("Compile Test"))
+		{
+			string className = target.name + "_Test";
+			EditorTreeGraphSettings.Instance.TestCodeCompiler.Compile(className, target.nodes);
+		}
+
 		if (GUILayout.Button("Inherit") && inheritGraph != null)
 		{
 			Inherit();
