@@ -125,39 +125,34 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		//Create TestCases
 		string testCases = "";
 		string functionTemplate = CodeTemplateReader.GetTemplate("Test", "TestFunction");
-		foreach (var testCase in container.TestCases)
+		var testRootNodes = nodes
+								 .OfType<TestCaseRootNode>()
+								 .ToArray();
+		foreach (var testRoot in testRootNodes)
 		{
-			string initParameters = "";
-			foreach (var parameter in testCase.parameters)
+			string testProcess = "";
+			var current = testRoot.Outputs.First().node;
+			while (current is ITestTreeGraphNode i)
 			{
-				if (!string.IsNullOrEmpty(parameter.value))
+				string template = CodeTemplateReader.GetTemplate("Test", i.GetKey());
+				var parameterHolder = i.GetParameterHolder();
+				testProcess += CodeTemplateInterpolator.Interpolate(template, parameterHolder);
+
+				var next = current.Outputs.First();
+				if (next == null)
 				{
-					initParameters += parameter.name + "=" + parameter.value + ";\n";
+					break;
+				}
+				else
+				{
+					current = next.node;
 				}
 			}
 
-			string asserts = "";
-			string assertTemplate = CodeTemplateReader.GetTemplate("Test", "Assert");
-			foreach (var needToCallNode in testCase.needToCallNodes)
-			{
-				CodeTemplateParameterHolder parameterHolder = new CodeTemplateParameterHolder();
-				parameterHolder.SetParameter("nodeName", needToCallNode);
-				asserts += CodeTemplateInterpolator.Interpolate(assertTemplate, parameterHolder);
-			}
+			var testCaseParameterHolder = new CodeTemplateParameterHolder();
+			testCaseParameterHolder.SetParameter("Process", testProcess);
 
-			if (!string.IsNullOrEmpty(testCase.extraCondition) && !string.IsNullOrWhiteSpace(testCase.extraCondition))
-			{
-				string extraConditionTemplate = CodeTemplateReader.GetTemplate("Test", "ExtraCondition");
-				CodeTemplateParameterHolder extraConditionParameterHolder = new CodeTemplateParameterHolder();
-				extraConditionParameterHolder.SetParameter("extraCondition", testCase.extraCondition);
-				asserts += CodeTemplateInterpolator.Interpolate(extraConditionTemplate, extraConditionParameterHolder);
-			}
-
-			CodeTemplateParameterHolder functionParameter = new CodeTemplateParameterHolder();
-			functionParameter.SetParameter("functionName", testCase.caseName);
-			functionParameter.SetParameter("initParameters", initParameters);
-			functionParameter.SetParameter("asserts", asserts);
-			testCases += CodeTemplateInterpolator.Interpolate(functionTemplate, functionParameter);
+			testCases += CodeTemplateInterpolator.Interpolate(functionTemplate, testCaseParameterHolder);
 		}
 
 		//string code = string.Format(template, className, inheritName, declareParameters, constructTree);

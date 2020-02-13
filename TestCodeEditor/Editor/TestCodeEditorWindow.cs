@@ -80,7 +80,7 @@ public class TestCodeEditorWindow : EditorWindow
 			GUILayout.BeginArea(compileButtonArea);
 			if (GUILayout.Button("Compile"))
 			{
-				EditorTreeGraphSettings.Instance.TestCodeCompiler.Compile(targetContainer.name, targetContainer.TreeGraph.nodes, targetContainer);
+				EditorTreeGraphSettings.Instance.TestCodeCompiler.Compile(targetContainer.name, targetContainer.TreeGraph.nodes);
 			}
 			GUILayout.EndArea();
 
