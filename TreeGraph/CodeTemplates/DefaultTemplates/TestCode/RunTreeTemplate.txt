@@ -1,0 +1,3 @@
+for(int __i__ = 0; __i__ < {{count}}; __i__++){
+	behaviourTree.Tick();
+}

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[NodeTint("#ffff00")]
+[CreateNodeMenu("TestCodeTree/SetParameter")]
 public class SetParameter : TestTreeBaseNode
 {
 	public string parameterName;
