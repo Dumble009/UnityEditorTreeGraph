@@ -1,6 +1,7 @@
 [Test]
 public void {{functionName}}()
 {
+InitParameters();
 {{testProcess}}
 var keys = calledFlag.Keys.ToArray();
 foreach(var key in keys)

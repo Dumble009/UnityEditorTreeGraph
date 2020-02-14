@@ -38,8 +38,8 @@
 {"Key":"SetParameter", "Value":"../Init/SetParameter.txt"},
 {"Key":"Success", "Value":"../Init/Success.txt"},
 {"Key":"Timer", "Value":"../Init/Timer.txt"},
-{"Key":"While", "Value":"../Init/While.txt"}
-
+{"Key":"While", "Value":"../Init/While.txt"},
+{"Key":"InitParameter", "Value":"InitParameter.txt"}
 ]},
 
 {"Key":"Base", "Value":[

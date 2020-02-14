@@ -36,6 +36,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		string className = FileNameToClassName(fileName);
 
 		string declareParameters = "";
+		string initParameters = "";
 		var sortedSubNodes = subNodes
 											.Where(x => x != null)
 											.OrderBy(x => x.GetType().ToString())
@@ -49,6 +50,12 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 				string source = CodeTemplateReader.GetTemplate("Declare", key);
 				//declareParameters += node.GetDeclare();
 				declareParameters += CodeTemplateInterpolator.Interpolate(source, holder);
+
+				if (!(node is EventNode))
+				{
+					string initSource = CodeTemplateReader.GetTemplate("Init", "InitParameter");
+					initParameters += CodeTemplateInterpolator.Interpolate(initSource, holder);
+				}
 			}
 		}
 
@@ -160,6 +167,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		CodeTemplateParameterHolder templateParameter = new CodeTemplateParameterHolder();
 		templateParameter.SetParameter("className", className);
 		templateParameter.SetParameter("declareParameters", declareParameters);
+		templateParameter.SetParameter("initParameters", initParameters);
 		templateParameter.SetParameter("constructTree", constructedTree);
 		templateParameter.SetParameter("initCalledFlag", initCalledFlag);
 		templateParameter.SetParameter("testCases", testCases);
