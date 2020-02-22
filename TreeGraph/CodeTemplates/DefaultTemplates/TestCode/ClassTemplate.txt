@@ -16,6 +16,14 @@ void InitParameters()
 {{initParameters}}
 }
 
+void ResetCalledFlag(){
+var keys = calledFlag.Keys.ToArray();
+foreach(var key in keys)
+{
+	calledFlag[key] = false;
+}
+}
+
 [SetUp]
 public void Init()
 {

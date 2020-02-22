@@ -42,7 +42,7 @@ public class FrameCounterNode : BaseNode
 
 			if (!isTargetFound)
 			{
-				Debug.LogError(nodeName + ": \"" + nodeName + "\" doesn't exist.");
+				Debug.LogError(nodeName + ": \"" + targetNode + "\" doesn't exist.");
 				result = false;
 			}
 
