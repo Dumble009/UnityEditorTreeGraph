@@ -48,7 +48,6 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 				CodeTemplateParameterHolder holder = node.GetParameterHolder();
 				string key = node.GetKey();
 				string source = CodeTemplateReader.GetTemplate("Declare", key);
-				//declareParameters += node.GetDeclare();
 				declareParameters += CodeTemplateInterpolator.Interpolate(source, holder);
 
 				if (!(node is EventNode))

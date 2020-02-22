@@ -31,8 +31,7 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 				root = r;
 			}
 		}
-
-		//CodeTemplateReader.dirName = Path.Combine(Application.dataPath, codeTemplatePath);
+		
 		CodeTemplateReader.Init(Path.Combine(Application.dataPath, codeTemplatePath));
 		string classTemplate = CodeTemplateReader.GetTemplate("Base", "Class");
 
@@ -51,7 +50,6 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 				CodeTemplateParameterHolder holder = node.GetParameterHolder();
 				string key = node.GetKey();
 				string source = CodeTemplateReader.GetTemplate("Declare", key);
-				//declareParameters += node.GetDeclare();
 				declareParameters += CodeTemplateInterpolator.Interpolate(source, holder);
 			}
 		}
