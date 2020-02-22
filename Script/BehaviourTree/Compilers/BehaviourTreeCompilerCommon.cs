@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using XNode;
+using UnityEditor;
+using System.IO;
 using System.Linq;
 
 public class BehaviourTreeCompilerCommon
@@ -98,5 +100,18 @@ public class BehaviourTreeCompilerCommon
 		}
 
 		return constructedTree;
+	}
+
+	public static void SaveCode(string fileName, string code)
+	{
+		string path = EditorUtility.SaveFilePanelInProject("", fileName, "cs", "");
+		if (!string.IsNullOrEmpty(path))
+		{
+			using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.ASCII))
+			{
+				sw.Write(code);
+			}
+			AssetDatabase.Refresh();
+		}
 	}
 }
