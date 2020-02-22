@@ -54,6 +54,7 @@
 {"Key":"InitCalledFlag", "Value":"InitCalledFlag.txt"},
 {"Key":"ExtraCondition", "Value":"ExtraCondition.txt"},
 {"Key":"CallValidation", "Value":"CallValidationTemplate.txt"},
+{"Key":"NotCallValidation", "Value":"NotCallValidationTemplate.txt"},
 {"Key":"SetParameter", "Value":"SetParameterTemplate.txt"},
 {"Key":"RunTree", "Value":"RunTreeTemplate.txt"},
 {"Key":"WaitSeconds", "Value":"WaitSecondsTemplate.txt"}
