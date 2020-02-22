@@ -17,10 +17,10 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 		{
 			inheritTarget = inheritedClass;
 		}
-		List<SubNode> subNodes = new List<SubNode>();
+		//List<SubNode> subNodes = new List<SubNode>();
 		createdNodes = new List<string>();
-		RootNode root = new RootNode();
-		foreach (Node node in nodes)
+		//RootNode root = new RootNode();
+		/*foreach (Node node in nodes)
 		{
 			if (node is SubNode s)
 			{
@@ -30,8 +30,8 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 			{
 				root = r;
 			}
-		}
-		
+		}*/
+
 		CodeTemplateReader.Init(Path.Combine(Application.dataPath, codeTemplatePath));
 		string classTemplate = CodeTemplateReader.GetTemplate("Base", "Class");
 
@@ -39,7 +39,8 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 		string inheritName = FileNameToClassName(inheritTarget);
 
 		string declareParameters = "";
-		var sortedSubNodes = subNodes
+		declareParameters = BehaviourTreeCompilerCommon.GetDeclareParameters(nodes);
+		/*var sortedSubNodes = subNodes
 											.Where(x => x != null)
 											.OrderBy(x => x.GetType().ToString())
 											.ToArray();
@@ -52,10 +53,11 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 				string source = CodeTemplateReader.GetTemplate("Declare", key);
 				declareParameters += CodeTemplateInterpolator.Interpolate(source, holder);
 			}
-		}
+		}*/
 
 		string constructedTree = "";
-		CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
+		constructedTree = BehaviourTreeCompilerCommon.GetConstructedTree(nodes);
+		/*CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
 		string rootKey = root.GetKey();
 		string rootDeclare = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Declare", rootKey), rootParameter);
 		string rootInit = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Init", rootKey), rootParameter);
@@ -106,7 +108,7 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 					}
 				}
 			}
-		}
+		}*/
 
 		//string code = string.Format(template, className, inheritName, declareParameters, constructTree);
 		CodeTemplateParameterHolder templateParameter = new CodeTemplateParameterHolder();

@@ -28,7 +28,14 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 				root = r;
 			}
 		}
-		
+		foreach (Node node in nodes)
+		{
+			if (node is RootNode r)
+			{
+				root = r;
+			}
+		}
+
 		CodeTemplateReader.Init(Path.Combine(Application.dataPath, codeTemplatePath));
 
 		string classTemplate = CodeTemplateReader.GetTemplate("Base", "Class");
@@ -36,12 +43,14 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		string className = FileNameToClassName(fileName);
 
 		string declareParameters = "";
+		declareParameters = BehaviourTreeCompilerCommon.GetDeclareParameters(nodes);
+
 		string initParameters = "";
 		var sortedSubNodes = subNodes
 											.Where(x => x != null)
 											.OrderBy(x => x.GetType().ToString())
 											.ToArray();
-		foreach (SubNode node in sortedSubNodes)
+		/*foreach (SubNode node in sortedSubNodes)
 		{
 			if (!node.isInherited)
 			{
@@ -56,10 +65,21 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 					initParameters += CodeTemplateInterpolator.Interpolate(initSource, holder);
 				}
 			}
+		}*/
+		foreach (SubNode node in sortedSubNodes)
+		{
+			if (!(node is EventNode))
+			{
+				CodeTemplateParameterHolder holder = node.GetParameterHolder();
+				string key = node.GetKey();
+				string initSource = CodeTemplateReader.GetTemplate("Init", "InitParameter");
+				initParameters += CodeTemplateInterpolator.Interpolate(initSource, holder);
+			}
 		}
 
 		string constructedTree = "";
-		CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
+		constructedTree = BehaviourTreeCompilerCommon.GetConstructedTree(nodes);
+		/*CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
 		string rootKey = root.GetKey();
 		string rootDeclare = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Declare", rootKey), rootParameter);
 		string rootInit = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Init", rootKey), rootParameter);
@@ -110,7 +130,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 					}
 				}
 			}
-		}
+		}*/
 
 		//Init CalledFlag
 		string initCalledFlag = "";
