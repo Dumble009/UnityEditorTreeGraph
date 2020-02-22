@@ -25,10 +25,8 @@ namespace BT
 			int activatedIndex = -1;
 			for (int i = 0; i < timingLength; i++)
 			{
-				if (timings[i].Check())
+				if (timings[i].Check() && !isTimingActivated)
 				{
-					ResultContainer _result = timings[i].Next();
-					ProcessResult(_result);
 					isTimingActivated = true;
 					activatedIndex = i;
 				}
@@ -36,26 +34,35 @@ namespace BT
 
 			if (isTimingActivated && activatedIndex >= 0)
 			{
+				ResultContainer _result = timings[activatedIndex].Next();
+				ProcessResult(_result);
 				timings.RemoveAt(activatedIndex);
 
 				return;
 			}
 
-			// Check Interrupts
-			foreach (BT_Interrupt interrupt in interrupts)
+			bool isInterruptActivated = false;
+			if (!isTimingActivated)
 			{
-				if (interrupt.IsInterrupt())
+				// Check Interrupts
+				foreach (BT_Interrupt interrupt in interrupts)
 				{
-					ResultContainer _result = interrupt.Next();
-					ProcessResult(_result);
-
-					return;
+					if (interrupt.IsInterrupt())
+					{
+						ResultContainer _result = interrupt.Next();
+						ProcessResult(_result);
+						isInterruptActivated = true;
+						return;
+					}
 				}
 			}
 
-			BT_Node nextNode = (isContinued && continueNode != null) ? continueNode : root;
-			ResultContainer result = nextNode.Next();
-			ProcessResult(result);
+			if (!isTimingActivated && !isInterruptActivated)
+			{
+				BT_Node nextNode = (isContinued && continueNode != null) ? continueNode : root;
+				ResultContainer result = nextNode.Next();
+				ProcessResult(result);
+			}
 		}
 
 		protected void ProcessResult(ResultContainer result)

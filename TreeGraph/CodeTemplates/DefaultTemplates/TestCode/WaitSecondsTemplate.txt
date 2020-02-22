@@ -1,1 +1,1 @@
-System.Threading.Thread.Sleep({{waitSecond}} * 1000);
+System.Threading.Thread.Sleep((int)({{waitSecond}} * 1000));

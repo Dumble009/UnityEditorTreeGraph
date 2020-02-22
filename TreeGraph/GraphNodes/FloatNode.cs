@@ -9,7 +9,7 @@ public class FloatNode : SubNode
 	{
 		CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
 		holder.SetParameter("name", nodeName);
-		holder.SetParameter("value", defaultValue.ToString().ToLower());
+		holder.SetParameter("value", defaultValue.ToString().ToLower() + 'f');
 
 		return holder;
 	}
