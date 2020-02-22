@@ -10,29 +10,15 @@ using XNode;
 								menuName = "TestCodeCompilers/BehaviourTreeTestCodeCompiler")]
 public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 {
-	List<string> createdNodes;
 	public override void Compile(string fileName, List<Node> nodes)
 	{
 		Debug.Log("Start Compile");
 		List<SubNode> subNodes = new List<SubNode>();
-		createdNodes = new List<string>();
-		RootNode root = new RootNode();
 		foreach (Node node in nodes)
 		{
 			if (node is SubNode s)
 			{
 				subNodes.Add(s);
-			}
-			else if (node is RootNode r)
-			{
-				root = r;
-			}
-		}
-		foreach (Node node in nodes)
-		{
-			if (node is RootNode r)
-			{
-				root = r;
 			}
 		}
 
@@ -50,22 +36,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 											.Where(x => x != null)
 											.OrderBy(x => x.GetType().ToString())
 											.ToArray();
-		/*foreach (SubNode node in sortedSubNodes)
-		{
-			if (!node.isInherited)
-			{
-				CodeTemplateParameterHolder holder = node.GetParameterHolder();
-				string key = node.GetKey();
-				string source = CodeTemplateReader.GetTemplate("Declare", key);
-				declareParameters += CodeTemplateInterpolator.Interpolate(source, holder);
-
-				if (!(node is EventNode))
-				{
-					string initSource = CodeTemplateReader.GetTemplate("Init", "InitParameter");
-					initParameters += CodeTemplateInterpolator.Interpolate(initSource, holder);
-				}
-			}
-		}*/
+		
 		foreach (SubNode node in sortedSubNodes)
 		{
 			if (!(node is EventNode))
@@ -79,58 +50,6 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 
 		string constructedTree = "";
 		constructedTree = BehaviourTreeCompilerCommon.GetConstructedTree(nodes);
-		/*CodeTemplateParameterHolder rootParameter = root.GetParameterHolder();
-		string rootKey = root.GetKey();
-		string rootDeclare = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Declare", rootKey), rootParameter);
-		string rootInit = CodeTemplateInterpolator.Interpolate(CodeTemplateReader.GetTemplate("Init", rootKey), rootParameter);
-		constructedTree += rootDeclare + rootInit;
-		var rootChild = root.GetOutputPort("output").GetConnection(0).node as ITreeGraphNode;
-
-		foreach (Node node in nodes)
-		{
-			if (!(node is SubNode) && !(node is RootNode))
-			{
-				if (node is ITreeGraphNode i)
-				{
-					CodeTemplateParameterHolder holder = i.GetParameterHolder();
-					string key = i.GetKey();
-					string source = CodeTemplateReader.GetTemplate("Declare", key);
-					constructedTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
-				}
-			}
-		}
-
-		Node[] sortedNodes = nodes
-											.Where(x => x != null)
-											.OrderBy(x => x.position.y)
-											.ToArray();
-		foreach (Node node in sortedNodes)
-		{
-			if (!(node is SubNode))
-			{
-				if (node is ITreeGraphNode i)
-				{
-					if (!(node is RootNode))
-					{
-						CodeTemplateParameterHolder holder = i.GetParameterHolder();
-						string key = i.GetKey();
-						string source = CodeTemplateReader.GetTemplate("Init", key);
-						constructedTree += CodeTemplateInterpolator.Interpolate(source, holder) + "\n";
-					}
-					var children = node.GetOutputPort("output").GetConnections()
-											.OrderBy(x => x.node.position.y)
-											.ToArray();
-					foreach (NodePort port in children)
-					{
-						Node child = port.node;
-						if (child is ITreeGraphNode i_child)
-						{
-							constructedTree += i.GetNodeName() + ".AddChild(" + i_child.GetNodeName() + ");\n";
-						}
-					}
-				}
-			}
-		}*/
 
 		//Init CalledFlag
 		string initCalledFlag = "";
