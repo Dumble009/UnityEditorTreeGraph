@@ -6,9 +6,8 @@ public class EditorTreeCompiler : ScriptableObject
 {
 	[SerializeField]
 	public string codeTemplatePath;
-	virtual public string Compile(string fileName, List<Node> nodes, string inheritTarget = "")
+	virtual public void Compile(string fileName, List<Node> nodes, string inheritTarget = "")
 	{
-		return "";
 	}
 	public string FileNameToClassName(string fileName)
 	{

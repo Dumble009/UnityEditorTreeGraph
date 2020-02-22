@@ -9,7 +9,7 @@ using System.Linq;
 public class BehaviourTreeCompiler : EditorTreeCompiler
 {
 	protected string inheritedClass = "BehaviourTreeComponent";
-	override public string Compile(string fileName, List<Node> nodes, string inheritTarget = "")
+	override public void Compile(string fileName, List<Node> nodes, string inheritTarget = "")
 	{
 		Debug.Log("Start Compile");
 		if (string.IsNullOrEmpty(inheritTarget))
@@ -38,6 +38,7 @@ public class BehaviourTreeCompiler : EditorTreeCompiler
 		templateParameter.SetParameter("declareParameters", declareParameters);
 		templateParameter.SetParameter("constructTree", constructedTree);
 		string code = CodeTemplateInterpolator.Interpolate(classTemplate, templateParameter);
-		return code;
+
+		BehaviourTreeCompilerCommon.SaveCode(className, code);
 	}
 }

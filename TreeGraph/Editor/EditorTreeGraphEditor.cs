@@ -38,23 +38,14 @@ public class EditorTreeGraphEditor : XNodeEditor.NodeGraphEditor
 					isInherited = true;
 				}
 			}
-
-			string code = "";
+			
 			if (isInherited)
 			{
-				code = EditorTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes, inheritedClass);
+				EditorTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes, inheritedClass);
 			}
 			else
 			{
-				code = EditorTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes);
-			}
-			string path = EditorUtility.SaveFilePanelInProject("", EditorTreeGraphSettings.Instance.Compiler.FileNameToClassName(target.name), "cs", "");
-			if (!string.IsNullOrEmpty(path))
-			{
-				System.IO.StreamWriter sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.ASCII);
-				sw.Write(code);
-				sw.Close();
-				AssetDatabase.Refresh();
+				EditorTreeGraphSettings.Instance.Compiler.Compile(target.name, target.nodes);
 			}
 		}
 
