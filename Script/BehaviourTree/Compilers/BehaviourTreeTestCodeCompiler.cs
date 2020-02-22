@@ -112,7 +112,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 		string code = CodeTemplateInterpolator.Interpolate(classTemplate, templateParameter);
 
 		//Save TestCode file
-		string path = EditorUtility.SaveFilePanelInProject("", className, "cs", "");
+		/*string path = EditorUtility.SaveFilePanelInProject("", className, "cs", "");
 		if (!string.IsNullOrEmpty(path))
 		{
 			using (StreamWriter sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.ASCII))
@@ -120,6 +120,7 @@ public class BehaviourTreeTestCodeCompiler : TestCodeCompiler
 				sw.Write(code);
 			}
 			AssetDatabase.Refresh();
-		}
+		}*/
+		BehaviourTreeCompilerCommon.SaveCode(className, code);
 	}
 }
