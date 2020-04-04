@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6854efdef2e15c488ec3613bf7d7acc, type: 3}
   m_Name: BehaviourTreeCompiler
   m_EditorClassIdentifier: 
-  codeTemplatePath: EditorTree/TreeGraph/Codetemplates/DefaultTemplates
+  codeTemplatePath: UnityEditorTreeGraph/TreeGraph/Codetemplates/DefaultTemplates
