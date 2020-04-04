@@ -15,6 +15,6 @@ public class NextSequenceNode : BaseNode
 
 	public override string GetKey()
 	{
-		return "Success";
+		return "NextSequence";
 	}
 }
