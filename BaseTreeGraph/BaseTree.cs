@@ -83,9 +83,9 @@ BT_Execute whileEx1 = new BT_Execute();
 BT_Execute whileEx2 = new BT_Execute();
 BT_Interrupt itr_4 = new BT_Interrupt();
 BT_Selector selector1 = new BT_Selector();
-BT_Execute selectorEx1 = new BT_Execute();
-BT_If selectorIf1 = new BT_If();
 BT_Execute selectorEx2 = new BT_Execute();
+BT_If selectorIf1 = new BT_If();
+BT_Execute selectorEx1 = new BT_Execute();
 BT_Execute selectorEx3 = new BT_Execute();
 BT_Interrupt SequenceTest = new BT_Interrupt();
 BT_Sequence sequence1 = new BT_Sequence();
@@ -101,10 +101,10 @@ BT_Execute frameCounterEx2 = new BT_Execute();
 BT_Interrupt frameCounterTest3 = new BT_Interrupt();
 BT_Execute frameCounterEx3 = new BT_Execute();
 BT_Timing frameCounter2 = new BT_Timing(behaviourTree, false, true);
-BT_Interrupt frameCounter4 = new BT_Interrupt();
+BT_Interrupt frameCounterTest4 = new BT_Interrupt();
 BT_Execute frameCounterEx4 = new BT_Execute();
 BT_Timing frameCounter3 = new BT_Timing(behaviourTree, true, false);
-BT_Interrupt frameCounter5 = new BT_Interrupt();
+BT_Interrupt frameCounterTest5 = new BT_Interrupt();
 BT_Execute frameCounterEx5 = new BT_Execute();
 BT_Interrupt timerTest = new BT_Interrupt();
 BT_Execute timerTestEx1 = new BT_Execute();
@@ -119,6 +119,7 @@ BT_Execute timerTestEx4 = new BT_Execute();
 BT_Timing timer3 = new BT_Timing(behaviourTree, true, false);
 BT_Interrupt timerTest5 = new BT_Interrupt();
 BT_Execute timerTestEx5 = new BT_Execute();
+BT_Success NextSequence = new BT_Success();
 firstEx.AddEvent(()=>{
 	first_ev.Invoke();
 });
@@ -175,6 +176,10 @@ whileEx1.AddChild(while1);
 whileEx2.AddEvent(()=>{
 	while_ev2.Invoke();
 });
+selectorIf1.SetCondition(()=>{
+	return selector_bool1;
+});
+selectorIf1.AddChild(selectorEx1);
 selectorEx1.AddEvent(()=>{
 	selector_ev1.Invoke();
 });
@@ -184,13 +189,9 @@ itr_4.SetCondition(()=>{
 behaviourTree.AddInterrupt(itr_4);
 itr_4.AddChild(selector1);
 
-selector1.AddChild(selectorEx1);
 selector1.AddChild(selectorIf1);
+selector1.AddChild(selectorEx2);
 selector1.AddChild(selectorEx3);
-selectorIf1.SetCondition(()=>{
-	return selector_bool1;
-});
-selectorIf1.AddChild(selectorEx2);
 selectorEx2.AddEvent(()=>{
 	selector_ev2.Invoke();
 });
@@ -200,6 +201,8 @@ selectorEx3.AddEvent(()=>{
 sequenceEx1.AddEvent(()=>{
 	sequence_ev1.Invoke();
 });
+sequenceEx1.AddChild(NextSequence);
+
 SequenceTest.SetCondition(()=>{
 	return case6;
 });
@@ -229,7 +232,7 @@ frameCounterTest.SetCondition(()=>{
 behaviourTree.AddInterrupt(frameCounterTest);
 frameCounterTest.AddChild(frameCounterEx1);
 frameCounter1.SetTimingCreator(()=>{
-	return new FrameCounter(frameCounterTest2, 2);
+	return new FrameCounter(frameCounterTest2, 1);
 });
 frameCounterTest2.SetCondition(()=>{
 	return false;
@@ -250,25 +253,25 @@ frameCounterEx3.AddEvent(()=>{
 });
 frameCounterEx3.AddChild(frameCounter2);
 frameCounter2.SetTimingCreator(()=>{
-	return new FrameCounter(frameCounter4, 2);
+	return new FrameCounter(frameCounterTest4, 1);
 });
-frameCounter4.SetCondition(()=>{
+frameCounterTest4.SetCondition(()=>{
 	return false;
 });
-behaviourTree.AddInterrupt(frameCounter4);
-frameCounter4.AddChild(frameCounterEx4);
+behaviourTree.AddInterrupt(frameCounterTest4);
+frameCounterTest4.AddChild(frameCounterEx4);
 frameCounterEx4.AddEvent(()=>{
 	frameCounter_ev4.Invoke();
 });
 frameCounterEx4.AddChild(frameCounter3);
 frameCounter3.SetTimingCreator(()=>{
-	return new FrameCounter(frameCounter5, 2);
+	return new FrameCounter(frameCounterTest5, 1);
 });
-frameCounter5.SetCondition(()=>{
+frameCounterTest5.SetCondition(()=>{
 	return false;
 });
-behaviourTree.AddInterrupt(frameCounter5);
-frameCounter5.AddChild(frameCounterEx5);
+behaviourTree.AddInterrupt(frameCounterTest5);
+frameCounterTest5.AddChild(frameCounterEx5);
 frameCounterEx5.AddEvent(()=>{
 	frameCounter_ev5.Invoke();
 });

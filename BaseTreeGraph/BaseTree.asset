@@ -2761,7 +2761,7 @@ MonoBehaviour:
   m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 456, y: 3272}
+  position: {x: 488, y: 3288}
   ports:
     keys: []
     values: []
@@ -2813,7 +2813,7 @@ MonoBehaviour:
   m_Name: Event
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 536, y: 3176}
+  position: {x: 472, y: 3048}
   ports:
     keys: []
     values: []
@@ -3198,7 +3198,10 @@ MonoBehaviour:
       _node: {fileID: -3531594265233779792}
       _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: input
+        node: {fileID: -2354708235234865821}
+        reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
@@ -3782,6 +3785,49 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   nodeName: 
+  input: 
+  output: 
+--- !u!114 &-2354708235234865821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad096cf6094c1443876e9865378149f, type: 3}
+  m_Name: Next Sequence
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 616, y: 3160}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: -2354708235234865821}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: output
+        node: {fileID: -3531594265233779792}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -2354708235234865821}
+      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  nodeName: NextSequence
   input: 
   output: 
 --- !u!114 &-2346182624304408964
@@ -5890,6 +5936,7 @@ MonoBehaviour:
   - {fileID: -7542137275887182761}
   - {fileID: 5773393743197333060}
   - {fileID: 251714269593444468}
+  - {fileID: -2354708235234865821}
 --- !u!114 &7310885914860216
 MonoBehaviour:
   m_ObjectHideFlags: 0

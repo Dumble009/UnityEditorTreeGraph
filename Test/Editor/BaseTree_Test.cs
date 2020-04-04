@@ -155,6 +155,7 @@ BT_Execute timerTestEx4 = new BT_Execute();
 BT_Timing timer3 = new BT_Timing(behaviourTree, true, false);
 BT_Interrupt timerTest5 = new BT_Interrupt();
 BT_Execute timerTestEx5 = new BT_Execute();
+BT_Success NextSequence = new BT_Success();
 firstEx.AddEvent(()=>{
 	first_ev.Invoke();
 });
@@ -236,6 +237,8 @@ selectorEx3.AddEvent(()=>{
 sequenceEx1.AddEvent(()=>{
 	sequence_ev1.Invoke();
 });
+sequenceEx1.AddChild(NextSequence);
+
 SequenceTest.SetCondition(()=>{
 	return case6;
 });
