@@ -15,6 +15,9 @@ public bool case7 = false;[UnityEngine.SerializeField]
 public bool case8 = false;[UnityEngine.SerializeField]
 public bool case9 = false;[UnityEngine.SerializeField]
 public bool case10 = false;[UnityEngine.SerializeField]
+public bool case11 = false;[UnityEngine.SerializeField]
+public bool setParameterBool1 = false;[UnityEngine.SerializeField]
+public bool setParameterBool2 = true;[UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent first_ev = new UnityEngine.Events.UnityEvent();
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent itr_ev = new UnityEngine.Events.UnityEvent();
@@ -61,8 +64,26 @@ public UnityEngine.Events.UnityEvent timerTest_ev4 = new UnityEngine.Events.Unit
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent timerTest_ev5 = new UnityEngine.Events.UnityEvent();
 [UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent setParameterEv1 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent setParameterEv2 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent setParameterEv3 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent setParameterEv4 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent setParameterEv5 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent setParameterEv6 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent setParameterEv7 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
 public float if_float1 = 100.5f;[UnityEngine.SerializeField]
-int if_int1 = 0;
+public float setParameterFloat1 = 0f;[UnityEngine.SerializeField]
+public float setParameterFloat2 = 0f;[UnityEngine.SerializeField]
+int if_int1 = 0;[UnityEngine.SerializeField]
+int setParameterInt1 = 0;[UnityEngine.SerializeField]
+int setParameterInt2 = 0;
 
 override public void MakeTree()
 {
@@ -120,6 +141,29 @@ BT_Timing timer3 = new BT_Timing(behaviourTree, true, false);
 BT_Interrupt timerTest5 = new BT_Interrupt();
 BT_Execute timerTestEx5 = new BT_Execute();
 BT_Success NextSequence = new BT_Success();
+BT_Interrupt setParameterTest = new BT_Interrupt();
+BT_Execute SetBool1 = new BT_Execute();
+BT_Execute SetBool2 = new BT_Execute();
+BT_Sequence sequence = new BT_Sequence();
+BT_If setParameterIf1 = new BT_If();
+BT_Execute setParameterEx1 = new BT_Execute();
+BT_If setParameterIf2 = new BT_If();
+BT_Execute setParameterEx2 = new BT_Execute();
+BT_Execute SetBool3 = new BT_Execute();
+BT_If setParameterIf3 = new BT_If();
+BT_Execute setParameterEx3 = new BT_Execute();
+BT_Execute SetInt1 = new BT_Execute();
+BT_If setParameterIf4 = new BT_If();
+BT_Execute setParameterEx4 = new BT_Execute();
+BT_Execute SetInt2 = new BT_Execute();
+BT_If setParameterIf5 = new BT_If();
+BT_Execute setParameterEx5 = new BT_Execute();
+BT_Execute SetFloat1 = new BT_Execute();
+BT_If setParameterIf6 = new BT_If();
+BT_Execute setParameterEx6 = new BT_Execute();
+BT_Execute SetFloat2 = new BT_Execute();
+BT_If setParameterIf7 = new BT_If();
+BT_Execute setParameterEx7 = new BT_Execute();
 firstEx.AddEvent(()=>{
 	first_ev.Invoke();
 });
@@ -326,6 +370,96 @@ behaviourTree.AddInterrupt(timerTest5);
 timerTest5.AddChild(timerTestEx5);
 timerTestEx5.AddEvent(()=>{
 	timerTest_ev5.Invoke();
+});
+SetBool1.AddEvent(()=>{
+	setParameterBool1 = true;
+});
+SetBool1.AddChild(setParameterIf1);
+SetBool2.AddEvent(()=>{
+	setParameterBool2 = false;
+});
+SetBool2.AddChild(setParameterIf2);
+setParameterIf1.SetCondition(()=>{
+	return setParameterBool1;
+});
+setParameterIf1.AddChild(setParameterEx1);
+setParameterIf2.SetCondition(()=>{
+	return !setParameterBool2;
+});
+setParameterIf2.AddChild(setParameterEx2);
+SetBool3.AddEvent(()=>{
+	setParameterBool2 = setParameterBool1;
+});
+SetBool3.AddChild(setParameterIf3);
+setParameterIf3.SetCondition(()=>{
+	return setParameterBool2;
+});
+setParameterIf3.AddChild(setParameterEx3);
+setParameterEx3.AddEvent(()=>{
+	setParameterEv3.Invoke();
+});
+setParameterEx1.AddEvent(()=>{
+	setParameterEv1.Invoke();
+});
+setParameterEx1.AddChild(SetBool2);
+setParameterEx2.AddEvent(()=>{
+	setParameterEv2.Invoke();
+});
+setParameterEx2.AddChild(SetBool3);
+setParameterTest.SetCondition(()=>{
+	return case11;
+});
+behaviourTree.AddInterrupt(setParameterTest);
+setParameterTest.AddChild(sequence);
+setParameterIf4.SetCondition(()=>{
+	return setParameterInt1 == 1;
+});
+setParameterIf4.AddChild(setParameterEx4);
+setParameterIf5.SetCondition(()=>{
+	return setParameterInt2 == 1;
+});
+setParameterIf5.AddChild(setParameterEx5);
+
+sequence.AddChild(SetBool1);
+sequence.AddChild(SetInt1);
+sequence.AddChild(SetFloat1);
+SetInt1.AddEvent(()=>{
+	setParameterInt1 = 1;
+});
+SetInt1.AddChild(setParameterIf4);
+setParameterEx4.AddEvent(()=>{
+	setParameterEv4.Invoke();
+});
+setParameterEx4.AddChild(SetInt2);
+SetInt2.AddEvent(()=>{
+	setParameterInt2 = setParameterInt1;
+});
+SetInt2.AddChild(setParameterIf5);
+setParameterEx5.AddEvent(()=>{
+	setParameterEv5.Invoke();
+});
+setParameterIf6.SetCondition(()=>{
+	return setParameterFloat1 > 1.0f;
+});
+setParameterIf6.AddChild(setParameterEx6);
+setParameterEx6.AddEvent(()=>{
+	setParameterEv6.Invoke();
+});
+setParameterEx6.AddChild(SetFloat2);
+setParameterIf7.SetCondition(()=>{
+	return setParameterFloat1 < 1.0f;
+});
+setParameterIf7.AddChild(setParameterEx7);
+SetFloat1.AddEvent(()=>{
+	setParameterFloat1 = 1.5f;
+});
+SetFloat1.AddChild(setParameterIf6);
+SetFloat2.AddEvent(()=>{
+	setParameterFloat1 = setParameterFloat2;
+});
+SetFloat2.AddChild(setParameterIf7);
+setParameterEx7.AddEvent(()=>{
+	setParameterEv7.Invoke();
 });
 
 }
