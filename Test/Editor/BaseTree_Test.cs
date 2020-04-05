@@ -132,20 +132,20 @@ foreach(var key in keys)
 public void Init()
 {
 BT_Root root = new BT_Root();behaviourTree = new BehaviourTree(root);BT_Execute firstEx = new BT_Execute();
-BT_Interrupt itr_1 = new BT_Interrupt();
+BT_Interrupt InterruptTest = new BT_Interrupt();
 BT_Execute itrEx = new BT_Execute();
-BT_Interrupt itr_2 = new BT_Interrupt();
+BT_Interrupt IfTest = new BT_Interrupt();
 BT_If if1 = new BT_If();
 BT_Execute ifEx1 = new BT_Execute();
 BT_If if2 = new BT_If();
 BT_Execute ifEx2 = new BT_Execute();
 BT_If if3 = new BT_If();
 BT_Execute ifEx3 = new BT_Execute();
-BT_Interrupt itr_3 = new BT_Interrupt();
+BT_Interrupt WhileTest = new BT_Interrupt();
 BT_While while1 = new BT_While();
 BT_Execute whileEx1 = new BT_Execute();
 BT_Execute whileEx2 = new BT_Execute();
-BT_Interrupt itr_4 = new BT_Interrupt();
+BT_Interrupt SelectorTest = new BT_Interrupt();
 BT_Selector selector1 = new BT_Selector();
 BT_Execute selectorEx2 = new BT_Execute();
 BT_If selectorIf1 = new BT_If();
@@ -211,19 +211,19 @@ firstEx.AddEvent(()=>{
 	first_ev.Invoke();
 });
 root.AddChild(firstEx);
-itr_1.SetCondition(()=>{
+InterruptTest.SetCondition(()=>{
 	return case2;
 });
-behaviourTree.AddInterrupt(itr_1);
-itr_1.AddChild(itrEx);
+behaviourTree.AddInterrupt(InterruptTest);
+InterruptTest.AddChild(itrEx);
 itrEx.AddEvent(()=>{
 	itr_ev.Invoke();
 });
-itr_2.SetCondition(()=>{
+IfTest.SetCondition(()=>{
 	return case3;
 });
-behaviourTree.AddInterrupt(itr_2);
-itr_2.AddChild(if1);
+behaviourTree.AddInterrupt(IfTest);
+IfTest.AddChild(if1);
 if1.SetCondition(()=>{
 	return if_bool1;
 });
@@ -251,11 +251,11 @@ while1.SetCondition(()=>{
 	return while_bool1;
 });
 while1.AddChild(whileEx2);
-itr_3.SetCondition(()=>{
+WhileTest.SetCondition(()=>{
 	return case4;
 });
-behaviourTree.AddInterrupt(itr_3);
-itr_3.AddChild(whileEx1);
+behaviourTree.AddInterrupt(WhileTest);
+WhileTest.AddChild(whileEx1);
 whileEx1.AddEvent(()=>{
 	while_ev1.Invoke();
 });
@@ -270,11 +270,11 @@ selectorIf1.AddChild(selectorEx1);
 selectorEx1.AddEvent(()=>{
 	selector_ev1.Invoke();
 });
-itr_4.SetCondition(()=>{
+SelectorTest.SetCondition(()=>{
 	return case5;
 });
-behaviourTree.AddInterrupt(itr_4);
-itr_4.AddChild(selector1);
+behaviourTree.AddInterrupt(SelectorTest);
+SelectorTest.AddChild(selector1);
 
 selector1.AddChild(selectorIf1);
 selector1.AddChild(selectorEx2);

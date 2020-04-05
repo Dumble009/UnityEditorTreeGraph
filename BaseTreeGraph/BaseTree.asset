@@ -708,6 +708,30 @@ MonoBehaviour:
   input: 
   output: 
   targetNodeName: sequenceEx1
+--- !u!114 &-8261588933034482480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -520, y: 5800}
+  ports:
+    keys: []
+    values: []
+  comment: 'Nineth Test:
+
+    Does Timer work fine?
+
+
+    Timer has property "Wait
+    Time". This is second.'
 --- !u!114 &-8181344957427403746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,6 +966,38 @@ MonoBehaviour:
   input: 
   output: 
   targetNodeName: setParameterEx6
+--- !u!114 &-8021989748748622366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -232, y: 3032}
+  ports:
+    keys: []
+    values: []
+  comment: 'Sixth Test:
+
+    Does Sequence work fine?
+
+
+    If NextSequence is called,
+    Sequence will check next brunch at next tick.
+
+
+    But if there isn''t NextSequence,
+    Execute will work samely.
+
+
+    If IfNode returns false, Sequence will check
+    same node at next tick.'
 --- !u!114 &-7944189515522536611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1058,7 +1114,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  nodeName: itr_1
+  nodeName: InterruptTest
   output: 
   condition: case2
 --- !u!114 &-7806479317277783364
@@ -1553,6 +1609,32 @@ MonoBehaviour:
   input: 
   output: 
   targetNodeName: firstEx
+--- !u!114 &-7023971391815681478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -520, y: 7656}
+  ports:
+    keys: []
+    values: []
+  comment: 'Eleventh Test:
+
+    Do SetParameters work fine?
+
+
+    SetParameters are
+    "SetInt", "SetFloat" and "SetBool".
+
+'
 --- !u!114 &-6946051279803740919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2601,7 +2683,7 @@ MonoBehaviour:
   m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -581.81744, y: 5888.186}
+  position: {x: -584, y: 5992}
   ports:
     keys: []
     values: []
@@ -2721,6 +2803,30 @@ MonoBehaviour:
   input: 
   output: 
   waitSecond: 0.8
+--- !u!114 &-5372962869141228144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -824, y: 552}
+  ports:
+    keys: []
+    values: []
+  comment: 'Third Test:
+
+    Does If work fine?
+
+
+    Checking conditions involving
+    each types.'
 --- !u!114 &-5335282565571997135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5211,6 +5317,40 @@ MonoBehaviour:
   input: 
   output: 
   waitSecond: 2
+--- !u!114 &-1816598316286453637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -345.46844, y: 4166.9297}
+  ports:
+    keys: []
+    values: []
+  comment: 'Seventh Test:
+
+    Does FrameCounter work fine?
+
+
+    First tick, FrameCounter
+    will be called and be set.
+
+
+    Second tick, FrameCounter will be called but
+    this will have been already set.
+
+
+    Third tick, FrameCounter set at first
+    tick will be activated.
+
+    Right Interrupt will be called.'
 --- !u!114 &-1803444852579054359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6016,6 +6156,30 @@ MonoBehaviour:
     values: []
   nodeName: frameCounter_ev4
   isInherited: 0
+--- !u!114 &-854776797193081576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -456, y: 1976}
+  ports:
+    keys: []
+    values: []
+  comment: 'Fifth Test:
+
+    Does Selector work fine?
+
+
+    Third Execution won''t
+    be called.'
 --- !u!114 &-847655734320741784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6223,6 +6387,42 @@ MonoBehaviour:
   output: 
   parameterName: case6
   value: true
+--- !u!114 &-469608914357693410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -501.10907, y: 4921.4775}
+  ports:
+    keys: []
+    values: []
+  comment: 'Eighth Test:
+
+    Does FrameCounter work fine?
+
+
+    FrameCounter has
+    properties "Is Multiple" and "Is Overwrite".
+
+
+    If "Is Multiple" is set and
+    FrameCounter is called multiple times, event trigger will be set multiple times.
+
+
+    If
+    "Is Overwrite" is set and FrameCounter is called multiple times, event trigger
+    will be overwritten.
+
+
+'
 --- !u!114 &-446652804233352804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7055,6 +7255,17 @@ MonoBehaviour:
   - {fileID: -3857334735736412983}
   - {fileID: -3584497923308847262}
   - {fileID: 2382242849685094317}
+  - {fileID: 6193797196385812161}
+  - {fileID: 1194318669727110157}
+  - {fileID: -5372962869141228144}
+  - {fileID: 2138591806621417646}
+  - {fileID: -854776797193081576}
+  - {fileID: -8021989748748622366}
+  - {fileID: -1816598316286453637}
+  - {fileID: -469608914357693410}
+  - {fileID: -8261588933034482480}
+  - {fileID: 7851847014127333044}
+  - {fileID: -7023971391815681478}
 --- !u!114 &7310885914860216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8306,6 +8517,26 @@ MonoBehaviour:
     values: []
   nodeName: while_ev2
   isInherited: 0
+--- !u!114 &1194318669727110157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -792, y: 200}
+  ports:
+    keys: []
+    values: []
+  comment: 'Second Test:
+
+    Does Interrupt work fine?'
 --- !u!114 &1209825157670880405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8903,6 +9134,26 @@ MonoBehaviour:
     values: []
   nodeName: setParameterEv1
   isInherited: 0
+--- !u!114 &2138591806621417646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -680, y: 1336}
+  ports:
+    keys: []
+    values: []
+  comment: 'Fourth Test:
+
+    Does While work fine?'
 --- !u!114 &2207877013442684615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9460,7 +9711,7 @@ MonoBehaviour:
   m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -584, y: 6616}
+  position: {x: -584, y: 6712}
   ports:
     keys: []
     values: []
@@ -10236,7 +10487,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  nodeName: itr_4
+  nodeName: SelectorTest
   output: 
   condition: case5
 --- !u!114 &4427339737605360985
@@ -10332,7 +10583,7 @@ MonoBehaviour:
   m_Name: Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -584, y: 7704}
+  position: {x: -744, y: 7768}
   ports:
     keys: []
     values: []
@@ -11690,7 +11941,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  nodeName: itr_2
+  nodeName: IfTest
   output: 
   condition: case3
 --- !u!114 &6179906393903916512
@@ -11723,9 +11974,29 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  nodeName: itr_3
+  nodeName: WhileTest
   output: 
   condition: case4
+--- !u!114 &6193797196385812161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -568, y: -200}
+  ports:
+    keys: []
+    values: []
+  comment: 'First Test:
+
+    Does Execute work fine?'
 --- !u!114 &6235071145115269120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12574,6 +12845,32 @@ MonoBehaviour:
   input: 
   output: 
   count: 1
+--- !u!114 &7851847014127333044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60f954cf3271744b8d0df7b935cdcb1, type: 3}
+  m_Name: Comment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -488, y: 6536}
+  ports:
+    keys: []
+    values: []
+  comment: 'Tenth Test:
+
+    Does Timer work fine?
+
+
+    Timer has properties "Is
+    Multiple", "Is Overwrite".
+
+    They work as same as ones of WaitFrame.'
 --- !u!114 &7937569602933684071
 MonoBehaviour:
   m_ObjectHideFlags: 0
