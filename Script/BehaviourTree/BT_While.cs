@@ -19,15 +19,16 @@ namespace BT
 			{
 				if (condition.Invoke())
 				{
-					ResultContainer result = new ResultContainer(this, BT_Result.CONTINUE);
+					ResultContainer result = new ResultContainer(BT_Result.CONTINUE);
 					if (children != null && children.Count > 0)
 					{
 						ResultContainer childResult = children[0].Next();
-						if (childResult.Result == BT_Result.CONTINUE && childResult.NextStartNode != null)
+						if (childResult.Result == BT_Result.CONTINUE)
 						{
 							result = childResult;
 						}
 					}
+					result.NextStartNodesQueue.Enqueue(this);
 					return result;
 				}
 				else

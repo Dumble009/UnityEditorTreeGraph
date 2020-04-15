@@ -351,21 +351,26 @@ public class BT_Test
 		Assert.AreEqual(true, isOK1);
 		Assert.AreEqual(false, isOK3);
 
-		tree.Tick();
-		Assert.AreEqual(true, isOK1);
-		Assert.AreEqual(false, isOK3);
-
-		tree.Tick();
-		Assert.AreEqual(true, isOK1);
-		Assert.AreEqual(false, isOK3);
-
-		tree.Tick();
-		Assert.AreEqual(true, isOK1);
-		Assert.AreEqual(false, isOK3);
-		Assert.AreEqual(0, loopCount);
+		isOK1 = false;
 
 		tree.Tick();
 		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK3);
+
+		tree.Tick();
+		Assert.AreEqual(false, isOK1);
+		Assert.AreEqual(false, isOK3);
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
+		Assert.AreEqual(true, isOK3);
+		Assert.AreEqual(0, loopCount);
+
+		isOK1 = false;
+		isOK3 = false;
+
+		tree.Tick();
+		Assert.AreEqual(true, isOK1);
 		Assert.AreEqual(true, isOK3);
 		Assert.AreEqual(0, loopCount);
 	}

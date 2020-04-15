@@ -5,8 +5,7 @@ namespace BT
 	public class BehaviourTree
 	{
 		protected BT_Node root;
-		protected BT_Node continueNode;
-		protected bool isContinued = false;
+		protected Queue<BT_Node> continueNodes;
 		protected List<BT_Interrupt> interrupts;
 		protected List<Timing> timings;
 
@@ -15,6 +14,7 @@ namespace BT
 			root = _root;
 			interrupts = new List<BT_Interrupt>();
 			timings = new List<Timing>();
+			continueNodes = new Queue<BT_Node>();
 		}
 
 		public void Tick()
@@ -59,22 +59,36 @@ namespace BT
 
 			if (!isTimingActivated && !isInterruptActivated)
 			{
-				BT_Node nextNode = (isContinued && continueNode != null) ? continueNode : root;
-				ResultContainer result = nextNode.Next();
+				ResultContainer result = new ResultContainer();
+				if (continueNodes.Count > 0)
+				{
+					do
+					{
+						BT_Node nextNode = continueNodes.Dequeue();
+						result = nextNode.Next();
+					} while (result.Result == BT_Result.FAILURE && continueNodes.Count > 0);
+
+					if(result.Result == BT_Result.FAILURE)
+					{
+						result = root.Next();
+					}
+				}
+				else
+				{
+					result = root.Next();
+				}
 				ProcessResult(result);
 			}
 		}
 
 		protected void ProcessResult(ResultContainer result)
 		{
-			if (result.Result == BT_Result.CONTINUE && result.NextStartNode != null)
+			if (result.Result == BT_Result.CONTINUE)
 			{
-				isContinued = true;
-				continueNode = result.NextStartNode;
-			}
-			else
-			{
-				isContinued = false;
+				while(result.NextStartNodesQueue.Count != 0)
+				{
+					continueNodes.Enqueue(result.NextStartNodesQueue.Dequeue());
+				}
 			}
 		}
 

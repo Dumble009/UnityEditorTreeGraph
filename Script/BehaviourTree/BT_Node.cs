@@ -11,10 +11,12 @@ namespace BT
 
 	public struct ResultContainer
 	{
-		BT_Node nextStartNode;
-		public BT_Node NextStartNode {
-			get {
-				return nextStartNode;
+		Queue<BT_Node> nextStartNodesQueue;
+		public Queue<BT_Node> NextStartNodesQueue
+		{
+			get
+			{
+				return nextStartNodesQueue;
 			}
 		}
 		BT_Result result;
@@ -25,13 +27,7 @@ namespace BT
 		}
 		public ResultContainer(BT_Result _r)
 		{
-			nextStartNode = null;
-			result = _r;
-		}
-
-		public ResultContainer(BT_Node _n, BT_Result _r)
-		{
-			nextStartNode = _n;
+			nextStartNodesQueue = new Queue<BT_Node>();
 			result = _r;
 		}
 	}
