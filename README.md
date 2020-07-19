@@ -1,5 +1,5 @@
 # UnityEditorTreeGraph
-![](https://imgur.com/SkJGTSh)
+![](https://imgur.com/SkJGTSh.png)
 
 Writing routines of characters or enemies is tiresome work...
 This Editor Extension relieve you of such painful works!
