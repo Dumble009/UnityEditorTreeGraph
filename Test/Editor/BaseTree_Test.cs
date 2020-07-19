@@ -26,6 +26,7 @@ public bool case10 = false;[UnityEngine.SerializeField]
 public bool case11 = false;[UnityEngine.SerializeField]
 public bool setParameterBool1 = false;[UnityEngine.SerializeField]
 public bool setParameterBool2 = true;[UnityEngine.SerializeField]
+public bool while_bool2 = false;[UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent first_ev = new UnityEngine.Events.UnityEvent();
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent itr_ev = new UnityEngine.Events.UnityEvent();
@@ -86,6 +87,8 @@ public UnityEngine.Events.UnityEvent setParameterEv6 = new UnityEngine.Events.Un
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent setParameterEv7 = new UnityEngine.Events.UnityEvent();
 [UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent while_ev3 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
 public float if_float1 = 100.5f;[UnityEngine.SerializeField]
 public float setParameterFloat1 = 0f;[UnityEngine.SerializeField]
 public float setParameterFloat2 = 0f;[UnityEngine.SerializeField]
@@ -111,6 +114,7 @@ case10 =  false;
 case11 =  false;
 setParameterBool1 =  false;
 setParameterBool2 =  true;
+while_bool2 =  false;
 if_float1 =  100.5f;
 setParameterFloat1 =  0f;
 setParameterFloat2 =  0f;
@@ -207,6 +211,8 @@ BT_Execute setParameterEx6 = new BT_Execute();
 BT_Execute SetFloat2 = new BT_Execute();
 BT_If setParameterIf7 = new BT_If();
 BT_Execute setParameterEx7 = new BT_Execute();
+BT_While while2 = new BT_While();
+BT_Execute whileEx3 = new BT_Execute();
 firstEx.AddEvent(()=>{
 	first_ev.Invoke();
 });
@@ -247,6 +253,13 @@ if3.AddChild(ifEx3);
 ifEx3.AddEvent(()=>{
 	if_ev3.Invoke();
 });
+while2.SetCondition(()=>{
+	return while_bool2;
+});
+while2.AddChild(whileEx3);
+whileEx3.AddEvent(()=>{
+	while_ev3.Invoke();
+});
 while1.SetCondition(()=>{
 	return while_bool1;
 });
@@ -263,6 +276,7 @@ whileEx1.AddChild(while1);
 whileEx2.AddEvent(()=>{
 	while_ev2.Invoke();
 });
+whileEx2.AddChild(while2);
 selectorIf1.SetCondition(()=>{
 	return selector_bool1;
 });
@@ -275,13 +289,13 @@ SelectorTest.SetCondition(()=>{
 });
 behaviourTree.AddInterrupt(SelectorTest);
 SelectorTest.AddChild(selector1);
+selectorEx2.AddEvent(()=>{
+	selector_ev2.Invoke();
+});
 
 selector1.AddChild(selectorIf1);
 selector1.AddChild(selectorEx2);
 selector1.AddChild(selectorEx3);
-selectorEx2.AddEvent(()=>{
-	selector_ev2.Invoke();
-});
 selectorEx3.AddEvent(()=>{
 	selector_ev3.Invoke();
 });
@@ -597,6 +611,9 @@ setParameterEv6.AddListener(()=>{
 });calledFlag.Add("setParameterEx7", false);
 setParameterEv7.AddListener(()=>{
 	calledFlag["setParameterEx7"] = true;
+});calledFlag.Add("whileEx3", false);
+while_ev3.AddListener(()=>{
+	calledFlag["whileEx3"] = true;
 });
 }
 
@@ -661,12 +678,55 @@ for(int __i__ = 0; __i__ < 1; __i__++){
 }
 Assert.AreEqual(true, calledFlag["whileEx1"]);
 Assert.AreEqual(false, calledFlag["whileEx2"]);
+Assert.AreEqual(false, calledFlag["whileEx3"]);
 ResetCalledFlag();
 while_bool1 = true;
 for(int __i__ = 0; __i__ < 1; __i__++){
 	behaviourTree.Tick();
 }
 Assert.AreEqual(true, calledFlag["whileEx1"]);
+Assert.AreEqual(true, calledFlag["whileEx2"]);
+Assert.AreEqual(false, calledFlag["whileEx3"]);
+ResetCalledFlag();
+while_bool2 = true;
+case4 = false;
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(false, calledFlag["whileEx1"]);
+Assert.AreEqual(true, calledFlag["whileEx2"]);
+Assert.AreEqual(true, calledFlag["whileEx3"]);
+ResetCalledFlag();
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(false, calledFlag["whileEx1"]);
+Assert.AreEqual(false, calledFlag["whileEx2"]);
+Assert.AreEqual(true, calledFlag["whileEx3"]);
+ResetCalledFlag();
+while_bool2 = false;
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(false, calledFlag["whileEx1"]);
+Assert.AreEqual(true, calledFlag["whileEx2"]);
+Assert.AreEqual(false, calledFlag["whileEx3"]);
+ResetCalledFlag();
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(false, calledFlag["whileEx1"]);
+Assert.AreEqual(true, calledFlag["whileEx2"]);
+Assert.AreEqual(false, calledFlag["whileEx3"]);
+ResetCalledFlag();
+while_bool1 = false;
+case4 = true;
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(true, calledFlag["whileEx1"]);
+Assert.AreEqual(false, calledFlag["whileEx2"]);
+Assert.AreEqual(false, calledFlag["whileEx3"]);
 
 ResetCalledFlag();
 }[Test]
