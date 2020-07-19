@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Name: Inherited_Bool
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1720, y: 328}
+  position: {x: 296, y: -408}
   ports:
     keys: []
     values: []

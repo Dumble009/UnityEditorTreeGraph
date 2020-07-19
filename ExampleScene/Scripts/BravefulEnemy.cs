@@ -17,22 +17,6 @@ BT_Execute attackable_check = new BT_Execute();
 BT_Execute moveableCheck = new BT_Execute();
 BT_If if_patrol = new BT_If();
 BT_If If_chase = new BT_If();
-root.AddChild(moveableCheck);
-
-selector1.AddChild(if_found);
-selector1.AddChild(if_patrol);
-attack.AddEvent(()=>{
-	attack_event.Invoke();
-});
-chase.AddEvent(()=>{
-	chase_event.Invoke();
-});
-patrol.AddEvent(()=>{
-	patrol_event.Invoke();
-});
-
-selector2.AddChild(attackable_check);
-selector2.AddChild(If_chase);
 if_found.SetCondition(()=>{
 	return IsFound;
 });
@@ -45,6 +29,16 @@ attackable_check.AddEvent(()=>{
 	attackablecheck_event.Invoke();
 });
 attackable_check.AddChild(If_attack);
+
+selector2.AddChild(attackable_check);
+selector2.AddChild(If_chase);
+attack.AddEvent(()=>{
+	attack_event.Invoke();
+});
+root.AddChild(moveableCheck);
+
+selector1.AddChild(if_found);
+selector1.AddChild(if_patrol);
 moveableCheck.AddEvent(()=>{
 	moveablecheck_event.Invoke();
 });
@@ -53,10 +47,16 @@ if_patrol.SetCondition(()=>{
 	return IsMoveable;
 });
 if_patrol.AddChild(patrol);
+patrol.AddEvent(()=>{
+	patrol_event.Invoke();
+});
 If_chase.SetCondition(()=>{
 	return IsMoveable;
 });
 If_chase.AddChild(chase);
+chase.AddEvent(()=>{
+	chase_event.Invoke();
+});
 
 }
 }
