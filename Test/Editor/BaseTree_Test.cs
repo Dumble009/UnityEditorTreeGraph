@@ -27,6 +27,8 @@ public bool case11 = false;[UnityEngine.SerializeField]
 public bool setParameterBool1 = false;[UnityEngine.SerializeField]
 public bool setParameterBool2 = true;[UnityEngine.SerializeField]
 public bool while_bool2 = false;[UnityEngine.SerializeField]
+public bool case12 = false;[UnityEngine.SerializeField]
+public bool case13 = false;[UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent first_ev = new UnityEngine.Events.UnityEvent();
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent itr_ev = new UnityEngine.Events.UnityEvent();
@@ -89,6 +91,14 @@ public UnityEngine.Events.UnityEvent setParameterEv7 = new UnityEngine.Events.Un
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent while_ev3 = new UnityEngine.Events.UnityEvent();
 [UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent cancelTest1ev2 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent cancelTest1ev1 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent cancelTest2ev2 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent cancelTest2ev1 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
 public float if_float1 = 100.5f;[UnityEngine.SerializeField]
 public float setParameterFloat1 = 0f;[UnityEngine.SerializeField]
 public float setParameterFloat2 = 0f;[UnityEngine.SerializeField]
@@ -115,6 +125,8 @@ case11 =  false;
 setParameterBool1 =  false;
 setParameterBool2 =  true;
 while_bool2 =  false;
+case12 =  false;
+case13 =  false;
 if_float1 =  100.5f;
 setParameterFloat1 =  0f;
 setParameterFloat2 =  0f;
@@ -163,28 +175,28 @@ BT_Execute sequenceEx2 = new BT_Execute();
 BT_Execute sequenceEx3 = new BT_Execute();
 BT_Interrupt frameCounterTest = new BT_Interrupt();
 BT_Execute frameCounterEx1 = new BT_Execute();
-BT_Timing frameCounter1 = new BT_Timing(behaviourTree, false, false);
+BT_Timing frameCounter1 = new BT_Timing(behaviourTree, false, false, "frameCounter1");
 BT_Interrupt frameCounterTest2 = new BT_Interrupt();
 BT_Execute frameCounterEx2 = new BT_Execute();
 BT_Interrupt frameCounterTest3 = new BT_Interrupt();
 BT_Execute frameCounterEx3 = new BT_Execute();
-BT_Timing frameCounter2 = new BT_Timing(behaviourTree, false, true);
+BT_Timing frameCounter2 = new BT_Timing(behaviourTree, false, true, "frameCounter2");
 BT_Interrupt frameCounterTest4 = new BT_Interrupt();
 BT_Execute frameCounterEx4 = new BT_Execute();
-BT_Timing frameCounter3 = new BT_Timing(behaviourTree, true, false);
+BT_Timing frameCounter3 = new BT_Timing(behaviourTree, true, false, "frameCounter3");
 BT_Interrupt frameCounterTest5 = new BT_Interrupt();
 BT_Execute frameCounterEx5 = new BT_Execute();
 BT_Interrupt timerTest = new BT_Interrupt();
 BT_Execute timerTestEx1 = new BT_Execute();
-BT_Timing timer1 = new BT_Timing(behaviourTree, false, false);
+BT_Timing timer1 = new BT_Timing(behaviourTree, false, false, "timer1");
 BT_Interrupt timerTest2 = new BT_Interrupt();
 BT_Execute timerTestEx2 = new BT_Execute();
 BT_Interrupt timerTest3 = new BT_Interrupt();
 BT_Execute timerTestEx3 = new BT_Execute();
-BT_Timing timer2 = new BT_Timing(behaviourTree, false, true);
+BT_Timing timer2 = new BT_Timing(behaviourTree, false, true, "timer2");
 BT_Interrupt timerTest4 = new BT_Interrupt();
 BT_Execute timerTestEx4 = new BT_Execute();
-BT_Timing timer3 = new BT_Timing(behaviourTree, true, false);
+BT_Timing timer3 = new BT_Timing(behaviourTree, true, false, "timer3");
 BT_Interrupt timerTest5 = new BT_Interrupt();
 BT_Execute timerTestEx5 = new BT_Execute();
 BT_Success NextSequence = new BT_Success();
@@ -213,6 +225,19 @@ BT_If setParameterIf7 = new BT_If();
 BT_Execute setParameterEx7 = new BT_Execute();
 BT_While while2 = new BT_While();
 BT_Execute whileEx3 = new BT_Execute();
+BT_Interrupt CancelTest1Itr = new BT_Interrupt();
+BT_Timing CancelTest1FC = new BT_Timing(behaviourTree, false, false, "CancelTest1FC");
+BT_Execute CancelTest1Cancel = new BT_Execute();
+BT_If CancelTest1If = new BT_If();
+BT_Execute CencelTest1Ex2 = new BT_Execute();
+BT_Execute CencelTest1Ex1 = new BT_Execute();
+BT_Interrupt CancelTest2Itr = new BT_Interrupt();
+BT_Execute CencelTest2Ex1 = new BT_Execute();
+BT_Timing CancelTest2FC = new BT_Timing(behaviourTree, false, false, "CancelTest2FC");
+BT_Execute CancelTest2Cancel = new BT_Execute();
+BT_If CancelTest2If = new BT_If();
+BT_Execute CencelTest2Ex2 = new BT_Execute();
+BT_Timing CancelTest2Timer = new BT_Timing(behaviourTree, false, false, "CancelTest2Timer");
 firstEx.AddEvent(()=>{
 	first_ev.Invoke();
 });
@@ -518,6 +543,58 @@ SetFloat2.AddChild(setParameterIf7);
 setParameterEx7.AddEvent(()=>{
 	setParameterEv7.Invoke();
 });
+CancelTest1Itr.SetCondition(()=>{
+	return case12;
+});
+behaviourTree.AddInterrupt(CancelTest1Itr);
+CancelTest1Itr.AddChild(CencelTest1Ex1);
+CancelTest1FC.SetTimingCreator(()=>{
+	return new FrameCounter(CencelTest1Ex2, 0);
+});
+CancelTest1FC.AddChild(CancelTest1Cancel);
+CancelTest1Cancel.AddEvent(()=>{
+	behaviourTree.CancelTiming(false, "", "CancelTest1FC");
+});
+CancelTest1Cancel.AddChild(CancelTest1If);
+CencelTest1Ex1.AddEvent(()=>{
+	cancelTest1ev1.Invoke();
+});
+CencelTest1Ex1.AddChild(CancelTest1FC);
+CancelTest1If.SetCondition(()=>{
+	return false;
+});
+CancelTest1If.AddChild(CencelTest1Ex2);
+CencelTest1Ex2.AddEvent(()=>{
+	cancelTest1ev2.Invoke();
+});
+CancelTest2Itr.SetCondition(()=>{
+	return case13;
+});
+behaviourTree.AddInterrupt(CancelTest2Itr);
+CancelTest2Itr.AddChild(CencelTest2Ex1);
+CencelTest2Ex1.AddEvent(()=>{
+	cancelTest2ev1.Invoke();
+});
+CencelTest2Ex1.AddChild(CancelTest2FC);
+CancelTest2FC.SetTimingCreator(()=>{
+	return new FrameCounter(CencelTest2Ex2, 0);
+});
+CancelTest2FC.AddChild(CancelTest2Timer);
+CancelTest2Cancel.AddEvent(()=>{
+	behaviourTree.CancelTiming(true, "");
+});
+CancelTest2Cancel.AddChild(CancelTest2If);
+CancelTest2Timer.SetTimingCreator(()=>{
+	return new Timer(CencelTest2Ex2, 0.5);
+});
+CancelTest2Timer.AddChild(CancelTest2Cancel);
+CancelTest2If.SetCondition(()=>{
+	return false;
+});
+CancelTest2If.AddChild(CencelTest2Ex2);
+CencelTest2Ex2.AddEvent(()=>{
+	cancelTest2ev2.Invoke();
+});
 
 
 calledFlag = new Dictionary<string, bool>();
@@ -614,6 +691,18 @@ setParameterEv7.AddListener(()=>{
 });calledFlag.Add("whileEx3", false);
 while_ev3.AddListener(()=>{
 	calledFlag["whileEx3"] = true;
+});calledFlag.Add("CencelTest1Ex2", false);
+cancelTest1ev2.AddListener(()=>{
+	calledFlag["CencelTest1Ex2"] = true;
+});calledFlag.Add("CencelTest1Ex1", false);
+cancelTest1ev1.AddListener(()=>{
+	calledFlag["CencelTest1Ex1"] = true;
+});calledFlag.Add("CencelTest2Ex1", false);
+cancelTest2ev1.AddListener(()=>{
+	calledFlag["CencelTest2Ex1"] = true;
+});calledFlag.Add("CencelTest2Ex2", false);
+cancelTest2ev2.AddListener(()=>{
+	calledFlag["CencelTest2Ex2"] = true;
 });
 }
 
@@ -957,6 +1046,43 @@ for(int __i__ = 0; __i__ < 1; __i__++){
 }
 Assert.AreEqual(true, calledFlag["setParameterEx6"]);
 Assert.AreEqual(true, calledFlag["setParameterEx7"]);
+
+ResetCalledFlag();
+}[Test]
+public void CancelTest1()
+{
+InitParameters();
+case12 = true;
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(true, calledFlag["CencelTest1Ex1"]);
+Assert.AreEqual(false, calledFlag["CencelTest1Ex2"]);
+ResetCalledFlag();
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(true, calledFlag["CencelTest1Ex1"]);
+Assert.AreEqual(false, calledFlag["CencelTest1Ex2"]);
+
+ResetCalledFlag();
+}[Test]
+public void CancelTest2()
+{
+InitParameters();
+case13 = true;
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(true, calledFlag["CencelTest2Ex1"]);
+Assert.AreEqual(false, calledFlag["CencelTest2Ex2"]);
+ResetCalledFlag();
+System.Threading.Thread.Sleep((int)(1.0 * 1000));
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
+}
+Assert.AreEqual(true, calledFlag["CencelTest2Ex1"]);
+Assert.AreEqual(false, calledFlag["CencelTest2Ex2"]);
 
 ResetCalledFlag();
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [CreateNodeMenu("Cancel")]
-[NodeTint("#aaaaff")]
+[NodeTint("#aaffff")]
 
 public class CancelNode : BaseNode
 {
@@ -28,13 +28,13 @@ public class CancelNode : BaseNode
     {
         CodeTemplateParameterHolder holder = new CodeTemplateParameterHolder();
         holder.SetParameter("name", nodeName);
-        string cancelTargetStr = "";
+        string cancelTargetStr = "\"\"";
         foreach(var target in cancelTargets)
         {
-            cancelTargetStr += target + ",";
+            cancelTargetStr += ", \"" + target + "\"";
         }
         holder.SetParameter("cancelTarget", cancelTargetStr);
-        holder.SetParameter("isAllCancel", isAllCancel.ToString());
+        holder.SetParameter("isAllCancel", isAllCancel.ToString().ToLower());
 
         return holder;
     }

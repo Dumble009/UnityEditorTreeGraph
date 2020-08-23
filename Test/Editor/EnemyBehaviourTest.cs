@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class EnemyBehaviourTest
+public class EnemyBehaviour_Test
 {
 BehaviourTree behaviourTree;
 Dictionary<string, bool> calledFlag;
@@ -27,6 +27,25 @@ public UnityEngine.Events.UnityEvent moveablecheck_event = new UnityEngine.Event
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent escape_event = new UnityEngine.Events.UnityEvent();
 
+
+void InitParameters()
+{
+IsFound =  false;
+IsAttackable =  false;
+IsMoveable =  false;
+IsEscape =  false;
+IsGotDamage =  false;
+
+}
+
+void ResetCalledFlag(){
+var keys = calledFlag.Keys.ToArray();
+foreach(var key in keys)
+{
+	calledFlag[key] = false;
+}
+}
+
 [SetUp]
 public void Init()
 {
@@ -46,27 +65,17 @@ BT_Execute escape = new BT_Execute();
 BT_Interrupt DamageInterrupt = new BT_Interrupt();
 BT_Execute ResetDamageFlag = new BT_Execute();
 BT_Execute ActivateEscape = new BT_Execute();
-BT_Timing EscapeTimer = new BT_Timing(behaviourTree, true, false);
+BT_Timing EscapeTimer = new BT_Timing(behaviourTree, true, false, "EscapeTimer");
 BT_Interrupt EscapeResetInterrupt = new BT_Interrupt();
 BT_Execute EscapeResetter = new BT_Execute();
 BT_Execute SetFound = new BT_Execute();
-root.AddChild(moveableCheck);
-
-selector1.AddChild(if_found);
-selector1.AddChild(if_patrol);
-attack.AddEvent(()=>{
-	attack_event.Invoke();
+If_escape.SetCondition(()=>{
+	return IsEscape && IsMoveable;
 });
-chase.AddEvent(()=>{
-	chase_event.Invoke();
+If_escape.AddChild(escape);
+escape.AddEvent(()=>{
+	escape_event.Invoke();
 });
-patrol.AddEvent(()=>{
-	patrol_event.Invoke();
-});
-
-selector2.AddChild(If_escape);
-selector2.AddChild(attackable_check);
-selector2.AddChild(If_chase);
 if_found.SetCondition(()=>{
 	return IsFound;
 });
@@ -79,6 +88,17 @@ attackable_check.AddEvent(()=>{
 	attackablecheck_event.Invoke();
 });
 attackable_check.AddChild(If_attack);
+
+selector2.AddChild(If_escape);
+selector2.AddChild(attackable_check);
+selector2.AddChild(If_chase);
+attack.AddEvent(()=>{
+	attack_event.Invoke();
+});
+root.AddChild(moveableCheck);
+
+selector1.AddChild(if_found);
+selector1.AddChild(if_patrol);
 moveableCheck.AddEvent(()=>{
 	moveablecheck_event.Invoke();
 });
@@ -87,22 +107,13 @@ if_patrol.SetCondition(()=>{
 	return IsMoveable;
 });
 if_patrol.AddChild(patrol);
-If_chase.SetCondition(()=>{
-	return IsMoveable;
+patrol.AddEvent(()=>{
+	patrol_event.Invoke();
 });
-If_chase.AddChild(chase);
-If_escape.SetCondition(()=>{
-	return IsEscape && IsMoveable;
+EscapeTimer.SetTimingCreator(()=>{
+	return new Timer(EscapeResetInterrupt, 3.0);
 });
-If_escape.AddChild(escape);
-escape.AddEvent(()=>{
-	escape_event.Invoke();
-});
-DamageInterrupt.SetCondition(()=>{
-	return IsGotDamage;
-});
-behaviourTree.AddInterrupt(DamageInterrupt);
-DamageInterrupt.AddChild(SetFound);
+EscapeTimer.AddChild(moveableCheck);
 ResetDamageFlag.AddEvent(()=>{
 	IsGotDamage = false;
 });
@@ -111,10 +122,22 @@ ActivateEscape.AddEvent(()=>{
 	IsEscape = true;
 });
 ActivateEscape.AddChild(EscapeTimer);
-EscapeTimer.SetTimingCreator(()=>{
-	return new Timer(EscapeResetInterrupt, 3.0);
+SetFound.AddEvent(()=>{
+	IsFound = true;
 });
-EscapeTimer.AddChild(moveableCheck);
+SetFound.AddChild(ResetDamageFlag);
+If_chase.SetCondition(()=>{
+	return IsMoveable;
+});
+If_chase.AddChild(chase);
+DamageInterrupt.SetCondition(()=>{
+	return IsGotDamage;
+});
+behaviourTree.AddInterrupt(DamageInterrupt);
+DamageInterrupt.AddChild(SetFound);
+chase.AddEvent(()=>{
+	chase_event.Invoke();
+});
 EscapeResetInterrupt.SetCondition(()=>{
 	return false;
 });
@@ -124,10 +147,6 @@ EscapeResetter.AddEvent(()=>{
 	IsEscape = false;
 });
 EscapeResetter.AddChild(moveableCheck);
-SetFound.AddEvent(()=>{
-	IsFound = true;
-});
-SetFound.AddChild(ResetDamageFlag);
 
 
 calledFlag = new Dictionary<string, bool>();
@@ -153,38 +172,14 @@ escape_event.AddListener(()=>{
 }
 
 [Test]
-public void Test2()
+public void TestCase1()
 {
-IsFound=true;
-IsAttackable=true;
-IsMoveable=true;
-IsEscape=false;
-IsGotDamage=false;
-behaviourTree.Tick();
-Assert.AreEqual(true, calledFlag["attack"]);
-Assert.AreEqual(true, IsAttackable && !IsEscape);
-
-var keys = calledFlag.Keys.ToArray();
-foreach(var key in keys)
-{
-	calledFlag[key] = false;
+InitParameters();
+for(int __i__ = 0; __i__ < 1; __i__++){
+	behaviourTree.Tick();
 }
-}[Test]
-public void Test3()
-{
-IsFound=true;
-IsAttackable=false;
-IsMoveable=true;
-IsEscape=true;
-IsGotDamage=false;
+Assert.AreEqual(true, calledFlag["moveableCheck"]);
 
-behaviourTree.Tick();
-Assert.AreEqual(true, calledFlag["escape"]);
-
-var keys = calledFlag.Keys.ToArray();
-foreach(var key in keys)
-{
-	calledFlag[key] = false;
-}
+ResetCalledFlag();
 }
 }

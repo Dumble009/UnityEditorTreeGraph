@@ -109,5 +109,27 @@ namespace BT
 				timings.Add(timing);
 			}
 		}
+
+		public void CancelTiming(bool isAllCancel, params string[] targets)
+		{
+			if (isAllCancel)
+			{
+				timings = new List<Timing>();
+			}
+			else
+			{
+				for(int i = timings.Count - 1; i >= 0; i--)
+				{
+					foreach(var target in targets)
+					{
+						if(timings[i].Name == target)
+						{
+							timings.RemoveAt(i);
+							break;
+						}
+					}
+				}
+			}
+		}
 	}
 }

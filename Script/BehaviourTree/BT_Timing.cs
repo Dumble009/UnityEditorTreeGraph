@@ -4,16 +4,18 @@ namespace BT
 	public delegate Timing TimingCreate();
 	public class BT_Timing : BT_Node
 	{
-		public BT_Timing(BehaviourTree _tree, bool _isOverwrite, bool _isMultiple) : base()
+		public BT_Timing(BehaviourTree _tree, bool _isOverwrite, bool _isMultiple, string _name) : base()
 		{
 			tree = _tree;
 			isOverwrite = _isOverwrite;
 			isMultiple = _isMultiple;
+			name = _name;
 		}
 		
 		protected BehaviourTree tree;
 		protected bool isOverwrite;
 		protected bool isMultiple;
+		protected string name;
 		public Timing lastInstance;
 		protected TimingCreate timingCreator;
 
@@ -24,6 +26,7 @@ namespace BT
 				if (lastInstance == null || lastInstance.IsActivated || isMultiple)
 				{
 					lastInstance = CreateNewTiming();
+					lastInstance.Name = name;
 					lastInstance.Init();
 					tree.AddTiming(lastInstance);
 				}
@@ -65,6 +68,18 @@ namespace BT
 	{
 		protected BT_Node target;
 		bool isActivated;
+		protected string name;
+		public string Name
+		{
+			get
+			{
+				return name;
+			}
+			set
+			{
+				name = value;
+			}
+		}
 		public bool IsActivated {
 			get {
 				return isActivated;

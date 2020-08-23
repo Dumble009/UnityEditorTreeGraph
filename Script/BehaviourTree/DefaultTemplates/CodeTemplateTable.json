@@ -18,7 +18,8 @@
 {"Key":"Success", "Value":"Declare/Success.txt"},
 {"Key":"Timer", "Value":"Declare/Timer.txt"},
 {"Key":"While", "Value":"Declare/While.txt"},
-{"Key":"NextSequence", "Value":"Declare/NextSequence.txt"}
+{"Key":"NextSequence", "Value":"Declare/NextSequence.txt"},
+{"Key":"Cancel", "Value":"Declare/Cancel.txt"}
 ]},
 
 {"Key":"Init","Value":[
@@ -39,7 +40,8 @@
 {"Key":"Success", "Value":"Init/Success.txt"},
 {"Key":"Timer", "Value":"Init/Timer.txt"},
 {"Key":"While", "Value":"Init/While.txt"},
-{"Key":"NextSequence", "Value":"Init/NextSequence.txt"}
+{"Key":"NextSequence", "Value":"Init/NextSequence.txt"},
+{"Key":"Cancel", "Value":"Init/Cancel.txt"}
 ]},
 
 {"Key":"Base", "Value":[

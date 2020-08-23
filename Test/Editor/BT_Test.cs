@@ -437,7 +437,7 @@ public class BT_Test
 
 		BT_Root root = new BT_Root();
 		BehaviourTree tree = new BehaviourTree(root);
-		BT_Timing timing = new BT_Timing(tree, false, false);
+		BT_Timing timing = new BT_Timing(tree, false, false, "timing");
 		BT_Execute ex1 = new BT_Execute();
 		BT_Execute ex_target = new BT_Execute();
 
@@ -483,7 +483,7 @@ public class BT_Test
 
 		BT_Root root = new BT_Root();
 		BehaviourTree tree = new BehaviourTree(root);
-		BT_Timing timing = new BT_Timing(tree, false, false);
+		BT_Timing timing = new BT_Timing(tree, false, false, "timing");
 		BT_Execute ex1 = new BT_Execute();
 		BT_Execute ex_target = new BT_Execute();
 
@@ -541,7 +541,7 @@ public class BT_Test
 
 		BT_Root root = new BT_Root();
 		BehaviourTree tree = new BehaviourTree(root);
-		BT_Timing timing = new BT_Timing(tree, true, false);
+		BT_Timing timing = new BT_Timing(tree, true, false, "timing");
 		BT_Execute ex1 = new BT_Execute();
 		BT_Execute ex_target = new BT_Execute();
 
@@ -606,7 +606,7 @@ public class BT_Test
 
 		BT_Root root = new BT_Root();
 		BehaviourTree tree = new BehaviourTree(root);
-		BT_Timing timing = new BT_Timing(tree, false, true);
+		BT_Timing timing = new BT_Timing(tree, false, true, "timing");
 		BT_Execute ex1 = new BT_Execute();
 		BT_Execute ex_target = new BT_Execute();
 
@@ -671,7 +671,7 @@ public class BT_Test
 
 		BT_Root root = new BT_Root();
 		BehaviourTree tree = new BehaviourTree(root);
-		BT_Timing timing = new BT_Timing(tree, false, false);
+		BT_Timing timing = new BT_Timing(tree, false, false, "timing");
 		BT_Execute ex1 = new BT_Execute();
 		BT_Execute ex_target = new BT_Execute();
 
@@ -729,7 +729,7 @@ public class BT_Test
 		BT_Execute ex1 = new BT_Execute();
 		BT_Execute ex_target = new BT_Execute();
 		BT_If if1 = new BT_If();
-		BT_Timing timing = new BT_Timing(tree, true, false);
+		BT_Timing timing = new BT_Timing(tree, true, false, "timing");
 
 		root.AddChild(ex1);
 		ex1.AddChild(ex_target);
@@ -798,7 +798,7 @@ public class BT_Test
 		BT_Execute ex1 = new BT_Execute();
 		BT_Execute ex_target = new BT_Execute();
 		BT_If if1 = new BT_If();
-		BT_Timing timing = new BT_Timing(tree, false, true);
+		BT_Timing timing = new BT_Timing(tree, false, true, "timing");
 
 		root.AddChild(ex1);
 		ex1.AddChild(ex_target);

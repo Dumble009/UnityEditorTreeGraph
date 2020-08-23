@@ -18,6 +18,7 @@ public bool case10 = false;[UnityEngine.SerializeField]
 public bool case11 = false;[UnityEngine.SerializeField]
 public bool setParameterBool1 = false;[UnityEngine.SerializeField]
 public bool setParameterBool2 = true;[UnityEngine.SerializeField]
+public bool while_bool2 = false;[UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent first_ev = new UnityEngine.Events.UnityEvent();
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent itr_ev = new UnityEngine.Events.UnityEvent();
@@ -78,6 +79,8 @@ public UnityEngine.Events.UnityEvent setParameterEv6 = new UnityEngine.Events.Un
 [UnityEngine.SerializeField]
 public UnityEngine.Events.UnityEvent setParameterEv7 = new UnityEngine.Events.UnityEvent();
 [UnityEngine.SerializeField]
+public UnityEngine.Events.UnityEvent while_ev3 = new UnityEngine.Events.UnityEvent();
+[UnityEngine.SerializeField]
 public float if_float1 = 100.5f;[UnityEngine.SerializeField]
 public float setParameterFloat1 = 0f;[UnityEngine.SerializeField]
 public float setParameterFloat2 = 0f;[UnityEngine.SerializeField]
@@ -116,28 +119,28 @@ BT_Execute sequenceEx2 = new BT_Execute();
 BT_Execute sequenceEx3 = new BT_Execute();
 BT_Interrupt frameCounterTest = new BT_Interrupt();
 BT_Execute frameCounterEx1 = new BT_Execute();
-BT_Timing frameCounter1 = new BT_Timing(behaviourTree, false, false);
+BT_Timing frameCounter1 = new BT_Timing(behaviourTree, false, false, "frameCounter1");
 BT_Interrupt frameCounterTest2 = new BT_Interrupt();
 BT_Execute frameCounterEx2 = new BT_Execute();
 BT_Interrupt frameCounterTest3 = new BT_Interrupt();
 BT_Execute frameCounterEx3 = new BT_Execute();
-BT_Timing frameCounter2 = new BT_Timing(behaviourTree, false, true);
+BT_Timing frameCounter2 = new BT_Timing(behaviourTree, false, true, "frameCounter2");
 BT_Interrupt frameCounterTest4 = new BT_Interrupt();
 BT_Execute frameCounterEx4 = new BT_Execute();
-BT_Timing frameCounter3 = new BT_Timing(behaviourTree, true, false);
+BT_Timing frameCounter3 = new BT_Timing(behaviourTree, true, false, "frameCounter3");
 BT_Interrupt frameCounterTest5 = new BT_Interrupt();
 BT_Execute frameCounterEx5 = new BT_Execute();
 BT_Interrupt timerTest = new BT_Interrupt();
 BT_Execute timerTestEx1 = new BT_Execute();
-BT_Timing timer1 = new BT_Timing(behaviourTree, false, false);
+BT_Timing timer1 = new BT_Timing(behaviourTree, false, false, "timer1");
 BT_Interrupt timerTest2 = new BT_Interrupt();
 BT_Execute timerTestEx2 = new BT_Execute();
 BT_Interrupt timerTest3 = new BT_Interrupt();
 BT_Execute timerTestEx3 = new BT_Execute();
-BT_Timing timer2 = new BT_Timing(behaviourTree, false, true);
+BT_Timing timer2 = new BT_Timing(behaviourTree, false, true, "timer2");
 BT_Interrupt timerTest4 = new BT_Interrupt();
 BT_Execute timerTestEx4 = new BT_Execute();
-BT_Timing timer3 = new BT_Timing(behaviourTree, true, false);
+BT_Timing timer3 = new BT_Timing(behaviourTree, true, false, "timer3");
 BT_Interrupt timerTest5 = new BT_Interrupt();
 BT_Execute timerTestEx5 = new BT_Execute();
 BT_Success NextSequence = new BT_Success();
@@ -164,6 +167,8 @@ BT_Execute setParameterEx6 = new BT_Execute();
 BT_Execute SetFloat2 = new BT_Execute();
 BT_If setParameterIf7 = new BT_If();
 BT_Execute setParameterEx7 = new BT_Execute();
+BT_While while2 = new BT_While();
+BT_Execute whileEx3 = new BT_Execute();
 firstEx.AddEvent(()=>{
 	first_ev.Invoke();
 });
@@ -204,6 +209,13 @@ if3.AddChild(ifEx3);
 ifEx3.AddEvent(()=>{
 	if_ev3.Invoke();
 });
+while2.SetCondition(()=>{
+	return while_bool2;
+});
+while2.AddChild(whileEx3);
+whileEx3.AddEvent(()=>{
+	while_ev3.Invoke();
+});
 while1.SetCondition(()=>{
 	return while_bool1;
 });
@@ -220,6 +232,7 @@ whileEx1.AddChild(while1);
 whileEx2.AddEvent(()=>{
 	while_ev2.Invoke();
 });
+whileEx2.AddChild(while2);
 selectorIf1.SetCondition(()=>{
 	return selector_bool1;
 });
@@ -232,13 +245,13 @@ SelectorTest.SetCondition(()=>{
 });
 behaviourTree.AddInterrupt(SelectorTest);
 SelectorTest.AddChild(selector1);
+selectorEx2.AddEvent(()=>{
+	selector_ev2.Invoke();
+});
 
 selector1.AddChild(selectorIf1);
 selector1.AddChild(selectorEx2);
 selector1.AddChild(selectorEx3);
-selectorEx2.AddEvent(()=>{
-	selector_ev2.Invoke();
-});
 selectorEx3.AddEvent(()=>{
 	selector_ev3.Invoke();
 });
